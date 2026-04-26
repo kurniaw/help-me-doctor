@@ -1,0 +1,131 @@
+# =============================================================================
+# HelpMeDoctor — .gitignore
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Secrets & credentials (NEVER commit these)
+# -----------------------------------------------------------------------------
+*.env
+.env.*
+!.env.example
+service-account.json
+*-service-account.json
+*.pem
+*.key
+credentials.json
+gcloud-credentials.json
+
+# -----------------------------------------------------------------------------
+# Python / Backend
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+*.log
+
+# Poetry
+# Keep poetry.lock committed — it ensures reproducible installs
+# poetry.lock  ← do NOT add this
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# -----------------------------------------------------------------------------
+# Node.js / Frontend
+# -----------------------------------------------------------------------------
+node_modules/
+.npm/
+.yarn/
+*.tgz
+.pnp.*
+
+# Nuxt
+.nuxt/
+.output/
+.cache/
+dist/
+
+# Build artifacts
+*.min.js
+*.min.css
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# -----------------------------------------------------------------------------
+# Terraform / Infrastructure
+# -----------------------------------------------------------------------------
+**/.terraform/
+**/.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+terraform.plan
+tfplan
+*.tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# -----------------------------------------------------------------------------
+# Docker
+# -----------------------------------------------------------------------------
+.dockerignore
+
+# -----------------------------------------------------------------------------
+# GCP / Google Cloud
+# -----------------------------------------------------------------------------
+.gcloud/
+application_default_credentials.json
+
+# -----------------------------------------------------------------------------
+# IDEs & editors
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -----------------------------------------------------------------------------
+# OS
+# -----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# -----------------------------------------------------------------------------
+# Misc
+# -----------------------------------------------------------------------------
+*.bak
+*.tmp
+*.temp
+.cache/

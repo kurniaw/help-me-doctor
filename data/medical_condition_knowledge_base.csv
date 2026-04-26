@@ -1,0 +1,646 @@
+Condition,ICD10_Code,Symptoms,Recommended_Specialty,Sub_Specialty,Urgency_Level,Hospital_Type,CHAS_Coverage,Alternative_Specialties,Triage_Color
+Acute Chest Pain,I10,Chest pain shortness of breath sweating,Cardiology,Coronary Intervention,CRITICAL,Hospital,Yes,Emergency Medicine,RED
+Myocardial Infarction,I21,Severe chest pain radiating to arm,Cardiology,Coronary Intervention,CRITICAL,Hospital,Yes,Emergency Medicine Thoracic Surgery,RED
+Heart Failure,I50,Breathlessness fatigue leg swelling,Cardiology,Heart Failure,HIGH,Hospital,Yes,General Practice,YELLOW
+Arrhythmia,I48,Palpitations dizziness fainting,Cardiology,Arrhythmia,HIGH,Hospital,Yes,Emergency Medicine,YELLOW
+Hypertension,I10,High blood pressure headache,Cardiology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+High Cholesterol,E78,Elevated lipids no symptoms,Cardiology,None,LOW,Clinic,Yes,General Practice,GREEN
+Stroke,I63,Facial drooping arm weakness speech difficulty,Neurology,Stroke Medicine,CRITICAL,Hospital,Yes,Emergency Medicine Neurosurgery,RED
+Epilepsy,G40,Seizures loss of consciousness,Neurology,Epilepsy,HIGH,Hospital,No,General Practice,YELLOW
+Migraine,G43,Severe headache nausea light sensitivity,Neurology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Parkinson's Disease,G20,Tremor rigidity slow movement,Neurology,Movement Disorders,MEDIUM,Hospital,No,General Practice,GREEN
+Dementia,G30,Memory loss confusion behavioral changes,Neurology,Cognitive Disorders,MEDIUM,Hospital,No,General Practice,GREEN
+Back Pain,M54,Lower back pain muscle stiffness,Orthopaedic Surgery,Spine Surgery,MEDIUM,Clinic,Yes,General Practice Physiotherapy,GREEN
+Knee Injury,M17,Knee pain swelling difficulty walking,Orthopaedic Surgery,Joint Replacement Surgery,MEDIUM,Hospital,No,General Practice,YELLOW
+Fractured Bone,S12,Bone pain swelling deformity,Orthopaedic Surgery,Trauma Surgery,HIGH,Hospital,No,Emergency Medicine General Surgery,YELLOW
+Arthritis,M19,Joint pain stiffness inflammation,Rheumatology,None,MEDIUM,Clinic,Yes,General Practice Orthopaedic Surgery,GREEN
+Lupus,M32,Joint pain rash fever fatigue,Rheumatology,Systemic Lupus Erythematosus,MEDIUM,Hospital,No,General Practice,YELLOW
+Asthma,J45,Shortness of breath wheezing cough,Respiratory Medicine,Asthma,MEDIUM,Clinic,Yes,General Practice Emergency Medicine,YELLOW
+Pneumonia,J18,Cough fever chest pain shortness of breath,Respiratory Medicine,Infection Control,HIGH,Hospital,Yes,Emergency Medicine General Practice,YELLOW
+COPD,J44,Chronic cough shortness of breath,Respiratory Medicine,Chronic Disease,MEDIUM,Clinic,Yes,General Practice,GREEN
+Tuberculosis,A15,Persistent cough blood in sputum fever,Respiratory Medicine,Infection Control,HIGH,Hospital,No,General Practice Infectious Diseases,YELLOW
+Diabetes Type 1,E10,Excessive thirst urination weight loss,Endocrinology,Diabetes Mellitus,MEDIUM,Clinic,Yes,General Practice,GREEN
+Diabetes Type 2,E11,Fatigue blurred vision infections,Endocrinology,Diabetes Mellitus,MEDIUM,Clinic,Yes,General Practice,GREEN
+Thyroid Disorder,E03,Fatigue weight gain cold sensitivity,Endocrinology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Acute Gastroenteritis,A09,Diarrhea vomiting abdominal pain,Gastroenterology,None,MEDIUM,Clinic,Yes,Emergency Medicine General Practice,YELLOW
+GERD,K21,Acid reflux heartburn chest discomfort,Gastroenterology,Endoscopy,MEDIUM,Clinic,Yes,General Practice,GREEN
+Peptic Ulcer,K25,Abdominal pain nausea vomiting,Gastroenterology,Endoscopy,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Hepatitis,B19,Jaundice fatigue abdominal pain,Gastroenterology,Hepatology,HIGH,Hospital,No,Infectious Diseases,YELLOW
+Cirrhosis,K74,Jaundice ascites bleeding,Gastroenterology,Hepatology,CRITICAL,Hospital,No,General Surgery,RED
+Kidney Stone,N20,Severe flank pain hematuria,Nephrology,Renal Pathology,MEDIUM,Hospital,No,Urology Emergency Medicine,YELLOW
+Chronic Kidney Disease,N18,Fatigue weakness anemia,Nephrology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Acute Kidney Injury,N17,Sudden oliguria confusion,Nephrology,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Hypertensive Crisis,I16,Severe headache chest pain vision changes,Cardiology,None,CRITICAL,Hospital,Yes,Emergency Medicine,RED
+Prostate Cancer,C61,Urinary hesitancy hematuria pelvic pain,Urology,Uro-Oncology,HIGH,Hospital,No,General Surgery Oncology,YELLOW
+Benign Prostatic Hyperplasia,N40,Urinary frequency nocturia weak stream,Urology,None,MEDIUM,Clinic,No,General Practice,GREEN
+Urinary Tract Infection,N39,Dysuria urgency frequency,Urology,None,MEDIUM,Clinic,Yes,General Practice Infectious Diseases,GREEN
+Breast Cancer,C50,Breast lump pain discharge,Oncology,Breast Oncology,HIGH,Hospital,No,General Surgery,YELLOW
+Lung Cancer,C34,Persistent cough hemoptysis chest pain,Oncology,Respiratory Oncology,HIGH,Hospital,No,Respiratory Medicine Thoracic Surgery,YELLOW
+Lymphoma,C81,Lymphadenopathy fever weight loss,Oncology,Haematological Malignancies,HIGH,Hospital,No,General Surgery,YELLOW
+Leukemia,C91,Fatigue bruising bleeding fever,Oncology,Haematological Malignancies,CRITICAL,Hospital,No,Emergency Medicine,RED
+Depression,F32,Sadness hopelessness lack of interest,Psychiatry,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Anxiety,F41,Excessive worry panic attacks tremor,Psychiatry,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Bipolar Disorder,F31,Mood swings grandiosity risky behavior,Psychiatry,Bipolar Disorder,MEDIUM,Hospital,No,General Practice,YELLOW
+Schizophrenia,F20,Hallucinations delusions disorganized speech,Psychiatry,Psychosis,HIGH,Hospital,No,General Practice,YELLOW
+PTSD,F43,Flashbacks nightmares hypervigilance,Psychiatry,Trauma,MEDIUM,Clinic,No,General Practice,YELLOW
+Obsessive Compulsive Disorder,F42,Intrusive thoughts compulsions anxiety,Psychiatry,OCD,MEDIUM,Clinic,No,General Practice,YELLOW
+Autism Spectrum Disorder,F84,Social difficulties repetitive behaviors,Psychiatry,Child Psychiatry,MEDIUM,Hospital,No,General Practice Paediatrics,GREEN
+ADHD,F90,Inattention hyperactivity impulsivity,Psychiatry,Child Psychiatry,MEDIUM,Clinic,No,General Practice Paediatrics,GREEN
+Substance Use Disorder,F10,Drug use cravings withdrawal,Psychiatry,Addiction Psychiatry,HIGH,Hospital,No,General Practice,YELLOW
+Dementia Care,G30,Memory loss confusion care needs,Psychiatry,Psychogeriatrics,MEDIUM,Clinic,No,General Practice Geriatrics,GREEN
+Acute Myocarditis,I41,Chest pain fatigue arrhythmia,Cardiology,Coronary Intervention,HIGH,Hospital,No,Emergency Medicine,YELLOW
+Endocarditis,I33,Fever heart murmur fatigue,Cardiology,Infection Prevention,HIGH,Hospital,No,Infectious Diseases Emergency Medicine,YELLOW
+Pericarditis,I30,Chest pain shortness of breath,Cardiology,None,MEDIUM,Hospital,No,Emergency Medicine,YELLOW
+Aortic Aneurysm,I71,Severe back pain shock hypotension,Cardiology,Vascular Surgery,CRITICAL,Hospital,No,Emergency Medicine Thoracic Surgery,RED
+Varicose Veins,I83,Leg pain swelling visible veins,Cardiology,Vascular Surgery,LOW,Clinic,No,General Practice,GREEN
+Pneumothorax,J93,Sudden chest pain shortness of breath,Respiratory Medicine,None,HIGH,Hospital,No,Emergency Medicine Thoracic Surgery,YELLOW
+Pulmonary Embolism,I26,Chest pain shortness of breath tachycardia,Respiratory Medicine,None,CRITICAL,Hospital,No,Emergency Medicine Cardiology,RED
+Asthma Attack,J45,Severe wheezing inability to breathe,Respiratory Medicine,Asthma,CRITICAL,Hospital,Yes,Emergency Medicine,RED
+Cystic Fibrosis,E84,Chronic cough recurrent infections,Respiratory Medicine,None,MEDIUM,Hospital,No,General Practice,GREEN
+Interstitial Lung Disease,J84,Shortness of breath dry cough,Respiratory Medicine,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Acute Pancreatitis,K85,Severe abdominal pain nausea vomiting,Gastroenterology,None,CRITICAL,Hospital,No,General Surgery Emergency Medicine,RED
+Gallstones,K80,Abdominal pain nausea fatty food intolerance,Gastroenterology,None,MEDIUM,Hospital,No,General Surgery,YELLOW
+Appendicitis,K35,Right sided abdominal pain fever,General Surgery,Colorectal Surgery,HIGH,Hospital,No,Emergency Medicine,YELLOW
+Bowel Obstruction,K56,Abdominal pain vomiting constipation,General Surgery,Colorectal Surgery,HIGH,Hospital,No,Emergency Medicine,YELLOW
+Hemorrhoids,K64,Rectal bleeding pain itching,Gastroenterology,Colorectal Surgery,LOW,Clinic,Yes,General Practice,GREEN
+Inflammatory Bowel Disease,K50,Diarrhea abdominal pain weight loss,Gastroenterology,None,MEDIUM,Hospital,Yes,General Practice,YELLOW
+Celiac Disease,K90,Diarrhea abdominal bloating malabsorption,Gastroenterology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Anemia,D50,Fatigue shortness of breath weakness,Oncology,Haematology,MEDIUM,Clinic,Yes,General Practice,GREEN
+Bleeding Disorder,D66,Easy bruising prolonged bleeding,Oncology,Haematology,MEDIUM,Hospital,No,General Practice,YELLOW
+Acute Leukemia,C91,Fever bleeding bruising fatigue,Oncology,Haematological Malignancies,CRITICAL,Hospital,No,Emergency Medicine,RED
+Lymphoma,C81,Lymph node swelling fever weight loss,Oncology,Haematological Malignancies,HIGH,Hospital,No,General Surgery,YELLOW
+Chronic Migraine,G43,Frequent debilitating headaches,Neurology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Tension Headache,G44,Bilateral head pressure muscle tightness,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Cluster Headache,G44,Severe unilateral eye pain tearing,Neurology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Trigeminal Neuralgia,G50,Sharp facial pain burning sensation,Neurology,Pain Management,MEDIUM,Hospital,No,General Practice,YELLOW
+Peripheral Neuropathy,G62,Numbness tingling weakness in extremities,Neurology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Multiple Sclerosis,G35,Numbness weakness vision problems fatigue,Neurology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Amyotrophic Lateral Sclerosis,G12,Progressive muscle weakness paralysis,Neurology,Movement Disorders,HIGH,Hospital,No,General Practice,YELLOW
+Spinal Cord Injury,S14,Paralysis loss of sensation,Neurosurgery,Spinal Neurosurgery,CRITICAL,Hospital,No,Emergency Medicine General Surgery,RED
+Cervical Spondylosis,M47,Neck pain arm numbness weakness,Neurosurgery,Spine Surgery,MEDIUM,Hospital,No,Orthopaedic Surgery,YELLOW
+Lumbar Stenosis,M48,Back pain leg pain walking difficulty,Orthopaedic Surgery,Spine Surgery,MEDIUM,Hospital,No,General Practice,YELLOW
+Herniated Disc,M51,Severe back pain radiculopathy,Orthopaedic Surgery,Spine Surgery,MEDIUM,Hospital,No,General Practice,YELLOW
+Rotator Cuff Injury,M75,Shoulder pain weakness loss of motion,Orthopaedic Surgery,Reconstructive Surgery,MEDIUM,Clinic,No,General Practice,YELLOW
+Carpal Tunnel Syndrome,G56,Hand numbness tingling weakness,Orthopaedic Surgery,Hand Surgery,LOW,Clinic,Yes,General Practice,GREEN
+Tendonitis,M76,Joint pain inflammation swelling,Orthopaedic Surgery,Sports Medicine,LOW,Clinic,Yes,General Practice,GREEN
+ACL Tear,S83,Knee pain swelling hearing pop sound,Orthopaedic Surgery,Sports Medicine,MEDIUM,Hospital,No,General Practice,YELLOW
+Meniscus Tear,S83,Knee pain clicking locking sensation,Orthopaedic Surgery,Sports Medicine,MEDIUM,Hospital,No,General Practice,YELLOW
+Osteoarthritis,M19,Joint pain stiffness morning stiffness,Rheumatology,None,MEDIUM,Clinic,Yes,General Practice Orthopaedic Surgery,GREEN
+Rheumatoid Arthritis,M05,Joint pain swelling fatigue fever,Rheumatology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Gout,M10,Sudden joint pain swelling redness,Rheumatology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Ankylosing Spondylitis,M45,Back stiffness pain restricted movement,Rheumatology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Sjögren's Syndrome,M35,Dry eyes dry mouth joint pain,Rheumatology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Scleroderma,M34,Skin tightening joint pain organ involvement,Rheumatology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Vasculitis,M30,Joint pain rash fever organ involvement,Rheumatology,None,HIGH,Hospital,No,General Practice,YELLOW
+Polymyalgia Rheumatica,M35,Muscle pain stiffness fatigue,Rheumatology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Fibromyalgia,M79,Widespread muscle pain fatigue sleep issues,Rheumatology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Acute Otitis Media,H66,Ear pain fever hearing loss,General Practice,None,MEDIUM,Clinic,Yes,Otolaryngology,YELLOW
+Chronic Otitis Media,H66,Ear discharge hearing loss tinnitus,Otolaryngology,None,MEDIUM,Clinic,No,General Practice,GREEN
+Sinusitis,J32,Facial pain nasal congestion drainage,General Practice,None,MEDIUM,Clinic,Yes,Otolaryngology,YELLOW
+Allergic Rhinitis,J30,Nasal congestion sneezing itching,General Practice,None,LOW,Clinic,Yes,Otolaryngology,GREEN
+Pharyngitis,J02,Sore throat fever difficulty swallowing,General Practice,None,MEDIUM,Clinic,Yes,Otolaryngology,YELLOW
+Laryngitis,J04,Hoarseness voice loss throat irritation,General Practice,None,LOW,Clinic,Yes,Otolaryngology,GREEN
+Tonsillitis,J03,Sore throat fever enlarged tonsils,General Practice,None,MEDIUM,Clinic,Yes,Otolaryngology,YELLOW
+Sleep Apnea,G47,Loud snoring daytime sleepiness,Respiratory Medicine,Sleep Medicine,MEDIUM,Hospital,No,General Practice,YELLOW
+Insomnia,G47,Difficulty falling asleep staying asleep,General Practice,None,LOW,Clinic,Yes,Psychiatry,GREEN
+Narcolepsy,G47,Excessive daytime sleepiness cataplexy,Neurology,Sleep Disorders,MEDIUM,Hospital,No,General Practice,YELLOW
+Restless Leg Syndrome,G25,Leg discomfort at night sleep disruption,Neurology,None,LOW,Clinic,No,General Practice,GREEN
+Fatigue,R53,Extreme tiredness weakness malaise,General Practice,None,MEDIUM,Clinic,Yes,Endocrinology,GREEN
+Fever,R50,High temperature chills malaise,General Practice,None,MEDIUM,Clinic,Yes,Infectious Diseases,YELLOW
+Cough,R05,Persistent cough phlegm shortness of breath,General Practice,None,MEDIUM,Clinic,Yes,Respiratory Medicine,YELLOW
+Sore Throat,R04,Throat pain difficulty swallowing fever,General Practice,None,MEDIUM,Clinic,Yes,Otolaryngology,YELLOW
+Rash,R21,Skin irritation itching inflammation,Dermatology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Acne,L70,Pimples blackheads pustules,Dermatology,Cosmetic Dermatology,LOW,Clinic,No,General Practice,GREEN
+Eczema,L20,Itchy inflamed dry skin,Dermatology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Psoriasis,L40,Red scaly patches itching,Dermatology,None,MEDIUM,Clinic,No,General Practice,GREEN
+Urticaria,L50,Hives itching swelling,Dermatology,None,LOW,Clinic,Yes,General Practice,GREEN
+Fungal Infection,B35,Itching redness scaling infection,Dermatology,None,LOW,Clinic,Yes,General Practice,GREEN
+Bacterial Infection,A49,Redness swelling pus,Dermatology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Viral Infection,B34,Rash fever malaise,Dermatology,None,MEDIUM,Clinic,Yes,Infectious Diseases,YELLOW
+Melanoma,C43,Asymmetric mole color variation,Dermatology,None,HIGH,Hospital,No,General Surgery Oncology,YELLOW
+Non-Melanoma Skin Cancer,C44,Raised lesion bleeding,Dermatology,None,MEDIUM,Hospital,No,General Surgery,YELLOW
+Burns,T20,Skin damage pain blistering,General Surgery,None,HIGH,Hospital,No,Emergency Medicine,YELLOW
+Wounds,T81,Bleeding pain infection risk,General Surgery,None,MEDIUM,Hospital,No,Emergency Medicine,YELLOW
+Fracture,S12,Bone pain swelling deformity,Orthopaedic Surgery,Trauma Surgery,HIGH,Hospital,No,Emergency Medicine General Surgery,YELLOW
+Dislocation,S43,Joint pain deformity loss of motion,Orthopaedic Surgery,Trauma Surgery,MEDIUM,Hospital,No,Emergency Medicine,YELLOW
+Sprain,S36,Joint pain swelling limited mobility,General Practice,None,LOW,Clinic,Yes,Orthopaedic Surgery,GREEN
+Strain,M72,Muscle pain weakness limited motion,General Practice,None,LOW,Clinic,Yes,Orthopaedic Surgery,GREEN
+Whiplash,S13,Neck pain stiffness headache,Orthopaedic Surgery,Spine Surgery,MEDIUM,Clinic,No,General Practice,YELLOW
+Concussion,S06,Headache confusion memory loss,Neurosurgery,None,HIGH,Hospital,No,Emergency Medicine,YELLOW
+Intracranial Hemorrhage,I61,Severe headache vomiting weakness,Neurosurgery,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Subdural Hematoma,I62,Headache confusion weakness,Neurosurgery,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Poisoning,T65,Nausea vomiting altered consciousness,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Drug Overdose,T40,Altered consciousness respiratory depression,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Alcohol Intoxication,F10,Confusion slurred speech impaired judgment,Emergency Medicine,None,MEDIUM,Hospital,No,Emergency Medicine,YELLOW
+Anaphylaxis,T78,Throat tightness wheezing hypotension,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Allergic Reaction,L50,Rash itching swelling,Emergency Medicine,None,MEDIUM,Clinic,Yes,General Practice Dermatology,YELLOW
+Sepsis,A41,High fever hypotension confusion,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine Infectious Diseases,RED
+Shock,R57,Altered consciousness hypotension pallor,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Syncope,R55,Fainting loss of consciousness,Emergency Medicine,None,MEDIUM,Hospital,Yes,Cardiology Neurology,YELLOW
+Seizure,R56,Loss of consciousness muscle jerking,Emergency Medicine,None,HIGH,Hospital,Yes,Neurology,YELLOW
+Status Epilepticus,G41,Prolonged seizures altered consciousness,Emergency Medicine,None,CRITICAL,Hospital,No,Neurology,RED
+Cardiac Arrest,I46,Loss of consciousness no pulse,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Respiratory Failure,J96,Severe shortness of breath,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine Respiratory Medicine,RED
+Hypovolemic Shock,R57,Rapid pulse hypotension pale,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Cardiogenic Shock,R57,Hypotension pulmonary edema confusion,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine Cardiology,RED
+Distributive Shock,R57,Hypotension fever warm skin,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Obstructive Shock,R57,Chest pain hypotension dyspnea,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Drowning,T75,Respiratory distress unconsciousness aspiration,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Near Drowning,T75,Aspiration cough shortness of breath,Emergency Medicine,None,HIGH,Hospital,No,Emergency Medicine,YELLOW
+Choking,T18,Inability to speak cough dyspnea,Emergency Medicine,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Foreign Body Aspiration,T17,Cough dyspnea stridor,Emergency Medicine,None,HIGH,Hospital,No,Emergency Medicine,YELLOW
+Haemorrhage,R58,Bleeding shock hypotension,Emergency Medicine,None,CRITICAL,Hospital,Yes,Emergency Medicine General Surgery,RED
+Pregnancy Complications,O26,Abdominal pain bleeding,Obstetrics & Gynaecology,Maternal Fetal Medicine,HIGH,Hospital,No,General Practice Emergency Medicine,YELLOW
+Eclampsia,O15,Seizures severe headache hypertension,Obstetrics & Gynaecology,Maternal Fetal Medicine,CRITICAL,Hospital,No,Emergency Medicine,RED
+Placental Abruption,O45,Vaginal bleeding abdominal pain shock,Obstetrics & Gynaecology,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Preeclampsia,O14,Hypertension proteinuria edema,Obstetrics & Gynaecology,Maternal Fetal Medicine,CRITICAL,Hospital,No,General Practice,RED
+Gestational Diabetes,O24,Elevated blood sugar pregnancy,Obstetrics & Gynaecology,None,MEDIUM,Clinic,No,Endocrinology,YELLOW
+Miscarriage,O03,Vaginal bleeding abdominal pain,Obstetrics & Gynaecology,None,HIGH,Hospital,No,Emergency Medicine,YELLOW
+Ectopic Pregnancy,O00,Abdominal pain vaginal bleeding shock,Obstetrics & Gynaecology,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Postpartum Hemorrhage,O72,Heavy vaginal bleeding shock,Obstetrics & Gynaecology,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Postpartum Depression,F53,Sadness anxiety difficulty bonding,Obstetrics & Gynaecology,None,MEDIUM,Clinic,No,Psychiatry General Practice,YELLOW
+Menstrual Disorders,N94,Irregular periods pain cramping,Obstetrics & Gynaecology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Endometriosis,N80,Pelvic pain dysmenorrhea infertility,Obstetrics & Gynaecology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Uterine Fibroids,D25,Heavy menstrual bleeding pelvic pressure,Obstetrics & Gynaecology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Ovarian Cysts,N83,Pelvic pain irregular periods,Obstetrics & Gynaecology,None,LOW,Clinic,No,General Practice,GREEN
+Polycystic Ovary Syndrome,E28,Irregular periods infertility acne weight gain,Obstetrics & Gynaecology,None,MEDIUM,Clinic,No,Endocrinology,YELLOW
+Cervical Cancer,C53,Abnormal vaginal bleeding pelvic pain,Obstetrics & Gynaecology,Gynaecological Oncology,HIGH,Hospital,No,Oncology General Surgery,YELLOW
+Breast Fibroadenoma,D24,Breast lump no pain,Obstetrics & Gynaecology,None,LOW,Clinic,No,General Practice,GREEN
+Breastfeeding Issues,O92,Breast pain engorgement difficulty feeding,Obstetrics & Gynaecology,None,MEDIUM,Clinic,No,General Practice,GREEN
+Infertility,N97,Inability to conceive,Obstetrics & Gynaecology,Reproductive Endocrinology,MEDIUM,Hospital,No,General Practice Endocrinology,GREEN
+Childhood Fever,R50,High temperature in child,Paediatrics,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Croup,J05,Barky cough stridor respiratory distress,Paediatrics,None,MEDIUM,Clinic,Yes,Emergency Medicine,YELLOW
+Bronchiolitis,J20,Wheezing cough respiratory distress,Paediatrics,None,HIGH,Hospital,Yes,Emergency Medicine,YELLOW
+Gastroenteritis,A09,Diarrhea vomiting dehydration,Paediatrics,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Pyloric Stenosis,Q40,Projectile vomiting in infant,Paediatrics,Neonatal Surgery,HIGH,Hospital,No,Pediatric Surgery Emergency Medicine,YELLOW
+Intussusception,K56,Abdominal pain bloody stools,Paediatrics,None,HIGH,Hospital,No,Pediatric Surgery Emergency Medicine,YELLOW
+Appendicitis in Child,K35,Right sided abdominal pain,Paediatrics,None,HIGH,Hospital,No,Pediatric Surgery Emergency Medicine,YELLOW
+Congenital Heart Disease,Q20,Blue discoloration difficulty feeding,Paediatrics,Cardiac,HIGH,Hospital,No,Cardiology,YELLOW
+Asthma in Child,J45,Wheezing cough difficulty breathing,Paediatrics,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Allergies,T78,Rash itching swelling,Paediatrics,None,LOW,Clinic,Yes,General Practice Dermatology,GREEN
+Diabetes in Child,E10,Excessive thirst urination weight loss,Paediatrics,None,MEDIUM,Hospital,Yes,Endocrinology,YELLOW
+Cerebral Palsy,G80,Motor difficulties muscle tone,Paediatrics,Developmental Paediatrics,MEDIUM,Hospital,No,Neurology,GREEN
+Autism,F84,Social difficulties repetitive behaviors,Paediatrics,Developmental Paediatrics,MEDIUM,Clinic,No,Psychiatry,GREEN
+Attention Deficit,F90,Inattention hyperactivity impulsivity,Paediatrics,Developmental Paediatrics,MEDIUM,Clinic,No,Psychiatry,GREEN
+Growth Disorder,E34,Short stature slow growth,Paediatrics,Endocrinology,LOW,Clinic,No,Endocrinology,GREEN
+Failure to Thrive,R62,Poor weight gain developmental delay,Paediatrics,Developmental Paediatrics,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Immunodeficiency,D84,Recurrent infections,Paediatrics,None,HIGH,Hospital,No,Infectious Diseases,YELLOW
+Neonatal Jaundice,P59,Yellow skin eyes in newborn,Paediatrics,Neonatal Intensive Care,MEDIUM,Hospital,No,Obstetrics & Gynaecology,YELLOW
+Preterm Complications,P07,Respiratory issues feeding difficulty,Paediatrics,Neonatal Intensive Care,CRITICAL,Hospital,No,Obstetrics & Gynaecology,RED
+Birth Defects,Q89,Physical abnormalities at birth,Paediatrics,None,HIGH,Hospital,No,Pediatric Surgery General Surgery,YELLOW
+Chicken Pox,B01,Blistering rash fever,General Practice,None,MEDIUM,Clinic,Yes,Paediatrics,YELLOW
+Measles,B05,Rash fever cough coryza,General Practice,None,MEDIUM,Clinic,Yes,Paediatrics,YELLOW
+Mumps,B26,Parotitis fever malaise,General Practice,None,MEDIUM,Clinic,No,Paediatrics,YELLOW
+Rubella,B06,Rash fever lymphadenopathy,General Practice,None,MEDIUM,Clinic,No,Paediatrics Obstetrics,YELLOW
+Pertussis,A37,Prolonged cough whooping sound,General Practice,None,MEDIUM,Clinic,Yes,Respiratory Medicine,YELLOW
+Diphtheria,A36,Throat membrane breathing difficulty,General Practice,None,HIGH,Hospital,No,Infectious Diseases,YELLOW
+Tetanus,A35,Muscle rigidity lockjaw fever,General Practice,None,CRITICAL,Hospital,No,Emergency Medicine Infectious Diseases,RED
+Poliomyelitis,A80,Paralysis fever malaise,General Practice,None,CRITICAL,Hospital,No,Emergency Medicine Neurology,RED
+Influenza,J11,Fever cough body aches,General Practice,None,MEDIUM,Clinic,Yes,Respiratory Medicine,YELLOW
+Dengue,A90,High fever body aches rash,Infectious Diseases,Tropical Medicine,MEDIUM,Hospital,No,General Practice,YELLOW
+Malaria,B50,High fever chills sweating,Infectious Diseases,Tropical Medicine,HIGH,Hospital,No,General Practice Emergency Medicine,YELLOW
+Zika,A92,Rash fever joint pain,Infectious Diseases,Tropical Medicine,MEDIUM,Clinic,No,General Practice,YELLOW
+Chikungunya,A92,High fever joint pain rash,Infectious Diseases,Tropical Medicine,MEDIUM,Clinic,No,General Practice,YELLOW
+HIV,B20,Fever weight loss opportunistic infections,Infectious Diseases,HIV Medicine,MEDIUM,Hospital,No,General Practice,YELLOW
+Syphilis,A51,Ulcers rash systemic symptoms,Infectious Diseases,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Gonorrhea,A54,Urethritis cervicitis pelvic pain,Infectious Diseases,None,MEDIUM,Clinic,Yes,General Practice Urology,GREEN
+Chlamydia,A56,Urethritis cervicitis discharge,Infectious Diseases,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Herpes Simplex,B00,Vesicles pain fever,Infectious Diseases,None,MEDIUM,Clinic,Yes,Dermatology,YELLOW
+Hepatitis B,B19,Jaundice fatigue abdominal pain,Infectious Diseases,None,HIGH,Hospital,No,Gastroenterology,YELLOW
+Hepatitis C,B19,Jaundice fatigue liver dysfunction,Infectious Diseases,None,MEDIUM,Hospital,No,Gastroenterology,YELLOW
+Whooping Cough,A37,Prolonged cough whooping,General Practice,None,MEDIUM,Clinic,Yes,Respiratory Medicine Paediatrics,YELLOW
+Common Cold,J00,Runny nose cough sneezing,General Practice,None,LOW,Clinic,Yes,Otolaryngology,GREEN
+Flu,J11,Fever cough body aches malaise,General Practice,None,MEDIUM,Clinic,Yes,Respiratory Medicine,YELLOW
+COVID-19,U07,Fever cough shortness of breath,General Practice,None,MEDIUM,Clinic,Yes,Respiratory Medicine Emergency Medicine,YELLOW
+Fungal Meningitis,G03,Headache fever neck stiffness,Infectious Diseases,None,CRITICAL,Hospital,No,Emergency Medicine Neurology,RED
+Bacterial Meningitis,G00,Headache fever neck stiffness rash,Infectious Diseases,None,CRITICAL,Hospital,No,Emergency Medicine Neurology,RED
+Viral Meningitis,G03,Headache fever neck stiffness,General Practice,None,HIGH,Hospital,Yes,Emergency Medicine Neurology,YELLOW
+Encephalitis,A86,Fever headache altered consciousness,Infectious Diseases,None,CRITICAL,Hospital,No,Emergency Medicine Neurology,RED
+Rabies,A82,Fever hydrophobia paralysis,Infectious Diseases,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Leptospirosis,A27,High fever muscle pain jaundice,Infectious Diseases,Tropical Medicine,HIGH,Hospital,No,General Practice,YELLOW
+Relapsing Fever,A68,High fever chills sweating,Infectious Diseases,Tropical Medicine,MEDIUM,Hospital,No,General Practice,YELLOW
+Rat Bite Fever,A25,Fever rash joint pain,Infectious Diseases,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Plague,A20,High fever buboes sepsis,Infectious Diseases,None,CRITICAL,Hospital,No,Emergency Medicine,RED
+Typhus,A75,High fever rash headache,Infectious Diseases,Tropical Medicine,HIGH,Hospital,No,General Practice,YELLOW
+Typhoid,A01,High fever rose spots rash,Infectious Diseases,Tropical Medicine,HIGH,Hospital,No,General Practice,YELLOW
+Brucellosis,A23,Fever joint pain fatigue,Infectious Diseases,Tropical Medicine,MEDIUM,Hospital,No,General Practice,YELLOW
+Q Fever,A78,Fever fatigue pneumonia,Infectious Diseases,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Cat Scratch Disease,A28,Fever lymphadenopathy,Infectious Diseases,None,LOW,Clinic,No,General Practice,GREEN
+Toxoplasmosis,B58,Fever lymphadenopathy,Infectious Diseases,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Leishmaniasis,B55,Fever weight loss skin lesions,Infectious Diseases,Tropical Medicine,MEDIUM,Hospital,No,General Practice,YELLOW
+Strongyloidiasis,B78,Diarrhea abdominal pain malabsorption,Infectious Diseases,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Hookworm,B76,Anemia fatigue pale,Infectious Diseases,None,LOW,Clinic,No,General Practice,GREEN
+Roundworm,B77,Abdominal pain malabsorption,Infectious Diseases,None,LOW,Clinic,No,General Practice,GREEN
+Tapeworm,B71,Abdominal pain diarrhea weight loss,Infectious Diseases,None,LOW,Clinic,No,General Practice,GREEN
+Schistosomiasis,B65,Diarrhea hematuria fever,Infectious Diseases,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Filariasis,B74,Limb swelling lymphadenopathy,Infectious Diseases,Tropical Medicine,MEDIUM,Hospital,No,General Practice,YELLOW
+Onchocerciasis,B73,Skin nodules blindness itching,Infectious Diseases,Tropical Medicine,MEDIUM,Hospital,No,General Practice Ophthalmology,YELLOW
+Trichinellosis,B75,Muscle pain fever diarrhea,Infectious Diseases,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Giardiasis,A07,Diarrhea abdominal pain malabsorption,Infectious Diseases,None,LOW,Clinic,Yes,General Practice,GREEN
+Amebiasis,A06,Diarrhea abdominal pain,Infectious Diseases,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Cryptosporidiosis,A07,Diarrhea abdominal pain immunocompromised,Infectious Diseases,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Norovirus,A08,Diarrhea vomiting nausea,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Rotavirus,A08,Diarrhea vomiting fever,General Practice,None,MEDIUM,Clinic,Yes,Paediatrics,YELLOW
+Adenovirus,B34,Fever conjunctivitis respiratory symptoms,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Coxsackievirus,B34,Fever rash hand foot mouth,General Practice,None,LOW,Clinic,Yes,Paediatrics,GREEN
+Echovirus,B34,Fever rash meningitis,General Practice,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Rhinovirus,J00,Runny nose cough sneezing,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Coronavirus,U07,Fever cough shortness of breath,General Practice,None,MEDIUM,Clinic,Yes,Respiratory Medicine,YELLOW
+Enterovirus,B34,Fever rash paralysis,General Practice,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Hand Foot Mouth,B08,Blistering rash fever,General Practice,None,LOW,Clinic,Yes,Paediatrics,GREEN
+Herpangina,B08,Sore throat vesicles fever,General Practice,None,LOW,Clinic,Yes,Otolaryngology,GREEN
+Infectious Mononucleosis,B27,Sore throat fever fatigue,General Practice,None,MEDIUM,Clinic,Yes,Infectious Diseases,YELLOW
+Cytomegalovirus,B25,Fever malaise lymphadenopathy,Infectious Diseases,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Epstein Barr Virus,B27,Sore throat fever fatigue,General Practice,None,MEDIUM,Clinic,Yes,Infectious Diseases,YELLOW
+Acute Retroviral Syndrome,B20,Fever rash malaise,Infectious Diseases,HIV Medicine,MEDIUM,Hospital,No,General Practice,YELLOW
+Opportunistic Infection,B20,Fever cough diarrhea,Infectious Diseases,HIV Medicine,HIGH,Hospital,No,General Practice,YELLOW
+Immune Reconstitution Inflammatory,B20,Fever malaise worsening symptoms,Infectious Diseases,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Nail Fungus,B35,Discolored thickened nails,Dermatology,None,LOW,Clinic,No,General Practice,GREEN
+Scabies,B86,Itching rash burrows,Dermatology,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Head Lice,B85,Itching scalp rash,Dermatology,None,LOW,Clinic,No,General Practice,GREEN
+Body Lice,B85,Itching rash fever,Dermatology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Bed Bugs,B88,Itching rash bite marks,Dermatology,None,LOW,Clinic,No,General Practice,GREEN
+Impetigo,L01,Pustules crusting contagious,Dermatology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Cellulitis,L03,Redness swelling warmth spreading,Dermatology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Erysipelas,L04,Raised red rash fever,Dermatology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Abscess,L02,Localized pus swelling pain,Dermatology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Carbuncle,L02,Multiple connected boils fever,Dermatology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Folliculitis,L73,Hair follicle pustules itching,Dermatology,None,LOW,Clinic,Yes,General Practice,GREEN
+Boil,L02,Single pustule pain swelling,Dermatology,None,LOW,Clinic,Yes,General Practice,GREEN
+Seborrheic Keratosis,L82,Brown warty lesion,Dermatology,None,LOW,Clinic,No,General Practice,GREEN
+Mole,D22,Pigmented lesion,Dermatology,None,LOW,Clinic,No,General Practice,GREEN
+Wart,B07,Hard bumpy growth,Dermatology,None,LOW,Clinic,No,General Practice,GREEN
+Plantar Wart,B07,Painful growth on sole,Dermatology,None,LOW,Clinic,No,General Practice,GREEN
+Cold Sore,B00,Blistering lip pain,Dermatology,None,LOW,Clinic,Yes,General Practice,GREEN
+Canker Sore,K12,Mouth ulcer pain,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Geographic Tongue,K14,Map like pattern on tongue,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Black Hairy Tongue,K14,Black discoloration tongue,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Oral Thrush,B37,White patches mouth pain,Dermatology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Gingivitis,K05,Red bleeding gums swelling,Dentistry,None,LOW,Clinic,Yes,General Practice,GREEN
+Periodontitis,K05,Loose teeth pain bone loss,Dentistry,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Cavities,K02,Tooth pain decay,Dentistry,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Tooth Abscess,K04,Tooth pain swelling fever,Dentistry,None,MEDIUM,Clinic,No,Emergency Medicine,YELLOW
+Bruxism,K07,Tooth wear jaw pain,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Temporomandibular Disorder,K07,Jaw pain clicking difficulty opening,General Practice,None,MEDIUM,Clinic,No,Dentistry,YELLOW
+Dry Socket,K10,Severe pain after extraction,Dentistry,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Lost Filling,K02,Exposed tooth sensitivity,Dentistry,None,LOW,Clinic,No,General Practice,GREEN
+Broken Tooth,S02,Tooth fracture pain,Dentistry,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Loose Tooth,K00,Mobile tooth pain,Dentistry,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Stains,K03,Discolored teeth cosmetic concern,Dentistry,Cosmetic Dentistry,LOW,Clinic,No,General Practice,GREEN
+Bite Problems,K07,Misaligned teeth difficulty chewing,Dentistry,None,LOW,Clinic,No,General Practice,GREEN
+Missing Teeth,K08,Gap after tooth loss,Dentistry,Prosthodontics,LOW,Clinic,No,General Practice,GREEN
+Dentures Issues,K09,Loose dentures sore spots,Dentistry,Prosthodontics,LOW,Clinic,No,General Practice,GREEN
+Implant Problems,K08,Pain around implant,Dentistry,Oral Implantology,MEDIUM,Clinic,No,General Practice,YELLOW
+Gum Disease Progression,K06,Gum recession bone loss,Dentistry,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Mouth Cancer,C00,Ulcer difficulty swallowing,Dentistry,Maxillofacial Surgery,HIGH,Hospital,No,Oncology General Surgery,YELLOW
+Jaw Fracture,S02,Jaw pain swelling,Maxillofacial Surgery,None,HIGH,Hospital,No,Dentistry Emergency Medicine,YELLOW
+Facial Trauma,S01,Face pain swelling bleeding,Maxillofacial Surgery,None,HIGH,Hospital,No,General Surgery Emergency Medicine,YELLOW
+Orthodontic Emergency,K07,Bracket loose pain,Dentistry,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Tongue Swelling,K14,Airway compromise difficulty speaking,Dermatology,None,CRITICAL,Hospital,No,Emergency Medicine Otolaryngology,RED
+Lip Swelling,L56,Angioedema allergic reaction,Dermatology,None,MEDIUM,Clinic,Yes,Emergency Medicine,YELLOW
+Dry Mouth,K11,Xerostomia discomfort,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Excessive Drooling,K11,Saliva overflow discomfort,General Practice,None,LOW,Clinic,No,General Practice Neurology,GREEN
+Difficulty Swallowing,R13,Dysphagia coughing aspiration risk,General Practice,None,MEDIUM,Hospital,No,Otolaryngology,YELLOW
+Hoarseness,R49,Voice change quality,General Practice,None,MEDIUM,Clinic,No,Otolaryngology,YELLOW
+Voice Loss,R49,Complete aphonia,General Practice,None,MEDIUM,Clinic,No,Otolaryngology,YELLOW
+Taste Loss,R43,Ageusia dysgeusia,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Smell Loss,R43,Anosmia dysosmia,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Nosebleed,R04,Epistaxis bleeding,General Practice,None,MEDIUM,Clinic,Yes,Otolaryngology,YELLOW
+Nasal Obstruction,J30,Blocked nose breathing difficulty,General Practice,None,LOW,Clinic,Yes,Otolaryngology,GREEN
+Nasal Polyps,J33,Nasal obstruction breathing difficulty,Otolaryngology,None,LOW,Clinic,No,General Practice,GREEN
+Deviated Septum,J34,Nasal obstruction breathing difficulty,Otolaryngology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Sinus Headache,R51,Frontal pain pressure,General Practice,None,MEDIUM,Clinic,Yes,Otolaryngology,YELLOW
+Nasal Trauma,S02,Nosebleed swelling deformity,Otolaryngology,None,MEDIUM,Hospital,No,Emergency Medicine,YELLOW
+Earwax Impaction,H61,Hearing loss ear fullness,General Practice,None,LOW,Clinic,Yes,Otolaryngology,GREEN
+Ear Pain,H92,Otalgia discomfort,General Practice,None,MEDIUM,Clinic,Yes,Otolaryngology,YELLOW
+Ear Discharge,H92,Pus drainage pain,Otolaryngology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Hearing Loss,H91,Difficulty hearing tinnitus,Otolaryngology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Tinnitus,H93,Ringing in ears hearing loss,Otolaryngology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Vertigo,R42,Dizziness spinning nausea,Neurology,None,MEDIUM,Hospital,Yes,General Practice Otolaryngology,YELLOW
+Benign Paroxysmal Positional Vertigo,H81,Positional dizziness nausea,Neurology,None,MEDIUM,Clinic,No,General Practice Otolaryngology,YELLOW
+Motion Sickness,R51,Nausea dizziness discomfort,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Dizziness,R42,Lightheadedness unsteadiness,General Practice,None,MEDIUM,Clinic,Yes,General Practice Cardiology,YELLOW
+Eye Pain,H57,Ocular pain discomfort,Ophthalmology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Eye Itching,H57,Itching allergic reaction,Ophthalmology,None,LOW,Clinic,Yes,General Practice,GREEN
+Eye Redness,H57,Conjunctivitis discharge,Ophthalmology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Eye Discharge,H57,Pus mucus drainage,Ophthalmology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Tearing,H57,Excessive tearing blocking,Ophthalmology,None,LOW,Clinic,Yes,General Practice,GREEN
+Dry Eyes,H04,Dryness irritation burning,Ophthalmology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Blurred Vision,H53,Difficulty seeing clearly,Ophthalmology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Double Vision,H53,Diplopia seeing two images,Ophthalmology,None,MEDIUM,Hospital,No,Neurology,YELLOW
+Color Blindness,H53,Inability to distinguish colors,Ophthalmology,None,LOW,Clinic,No,General Practice,GREEN
+Night Blindness,H53,Difficulty seeing in dark,Ophthalmology,None,LOW,Clinic,No,General Practice,GREEN
+Floaters,H57,Spots or lines in vision,Ophthalmology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Flashes,H53,Light flashes vision,Ophthalmology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Halo Around Lights,H53,Colored rings around lights,Ophthalmology,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Photophobia,H53,Light sensitivity discomfort,Ophthalmology,None,MEDIUM,Clinic,Yes,General Practice Neurology,YELLOW
+Conjunctivitis,H10,Red itchy eyes discharge,Ophthalmology,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Keratitis,H16,Corneal inflammation pain,Ophthalmology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Uveitis,H20,Eye pain vision loss inflammation,Ophthalmology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Cataracts,H26,Cloudy lens vision loss,Ophthalmology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Glaucoma,H40,Elevated intraocular pressure vision loss,Ophthalmology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Age Related Macular Degeneration,H35,Central vision loss blurred,Ophthalmology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Diabetic Retinopathy,H36,Vision loss hemorrhage,Ophthalmology,None,MEDIUM,Hospital,No,General Practice Endocrinology,YELLOW
+Retinal Detachment,H33,Floaters flashes vision loss,Ophthalmology,Retinal Diseases,CRITICAL,Hospital,No,General Practice,RED
+Myopia,H52,Blurred distance vision,Ophthalmology,None,LOW,Clinic,No,General Practice,GREEN
+Hyperopia,H52,Blurred near vision,Ophthalmology,None,LOW,Clinic,No,General Practice,GREEN
+Astigmatism,H52,Blurred vision fatigue,Ophthalmology,None,LOW,Clinic,No,General Practice,GREEN
+Presbyopia,H52,Difficulty reading aging,Ophthalmology,None,LOW,Clinic,No,General Practice,GREEN
+Lazy Eye,H53,Amblyopia reduced vision,Ophthalmology,None,MEDIUM,Clinic,No,General Practice Paediatrics,YELLOW
+Strabismus,H51,Misaligned eyes crossed,Ophthalmology,None,MEDIUM,Clinic,No,General Practice Paediatrics,YELLOW
+Eye Strain,H53,Fatigue discomfort headache,Ophthalmology,None,LOW,Clinic,Yes,General Practice,GREEN
+Ptosis,H02,Drooping eyelid vision obstruction,Ophthalmology,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Bell's Palsy,G51,Facial drooping weakness,Neurology,None,MEDIUM,Hospital,Yes,General Practice,YELLOW
+Facial Twitch,G25,Involuntary muscle movement,Neurology,None,LOW,Clinic,No,General Practice,GREEN
+Facial Pain,G50,Trigeminal neuralgia severe pain,Neurology,Pain Management,MEDIUM,Hospital,No,General Practice,YELLOW
+Jaw Pain,M26,Temporomandibular dysfunction,General Practice,None,MEDIUM,Clinic,No,Dentistry,YELLOW
+Headache,R51,Pain head region,General Practice,None,MEDIUM,Clinic,Yes,Neurology,YELLOW
+Severe Headache,R51,Worst headache of life,General Practice,None,CRITICAL,Hospital,Yes,Emergency Medicine Neurology,RED
+Pressure Headache,R51,Tight band sensation,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Pounding Headache,R51,Throbbing pain,General Practice,None,MEDIUM,Clinic,Yes,Neurology,YELLOW
+One Sided Headache,R51,Unilateral pain,General Practice,None,MEDIUM,Clinic,Yes,Neurology,YELLOW
+Frontal Headache,R51,Front of head pain,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Occipital Headache,R51,Back of head pain,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Neck Stiffness,R29,Difficulty moving neck,General Practice,None,MEDIUM,Hospital,Yes,Neurology,YELLOW
+Neck Pain,M54,Cervical pain stiffness,General Practice,None,MEDIUM,Clinic,Yes,Orthopaedic Surgery,YELLOW
+Shoulder Pain,M25,Shoulder discomfort limitation,General Practice,None,MEDIUM,Clinic,Yes,Orthopaedic Surgery,YELLOW
+Arm Pain,M79,Arm discomfort weakness,General Practice,None,MEDIUM,Clinic,Yes,Orthopaedic Surgery,YELLOW
+Elbow Pain,M25,Elbow discomfort limitation,General Practice,None,MEDIUM,Clinic,Yes,Orthopaedic Surgery,YELLOW
+Wrist Pain,M25,Wrist discomfort limitation,General Practice,None,MEDIUM,Clinic,Yes,Orthopaedic Surgery,YELLOW
+Hand Pain,M79,Hand discomfort weakness,General Practice,None,MEDIUM,Clinic,Yes,Orthopaedic Surgery,YELLOW
+Finger Pain,M79,Finger discomfort swelling,General Practice,None,MEDIUM,Clinic,Yes,Orthopaedic Surgery,YELLOW
+Chest Wall Pain,R07,Musculoskeletal chest pain,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Abdominal Pain,R10,Belly discomfort,General Practice,None,MEDIUM,Clinic,Yes,General Practice Gastroenterology,YELLOW
+Upper Abdominal Pain,R10,Epigastric pain discomfort,General Practice,None,MEDIUM,Clinic,Yes,General Practice Gastroenterology,YELLOW
+Lower Abdominal Pain,R10,Suprapubic pain cramping,General Practice,None,MEDIUM,Clinic,Yes,General Practice Gastroenterology,YELLOW
+Right Sided Abdominal Pain,R10,Right lower quadrant pain,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Left Sided Abdominal Pain,R10,Left lower quadrant pain,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Periumbilical Pain,R10,Around belly button pain,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Cramping,R10,Abdominal spasm pain,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Bloating,R14,Abdominal distention gas,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Gas,R14,Intestinal gas discomfort,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Constipation,K59,Difficult bowel movement,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Diarrhea,K59,Loose watery stools,General Practice,None,MEDIUM,Clinic,Yes,General Practice Gastroenterology,YELLOW
+Bloody Stools,K92,Rectal bleeding melena,General Practice,None,MEDIUM,Clinic,Yes,Gastroenterology,YELLOW
+Black Stools,K92,Melena tarry stools,General Practice,None,MEDIUM,Hospital,Yes,Emergency Medicine Gastroenterology,YELLOW
+Mucus in Stools,R19,Slimy coating stools,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Pale Stools,R19,Fatty pale stools,General Practice,None,MEDIUM,Clinic,Yes,Gastroenterology,YELLOW
+Fatty Stools,R19,Greasy floating stools,General Practice,None,MEDIUM,Clinic,Yes,Gastroenterology,YELLOW
+Oily Stools,R19,Anal leakage oily,General Practice,None,MEDIUM,Clinic,No,Gastroenterology,YELLOW
+Fecal Incontinence,R15,Loss of bowel control,General Practice,None,MEDIUM,Clinic,No,General Practice Gastroenterology,YELLOW
+Anal Pain,R10,Rectal discomfort,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Anal Itching,L29,Pruritus ani discomfort,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Anal Bleeding,K64,Hemorrhoid bleeding,General Practice,None,MEDIUM,Clinic,Yes,Gastroenterology,YELLOW
+Anal Mass,K62,Lump in anal area,General Practice,None,MEDIUM,Clinic,No,Gastroenterology,YELLOW
+Nausea,R11,Feeling sick queasiness,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Vomiting,R11,Forceful emptying stomach,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Hematemesis,K92,Blood in vomit,General Practice,None,CRITICAL,Hospital,Yes,Emergency Medicine Gastroenterology,RED
+Regurgitation,K21,Food coming back up,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Burping,R14,Excessive belching gas,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Hiccup,R06,Involuntary diaphragm spasm,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Belching,R14,Repeated burping,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Loss Of Appetite,R63,Decreased hunger intake,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Increase Of Appetite,R63,Increased hunger intake,General Practice,None,MEDIUM,Clinic,No,General Practice Endocrinology,YELLOW
+Weight Loss,R63,Unintentional decrease,General Practice,None,MEDIUM,Clinic,Yes,General Practice Oncology,YELLOW
+Weight Gain,R63,Unintentional increase,General Practice,None,MEDIUM,Clinic,Yes,General Practice Endocrinology,YELLOW
+Swallowing Difficulty,R13,Dysphagia pain,General Practice,None,MEDIUM,Hospital,No,Otolaryngology,YELLOW
+Swallowing Pain,R13,Odynophagia discomfort,General Practice,None,MEDIUM,Clinic,Yes,Otolaryngology,YELLOW
+Choking Sensation,R06,Coughing gagging,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Lump in Throat,R09,Globus sensation anxiety,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Throat Tightness,R06,Pharyngeal constriction,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Throat Burning,R09,Pharyngeal burning sensation,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Excessive Salivation,K11,Ptyalism wetness,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Foreign Body Sensation,R09,Feeling of lodged object,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Halitosis,R19,Bad breath odor,General Practice,None,LOW,Clinic,Yes,General Practice Dentistry,GREEN
+Polyuria,R35,Frequent urination volume,General Practice,None,MEDIUM,Clinic,Yes,Endocrinology,YELLOW
+Nocturia,R35,Nighttime urination frequency,General Practice,None,MEDIUM,Clinic,Yes,General Practice Urology,YELLOW
+Dysuria,R30,Painful urination discomfort,General Practice,None,MEDIUM,Clinic,Yes,General Practice Urology,YELLOW
+Urinary Urgency,R30,Frequent urge to urinate,General Practice,None,MEDIUM,Clinic,Yes,General Practice Urology,YELLOW
+Urinary Frequency,R35,Need to urinate often,General Practice,None,MEDIUM,Clinic,Yes,General Practice Urology,YELLOW
+Weak Stream,R39,Reduced urinary flow,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Hesitancy,R39,Difficulty starting urination,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Incomplete Emptying,R39,Sensation of residual urine,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Incontinence,R32,Loss of bladder control,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Stress Incontinence,N39,Leakage with activity,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Urge Incontinence,N39,Sudden urge before leakage,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Overflow Incontinence,N39,Constant dribbling overflow,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Functional Incontinence,N39,Unable to reach toilet,General Practice,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Enuresis,F98,Bedwetting at night,General Practice,None,MEDIUM,Clinic,No,Paediatrics,YELLOW
+Hematuria,R31,Blood in urine,General Practice,None,MEDIUM,Clinic,Yes,Urology,YELLOW
+Gross Hematuria,R31,Visible blood in urine,General Practice,None,MEDIUM,Hospital,Yes,Emergency Medicine Urology,YELLOW
+Microscopic Hematuria,R31,Blood visible only under microscope,General Practice,None,MEDIUM,Clinic,Yes,General Practice Urology,YELLOW
+Dark Urine,R32,Cola colored urine,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Pale Urine,R32,Clear colorless urine,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Cloudy Urine,R32,Turbid urine appearance,General Practice,None,MEDIUM,Clinic,Yes,General Practice Urology,YELLOW
+Foul Smelling Urine,R32,Bad odor in urine,General Practice,None,MEDIUM,Clinic,Yes,General Practice Urology,YELLOW
+Urine Color Change,R32,Discoloration of urine,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Suprapubic Pain,R10,Lower abdominal pain,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Testicular Pain,R10,Scrotal discomfort,General Practice,None,MEDIUM,Hospital,Yes,Emergency Medicine Urology,YELLOW
+Testicular Swelling,N50,Scrotal enlargement,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Testicular Mass,N50,Lump in testicle,General Practice,None,MEDIUM,Hospital,No,Urology Oncology,YELLOW
+Penile Discharge,N39,Urethral discharge fluid,General Practice,None,MEDIUM,Clinic,Yes,Urology,YELLOW
+Penile Pain,N48,Glans or shaft discomfort,General Practice,None,MEDIUM,Clinic,Yes,General Practice Urology,YELLOW
+Penile Rash,L29,Genital rash irritation,General Practice,None,MEDIUM,Clinic,Yes,General Practice Dermatology,YELLOW
+Erectile Dysfunction,F52,Inability to achieve maintain erection,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Premature Ejaculation,F52,Rapid ejaculation timing,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Delayed Ejaculation,F52,Difficulty achieving ejaculation,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Retrograde Ejaculation,N39,Semen enters bladder,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Painful Ejaculation,N48,Pain during ejaculation,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Hematospermia,N50,Blood in semen,General Practice,None,MEDIUM,Hospital,No,General Practice Urology,YELLOW
+Decreased Libido,F52,Loss of sexual desire,General Practice,None,MEDIUM,Clinic,No,General Practice Psychiatry,YELLOW
+Increased Libido,F52,Excessive sexual desire,General Practice,None,MEDIUM,Clinic,No,General Practice Psychiatry,YELLOW
+Vaginal Discharge,N89,Abnormal fluid from vagina,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Vulvar Itching,L29,Vaginal itching discomfort,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Vulvar Pain,R10,Vulvodynia discomfort,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Vulvar Burning,R10,Vulvitis burning sensation,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Vulvar Ulcer,L12,Open sore on vulva,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Vulvar Mass,N89,Lump on external genitalia,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Vaginal Bleeding,N92,Abnormal bleeding from vagina,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Vaginal Pain,R10,Dyspareunia discomfort during intercourse,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Cystocele,N81,Bladder hernia bulging,General Practice,None,MEDIUM,Clinic,No,General Practice Urology,YELLOW
+Rectocele,N81,Rectal hernia bulging,General Practice,None,MEDIUM,Clinic,No,General Practice Gastroenterology,YELLOW
+Uterine Prolapse,N81,Uterus protruding from vagina,General Practice,None,MEDIUM,Hospital,No,Obstetrics & Gynaecology,YELLOW
+Pelvic Pain,R10,Pain in pelvic region,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Pelvic Pressure,R10,Heaviness in pelvis,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Pelvic Mass,R10,Lump in pelvic area,General Practice,None,MEDIUM,Hospital,No,Obstetrics & Gynaecology,YELLOW
+Infertility Primary,N97,Never achieved pregnancy,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Infertility Secondary,N97,Unable to achieve pregnancy again,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Recurrent Miscarriage,N96,Multiple consecutive miscarriages,General Practice,None,MEDIUM,Hospital,No,Obstetrics & Gynaecology,YELLOW
+Erectile Issues Diabetes,E11,Erectile dysfunction in diabetics,General Practice,None,MEDIUM,Clinic,Yes,Urology Endocrinology,YELLOW
+Sexual Dysfunction,F52,Impaired sexual function,General Practice,None,MEDIUM,Clinic,No,General Practice Psychiatry,YELLOW
+Low Testosterone,E29,Reduced male hormone,General Practice,None,MEDIUM,Clinic,No,General Practice Endocrinology,YELLOW
+High Testosterone,E28,Elevated male hormone,General Practice,None,MEDIUM,Clinic,No,General Practice Endocrinology,YELLOW
+Gynecomastia,N62,Breast enlargement in males,General Practice,None,MEDIUM,Clinic,No,General Practice Endocrinology,YELLOW
+Galactorrhea,N64,Inappropriate breast discharge,General Practice,None,MEDIUM,Clinic,No,General Practice Endocrinology,YELLOW
+Amenorrhea,N91,Absence of menstrual period,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Oligomenorrhea,N91,Infrequent menstrual periods,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Menorrhagia,N92,Excessive menstrual bleeding,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Metrorrhagia,N93,Bleeding between periods,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Dysmenorrhea,N94,Painful menstrual periods,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Premenstrual Syndrome,N94,PMS symptoms before period,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Premenstrual Dysphoric,F32,Severe PMS mood changes,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Menopausal Symptoms,N95,Hot flashes mood changes,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Early Menopause,E28,Premature ovarian failure,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology Endocrinology,YELLOW
+Vaginal Atrophy,N95,Tissue thinning dryness,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Hot Flashes,R50,Sudden heat sweating,General Practice,None,MEDIUM,Clinic,Yes,Obstetrics & Gynaecology,YELLOW
+Night Sweats,R50,Excessive sweating at night,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Mood Swings,F31,Emotional fluctuations,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Sleep Disturbances,G47,Difficulty sleeping,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Vaginal Dryness,N95,Vaginal atrophy lubrication,General Practice,None,MEDIUM,Clinic,No,Obstetrics & Gynaecology,YELLOW
+Joint Aches,M19,Muscle joint discomfort,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Muscle Aches,M79,Myalgia muscle pain,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Bone Aches,M89,Bone pain discomfort,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+General Weakness,R53,Overall weakness fatigue,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+General Malaise,R53,Feeling unwell discomfort,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Chills,R50,Feeling cold shivering,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Sweating,R61,Excessive perspiration,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Tremor,R25,Involuntary shaking,General Practice,None,MEDIUM,Clinic,Yes,Neurology,YELLOW
+Twitching,R25,Involuntary muscle contractions,General Practice,None,MEDIUM,Clinic,No,Neurology,YELLOW
+Numbness,R20,Lack of sensation,General Practice,None,MEDIUM,Clinic,Yes,Neurology,YELLOW
+Tingling,R20,Pins and needles sensation,General Practice,None,MEDIUM,Clinic,Yes,Neurology,YELLOW
+Weakness,R53,Loss of strength,General Practice,None,MEDIUM,Clinic,Yes,Neurology,YELLOW
+Paralysis,R29,Loss of movement,General Practice,None,CRITICAL,Hospital,No,Emergency Medicine Neurology,RED
+Partial Paralysis,R29,Paresis weakness,General Practice,None,MEDIUM,Hospital,Yes,Neurology,YELLOW
+Tremor Essential,G25,Benign shaking,General Practice,None,LOW,Clinic,No,Neurology,GREEN
+Tremor Parkinsonian,G20,Resting tremor in Parkinson's,General Practice,None,MEDIUM,Clinic,No,Neurology,YELLOW
+Tremor Intention,G25,Action tremor intention,General Practice,None,MEDIUM,Clinic,No,Neurology,YELLOW
+Gait Disturbance,R26,Abnormal walking pattern,General Practice,None,MEDIUM,Clinic,Yes,Neurology,YELLOW
+Ataxia,R27,Lack of coordination,General Practice,None,MEDIUM,Hospital,No,Neurology,YELLOW
+Dystonia,G24,Involuntary sustained muscle contractions,General Practice,None,MEDIUM,Clinic,No,Neurology,YELLOW
+Choreoathetoid,G25,Involuntary abnormal movements,General Practice,None,MEDIUM,Hospital,No,Neurology,YELLOW
+Myoclonus,G25,Involuntary muscle jerks,General Practice,None,MEDIUM,Hospital,No,Neurology,YELLOW
+Tics,F95,Involuntary repetitive movements,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Stuttering,F80,Speech interruption repetition,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Apraxia,R48,Inability to execute learned movements,General Practice,None,MEDIUM,Hospital,No,Neurology,YELLOW
+Agnosia,R48,Inability to recognize objects,General Practice,None,MEDIUM,Hospital,No,Neurology,YELLOW
+Confusion,R41,Altered mental status,General Practice,None,MEDIUM,Hospital,Yes,Neurology,YELLOW
+Delirium,F05,Acute confusion disorientation,General Practice,None,HIGH,Hospital,Yes,Emergency Medicine Psychiatry,YELLOW
+Dementia,G30,Progressive cognitive decline,General Practice,None,MEDIUM,Clinic,No,Neurology,YELLOW
+Mild Cognitive Impairment,G31,Memory problems preserved function,General Practice,None,MEDIUM,Clinic,No,Neurology,GREEN
+Memory Loss,R41,Forgetfulness amnesia,General Practice,None,MEDIUM,Clinic,Yes,Neurology,YELLOW
+Concentration Difficulty,R41,Inability to focus attention,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Distractibility,R41,Inability to maintain focus,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Disorientation,R41,Confusion about time place person,General Practice,None,MEDIUM,Hospital,Yes,Neurology,YELLOW
+Hallucination,R44,Seeing hearing things not present,General Practice,None,MEDIUM,Hospital,No,Psychiatry,YELLOW
+Delusion,F22,Fixed false beliefs,General Practice,None,MEDIUM,Hospital,No,Psychiatry,YELLOW
+Paranoia,F22,Unfounded suspicion of others,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Suicidal Ideation,R45,Thoughts of suicide,General Practice,None,CRITICAL,Hospital,No,Psychiatry Emergency Medicine,RED
+Homicidal Ideation,R45,Thoughts of harming others,General Practice,None,CRITICAL,Hospital,No,Psychiatry Emergency Medicine,RED
+Aggression,R45,Violent behavior outbursts,General Practice,None,CRITICAL,Hospital,No,Psychiatry Emergency Medicine,RED
+Self Harm,R45,Intentional injury to self,General Practice,None,HIGH,Hospital,No,Psychiatry,YELLOW
+Catatonia,F20,Lack of movement or response,General Practice,None,HIGH,Hospital,No,Psychiatry,YELLOW
+Apathy,F20,Lack of motivation interest,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Anhedonia,F32,Loss of pleasure in activities,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Fatigue Overwhelming,R53,Severe tiredness exhaustion,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Lethargy,R53,Drowsiness sluggishness,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Hyperactivity,F90,Excessive activity restlessness,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Impulsivity,F90,Acting without thinking,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Emotional Lability,F30,Mood swings instability,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Irritability,R45,Easily provoked anger,General Practice,None,MEDIUM,Clinic,Yes,Psychiatry,YELLOW
+Anger Outburst,R45,Sudden intense anger,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Anxiety Severe,F41,Overwhelming worry panic,General Practice,None,MEDIUM,Hospital,No,Psychiatry,YELLOW
+Panic Attack,F41,Sudden intense fear,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Phobia,F40,Irrational fear of specific object,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Social Anxiety,F40,Fear of social situations,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Agoraphobia,F40,Fear of open public spaces,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Avoidance,F40,Avoiding feared situation,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Obsession,F42,Intrusive unwanted thoughts,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Compulsion,F42,Repetitive behaviors urges,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Rumination,F41,Repetitive worry thought patterns,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Perfectionism,F32,Excessive striving standards,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+People Pleasing,F32,Excessive need to please others,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Conflict Avoidance,F32,Avoiding confrontation,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Excessive Guilt,F32,Overwhelming sense of guilt,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Shame,F32,Deep embarrassment humiliation,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Negative Thinking,F32,Pessimistic thought patterns,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Catastrophizing,F32,Assuming worst case scenarios,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Black And White Thinking,F32,All or nothing thinking,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Overthinking,F41,Excessive rumination analysis,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Analysis Paralysis,F41,Unable to make decisions,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Decision Fatigue,R53,Difficulty making decisions,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Procrastination,F32,Delaying tasks actions,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Lack Of Motivation,F32,Difficulty initiating activities,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Loss Of Interest,F32,Anhedonia no interest,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Loneliness,Z60,Feeling isolated alone,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Isolation,Z60,Self imposed withdrawal,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Relationship Issues,Z63,Conflict discord,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Family Conflict,Z63,Family discord stress,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Work Stress,Z56,Job related stress,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Adjustment Disorder,F43,Difficulty coping with change,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Stress Response,F43,Reaction to stressor,General Practice,None,MEDIUM,Clinic,Yes,General Practice,YELLOW
+Burnout,Z73,Exhaustion from overwork,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Compassion Fatigue,Z73,Emotional exhaustion from helping,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Compassion Satisfaction,R45,Positive from helping others,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Grief,F43,Normal bereavement response,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Complicated Grief,F43,Prolonged intense grief,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Anger In Grief,R45,Anger as grief response,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Bargaining,F43,Attempting to negotiate loss,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Denial In Grief,F43,Denying loss reality,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Acceptance,R41,Coming to terms with change,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Resilience Building,Z59,Developing coping strategies,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Coping Skills,Z59,Strategies for managing stress,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Stress Management,Z56,Techniques to reduce stress,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Mindfulness,R50,Present moment awareness,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Meditation,Z76,Mental practice for wellness,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Relaxation Techniques,Z73,Methods to induce relaxation,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Deep Breathing,R06,Diaphragmatic breathing,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Progressive Muscle Relaxation,M79,Tensing releasing muscles,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Visualization,R41,Mental imagery technique,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Grounding,R41,Technique to return to present,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Body Scan,R41,Awareness of bodily sensations,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Journaling,Z59,Writing for emotional processing,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Art Therapy,R41,Creative expression for healing,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Music Therapy,R41,Music for therapeutic benefit,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Dance Therapy,R41,Movement for expression,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Exercise Therapy,R53,Physical activity for wellness,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Yoga,R06,Mind body practice,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Tai Chi,R06,Gentle movement practice,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Qi Gong,R06,Chinese energy cultivation,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Acupuncture,M79,Traditional needle therapy,General Practice,None,MEDIUM,Clinic,No,General Practice,GREEN
+Herbal Medicine,Z51,Plant based remedies,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Homeopathy,Z51,Dilute remedy therapy,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Naturopathy,Z51,Natural healing practices,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Chiropractic,M99,Spinal manipulation therapy,General Practice,None,LOW,Clinic,No,General Practice,YELLOW
+Massage Therapy,Z51,Therapeutic muscle manipulation,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Aromatherapy,R45,Essential oil therapy,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Crystal Therapy,Z51,Crystal healing practice,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Energy Healing,Z51,Chakra meridian healing,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Reiki,Z51,Japanese energy healing,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Hypnotherapy,F44,Guided trance therapy,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Cognitive Behavioral Therapy,F32,Thought pattern therapy,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Psychotherapy,F32,Talk therapy treatment,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Counseling,F32,Professional guidance support,General Practice,None,MEDIUM,Clinic,Yes,Psychiatry,YELLOW
+Psychodynamic Therapy,F32,Unconscious pattern therapy,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Humanistic Therapy,F32,Client centered therapy,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Existential Therapy,F32,Meaning purpose exploration,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Family Therapy,Z63,Family system treatment,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Couples Therapy,Z63,Relationship counseling,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Group Therapy,F32,Peer support group,General Practice,None,MEDIUM,Clinic,Yes,Psychiatry,YELLOW
+Support Group,Z59,Peer support gathering,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Rehabilitation Program,Z50,Recovery treatment program,General Practice,None,MEDIUM,Hospital,No,General Surgery,YELLOW
+Inpatient Treatment,Z50,Hospital based care,General Practice,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Outpatient Treatment,Z51,Non hospital based care,General Practice,None,MEDIUM,Clinic,Yes,General Practice,GREEN
+Partial Hospitalization,Z50,Day hospital program,General Practice,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Intensive Outpatient,Z51,Multiple sessions per week,General Practice,None,MEDIUM,Clinic,No,General Practice,YELLOW
+Teletherapy,Z51,Remote therapy sessions,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN
+Crisis Counseling,Z59,Emergency mental health support,General Practice,None,CRITICAL,Hospital,No,Psychiatry Emergency Medicine,RED
+Suicide Prevention,Z91,Preventing suicide risk,General Practice,None,CRITICAL,Hospital,No,Psychiatry Emergency Medicine,RED
+Crisis Intervention,Z59,Acute mental health response,General Practice,None,CRITICAL,Hospital,No,Psychiatry Emergency Medicine,RED
+De Escalation Techniques,R45,Methods to reduce agitation,General Practice,None,MEDIUM,Hospital,No,Psychiatry,YELLOW
+Harm Reduction,F10,Minimizing substance use harms,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Medication Management,Z51,Medication treatment plan,General Practice,None,MEDIUM,Clinic,Yes,General Practice Psychiatry,YELLOW
+Substance Abuse Treatment,F10,Addiction recovery program,General Practice,None,MEDIUM,Hospital,No,Psychiatry,YELLOW
+Addiction Counseling,F10,Addiction focused therapy,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Withdrawal Management,F10,Detoxification medical support,General Practice,None,HIGH,Hospital,No,Psychiatry,YELLOW
+Medication Assisted Treatment,F10,Opioid substitution therapy,General Practice,None,MEDIUM,Clinic,No,Psychiatry,YELLOW
+Narcotics Anonymous,F10,Peer recovery program,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Alcoholics Anonymous,F10,Peer recovery program,General Practice,None,LOW,Clinic,No,General Practice,GREEN
+Cognitive Rehabilitation,R41,Cognitive training therapy,General Practice,None,MEDIUM,Hospital,No,Neurology,YELLOW
+Physical Rehabilitation,R53,Physical therapy program,General Practice,None,MEDIUM,Hospital,Yes,Physiotherapy,YELLOW
+Occupational Therapy,Z51,Functional activity therapy,General Practice,None,MEDIUM,Hospital,Yes,Physiotherapy,YELLOW
+Speech Therapy,R48,Speech language therapy,General Practice,None,MEDIUM,Hospital,Yes,Physiotherapy,YELLOW
+Vision Rehabilitation,H53,Visual function training,General Practice,None,MEDIUM,Hospital,No,Ophthalmology,YELLOW
+Hearing Rehabilitation,H91,Hearing aid fitting training,General Practice,None,MEDIUM,Clinic,No,Otolaryngology,YELLOW
+Palliative Care,Z51,Comfort focused care,General Practice,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Hospice Care,Z51,End of life care,General Practice,None,MEDIUM,Hospital,No,General Practice,YELLOW
+Advance Care Planning,Z51,Future care wishes discussion,General Practice,None,LOW,Clinic,Yes,General Practice,GREEN

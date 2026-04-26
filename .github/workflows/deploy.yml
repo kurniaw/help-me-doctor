@@ -1,0 +1,148 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  id-token: write  # Required for Workload Identity Federation
+
+env:
+  REGION: asia-southeast1
+
+jobs:
+  build-and-push:
+    name: Build & Push Docker Images
+    runs-on: ubuntu-latest
+    outputs:
+      backend_image: ${{ steps.meta-backend.outputs.tags }}
+      frontend_image: ${{ steps.meta-frontend.outputs.tags }}
+      image_tag: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
+
+      - name: Docker metadata — backend
+        id: meta-backend
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/backend
+          tags: |
+            type=sha,prefix=,suffix=,format=long
+            type=raw,value=latest
+
+      - name: Docker metadata — frontend
+        id: meta-frontend
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/frontend
+          tags: |
+            type=sha,prefix=,suffix=,format=long
+            type=raw,value=latest
+
+      - name: Build & Push backend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: ${{ steps.meta-backend.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build & Push frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: ${{ steps.meta-frontend.outputs.tags }}
+          build-args: |
+            NUXT_PUBLIC_API_BASE=${{ vars.BACKEND_URL }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  terraform-apply:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    outputs:
+      backend_url: ${{ steps.tf-outputs.outputs.backend_url }}
+      frontend_url: ${{ steps.tf-outputs.outputs.frontend_url }}
+    defaults:
+      run:
+        working-directory: infrastructure
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9"
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="bucket=${{ secrets.GCP_PROJECT_ID }}-tf-state" \
+            -backend-config="prefix=hmd/terraform.tfstate"
+
+      - name: Terraform Plan
+        run: |
+          terraform plan \
+            -var="project_id=${{ secrets.GCP_PROJECT_ID }}" \
+            -var="backend_image=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/backend:${{ github.sha }}" \
+            -var="frontend_image=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/frontend:${{ github.sha }}" \
+            -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+
+      - name: Capture Terraform outputs
+        id: tf-outputs
+        run: |
+          echo "backend_url=$(terraform output -raw backend_url)" >> "$GITHUB_OUTPUT"
+          echo "frontend_url=$(terraform output -raw frontend_url)" >> "$GITHUB_OUTPUT"
+
+  health-check:
+    name: Health Check
+    runs-on: ubuntu-latest
+    needs: terraform-apply
+    steps:
+      - name: Check backend health
+        run: |
+          echo "Backend URL: ${{ needs.terraform-apply.outputs.backend_url }}"
+          curl --fail --retry 5 --retry-delay 10 \
+            "${{ needs.terraform-apply.outputs.backend_url }}/health"
+
+      - name: Check frontend
+        run: |
+          echo "Frontend URL: ${{ needs.terraform-apply.outputs.frontend_url }}"
+          curl --fail --retry 5 --retry-delay 10 \
+            "${{ needs.terraform-apply.outputs.frontend_url }}"
+
+      - name: Deployment summary
+        run: |
+          echo "### ✅ Deployment Successful" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Service | URL |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---------|-----|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Frontend | ${{ needs.terraform-apply.outputs.frontend_url }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Backend API | ${{ needs.terraform-apply.outputs.backend_url }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Commit | ${{ github.sha }} |" >> "$GITHUB_STEP_SUMMARY"

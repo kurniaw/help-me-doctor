@@ -1,0 +1,57 @@
+Clinic_ID,Clinic_Name,Division,Address,Block_House_No,Street_Name,Building_Name,Postal_Code,Phone,Clinic_Type,Operating_Hours,Latitude,Longitude,Distance_From_CBD_km
+15M0211,Acumed Medical Group,Joo Koon,1 Joo Koon Circle #01-23 Fairprice Hub,1,Joo Koon Circle,Fairprice Hub,629117,68615755,Medical Clinic,Mon-Fri: 9AM-6PM,1.32562,103.67841,24.2
+16M0004,Acumed Medical Group,Tuas,128 Tuas South Avenue 3 #01-03,128,Tuas South Avenue 3,JTC Biomed One @ Tuas Biomedical Park,637370,65701390,Medical Clinic,Mon-Fri: 8AM-5PM,1.28909,103.62652,26.5
+21M0229,Advantage Medical Clinic,City,1 Fifth Avenue #03-12 Guthrie House,1,Fifth Avenue,Guthrie House,268802,87840093,Medical Clinic,Mon-Fri: 8AM-6PM,1.33082,103.79569,2.1
+19M0160,Affinity Medical Clinic,Serangoon,253 Serangoon Central Drive #01-187,253,Serangoon Central Drive,,550253,62808080,Medical Clinic,Mon-Sat: 8AM-7PM,1.35404,103.87085,6.8
+9404401,Allergy Arthritis & Rheumatism Clinic,City,1 Farrer Park Station Road #14-13 Connexion,1,Farrer Park Station Road,Connexion,217562,64749438,Specialist Clinic,Mon-Fri: 9AM-5PM,1.31247,103.85393,2.5
+17M0228,Allhealth Family Clinic,Tampines,872C Tampines Street 86 #01-01,872C,Tampines Street 86,,523872,67026467,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-1PM,1.35523,103.93163,12.4
+19M0341,Ally Health,Clementi,46-2 Commonwealth Drive #01-372,46-2,Commonwealth Drive,,140462,66977700,Medical Clinic,Mon-Fri: 8AM-6PM,1.29996,103.79823,8.9
+18M0125,Anchor Clinic,Bukit Panjang,8A Pending Road #01-01,8A,Pending Road,Bukit Panjang Plaza,670008,62000123,Medical Clinic,Mon-Fri: 8AM-5:30PM Sat: 8AM-12PM,1.37821,103.78245,11.2
+20M0156,Apollo Medical Clinic,Woodlands,634 Woodlands Drive 73 #01-04,634,Woodlands Drive 73,,730634,63141098,Medical Clinic,Mon-Thu: 8:30AM-3PM 6PM-9PM Fri: 8:30AM-3PM,1.43562,103.80125,18.5
+15M0045,Arcane Health,Bukit Batok,251 Bukit Batok Street 23 #01-03,251,Bukit Batok Street 23,,650251,62658800,Medical Clinic,Mon-Fri: 8AM-6PM,1.34567,103.74892,10.3
+19M0210,Ascent Medical Clinic,Tanjong Pagar,1 Far East Square #01-04,1,Far East Square,Far East Square,048441,64090890,Medical Clinic,Mon-Fri: 8:30AM-5:30PM,1.27433,103.84556,1.8
+20M0287,AVA Healthcare Clinic,Chua Chu Kang,1 Chua Chu Kang Loop #01-03,1,Chua Chu Kang Loop,,680001,67695123,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-1PM,1.39874,103.74521,16.8
+21M0089,Beacon Medical Clinic,Bedok,3 Bedok North Road #01-02,3,Bedok North Road,,460003,64412567,Medical Clinic,Mon-Fri: 8AM-5PM,1.32124,103.93214,9.5
+19M0298,Bestcare Clinic,Bukit Merah,1 Cantonment Road #01-08,1,Cantonment Road,,140001,65442890,Medical Clinic,Mon-Fri: 8AM-6PM,1.28234,103.81223,3.2
+18M0234,Bliss Medical,Hougang,681 Hougang Avenue 8 #01-831,681,Hougang Avenue 8,,530681,68434501,Medical Clinic,24 Hours,1.35687,103.89234,11.2
+17M0156,Blue Cross Healthcare,Ang Mo Kio,2 Ang Mo Kio Street 21 #01-02,2,Ang Mo Kio Street 21,,560002,64562123,Medical Clinic,Mon-Fri: 8AM-6PM,1.36892,103.84567,8.7
+20M0445,Bright Health Clinic,Pasir Ris,230 Pasir Ris Street 21 #01-404,230,Pasir Ris Street 21,,510230,67842901,Medical Clinic,Mon-Fri: 8AM-7PM Sat: 9AM-2PM,1.37234,103.97456,13.8
+19M0067,Brookvale Clinic,Marine Parade,1 Marine Parade Central #01-02,1,Marine Parade Central,,449408,64412890,Medical Clinic,Mon-Fri: 8AM-5PM,1.30124,103.94789,7.2
+21M0334,Bukit Panjang Medical Centre,Bukit Panjang,750 Upper Bukit Timah Road #01-05,750,Upper Bukit Timah Road,,670750,68995234,Medical Clinic,Mon-Fri: 8AM-6PM,1.37456,103.77892,12.1
+18M0089,Central 24-HR Clinic,Bedok,219 Bedok Central #01-124,219,Bedok Central,,460219,64410999,Medical Clinic,24 Hours,1.32456,103.93445,9.3
+18M0091,Central 24-HR Clinic,Geylang,101 Geylang Road #01-02,101,Geylang Road,,389146,66744890,Medical Clinic,24 Hours,1.30234,103.87564,4.5
+18M0092,Central 24-HR Clinic,Hougang,681 Hougang Avenue 8 #01-831,681,Hougang Avenue 8,,530681,68434501,Medical Clinic,24 Hours,1.35687,103.89234,11.2
+18M0093,Central 24-HR Clinic,Pasir Ris,230 Pasir Ris Street 21 #01-404,230,Pasir Ris Street 21,,510230,67842901,Medical Clinic,24 Hours,1.37234,103.97456,13.8
+18M0094,Central 24-HR Clinic,Toa Payoh,271 Toa Payoh Lorong 1 #01-301,271,Toa Payoh Lorong 1,,310271,62558901,Medical Clinic,24 Hours,1.33456,103.86234,7.8
+19M0401,Central 24-HR Clinic,Bukit Timah,301 Upper Bukit Timah Road #01-03,301,Upper Bukit Timah Road,,588177,68995123,Medical Clinic,24 Hours,1.34789,103.76234,9.2
+20M0234,Changi Medical Clinic,Changi,1 Changi Airport Boulevard #01-03,1,Changi Airport Boulevard,,819663,65423890,Medical Clinic,Mon-Fri: 7AM-10PM Sat-Sun: 8AM-8PM,1.36123,103.98765,18.2
+21M0456,Chee Heng Medical Group,Clementi,120 Clementi Road #01-06,120,Clementi Road,,129742,67732456,Medical Clinic,Mon-Fri: 8AM-6PM,1.30567,103.76445,7.5
+19M0123,Chin Teck Medical Clinic,Kallang,1 Kallang Sector #01-02,1,Kallang Sector,,349278,65443210,Medical Clinic,Mon-Fri: 8AM-5PM,1.30234,103.86789,3.8
+18M0345,Clinical Horizon,Tampines,1 Tampines Central #01-07,1,Tampines Central,,529654,67823456,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-1PM,1.35234,103.93456,11.8
+20M0012,Concord Medical Clinic,City,24 Eu Tong Sen Street #01-02,24,Eu Tong Sen Street,,059805,62221234,Medical Clinic,Mon-Fri: 8AM-6PM,1.29345,103.84123,1.5
+19M0289,Cornerstone Clinic,Ang Mo Kio,1 Ang Mo Kio Street 65 #01-3187,1,Ang Mo Kio Street 65,,560065,64563456,Medical Clinic,Mon-Fri: 8AM-7PM Sat: 9AM-1PM,1.37123,103.84567,8.3
+21M0378,CP Healthcare Clinic,Jurong,135 Jurong Gateway Road #01-321,135,Jurong Gateway Road,,600135,67738901,Dental Clinic,Mon-Fri: 9AM-6PM Sat: 9AM-1PM,1.34234,103.74567,12.5
+19M0201,Cryptus Medical Clinic,Katong,1 Tanjong Katong Road #02-01,1,Tanjong Katong Road,,437157,64475612,Medical Clinic,Mon-Fri: 8AM-6PM,1.29876,103.89234,6.5
+20M0445,Deepak Medical Clinic,Ubi,1 Ubi Road 1 #01-03,1,Ubi Road 1,,408545,65341234,Medical Clinic,Mon-Fri: 8AM-6PM,1.33456,103.89123,8.2
+18M0456,Delta Clinic,Yishun,1 Yishun Avenue 7 #01-02,1,Yishun Avenue 7,,760001,64501234,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-1PM,1.42567,103.84123,19.3
+19M0334,Dharma Care Medical,Potong Pasir,1 Potong Pasir Avenue 1 #01-01,1,Potong Pasir Avenue 1,,350001,62912345,Medical Clinic,Mon-Fri: 8AM-6PM,1.34234,103.88456,7.2
+20M0156,Downtown Medical Clinic,City,1 Ann Siang Hill #01-02,1,Ann Siang Hill,,069409,62225234,Medical Clinic,Mon-Fri: 8:30AM-5PM,1.28567,103.84234,1.2
+21M0267,Dr Chou Clinic,Bukit Batok,177 Bukit Batok East Avenue 3 #01-123,177,Bukit Batok East Avenue 3,,650177,62651234,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-1PM,1.34789,103.74234,10.1
+19M0445,Dr Durai's Clinic,Jurong,1 Jurong West Street 91 #01-02,1,Jurong West Street 91,,640001,68645234,Medical Clinic,Mon-Fri: 8AM-7PM Sat: 8AM-2PM,1.33456,103.70234,15.2
+18M0234,Dr Quah Clinic,Tanjong Pagar,1 Far East Square #02-01,1,Far East Square,,048441,65458901,Medical Clinic,Mon-Fri: 8AM-5:30PM,1.27433,103.84556,1.8
+20M0389,Eagle Eye Clinic,Orchard,1 Orchard Road #01-03,1,Orchard Road,,238801,65354123,Specialist Clinic,Mon-Fri: 9AM-5PM,1.30234,103.83234,2.3
+21M0123,East Coast Medical,Katong,1425 East Coast Road #01-02,1425,East Coast Road,,428730,64456789,Medical Clinic,Mon-Fri: 8AM-6PM,1.29345,103.89234,6.8
+19M0567,Eastern Health Clinic,Bedok,1 Bedok North Street 3 #01-02,1,Bedok North Street 3,,460001,64412345,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-1PM,1.32123,103.93234,9.4
+18M0234,Ebuyer Medical,Tampines,1 Tampines Central 2 #01-02,1,Tampines Central 2,,529654,67827890,Medical Clinic,Mon-Fri: 8AM-6PM,1.35234,103.93567,11.7
+20M0456,Endeavour Health,Woodlands,701 Woodlands Drive 70 #01-20,701,Woodlands Drive 70,,730701,68008901,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-1PM,1.43234,103.80456,18.8
+19M0678,Essense Medical Clinic,Ang Mo Kio,2 Ang Mo Kio Street 61 #01-01,2,Ang Mo Kio Street 61,,560061,64501234,Medical Clinic,Mon-Fri: 8AM-7PM Sat: 9AM-2PM,1.36789,103.84123,8.4
+21M0345,Essential Family Clinic,Woodlands,626A Woodlands Drive 52 #01-01,626A,Woodlands Drive 52,,731626,63668057,Medical Clinic,Mon-Thu: 8:30AM-12:30PM 2PM-4PM 7PM-9PM Fri: 8:30AM-12:30PM 2PM-4PM Sat: 8:30AM-12:30PM,1.43567,103.80234,19.2
+20M0234,Everton Medical Clinic,Bukit Panjang,8 Pending Road #01-03,8,Pending Road,,670008,68002345,Medical Clinic,Mon-Fri: 8AM-6PM,1.37456,103.78123,11.4
+19M0456,Excellence Medical,Bishan,1 Bishan Street 22 #01-01,1,Bishan Street 22,,570001,62512345,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-1PM,1.35234,103.84567,7.9
+18M0123,Excellent Care Clinic,Mountbatten,1 Mountbatten Road #01-02,1,Mountbatten Road,,398009,64472345,Medical Clinic,Mon-Fri: 8AM-6PM,1.31234,103.88456,5.2
+20M0567,Fairprice Medical Clinic,Jurong,1 Jurong West Central 2 #B1-19D Jurong Point Shopping Centre,1,Jurong West Central 2,,648886,67738901,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-2PM,1.34123,103.74567,12.6
+19M0789,Family First Clinic,Yishun,1 Yishun Central #01-02,1,Yishun Central,,760001,64567890,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-1PM,1.42345,103.84234,19.1
+21M0234,Family Health Associates,Clementi,150 Clementi Avenue 1 #01-02,150,Clementi Avenue 1,,129742,67732456,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-1PM,1.31234,103.76789,8.1
+20M0345,Fast Care Medical,Serangoon,800 Serangoon Road #01-02,800,Serangoon Road,,380800,62990234,Medical Clinic,Mon-Fri: 8AM-6PM Sat: 9AM-2PM,1.36234,103.87345,7.1
+19M0456,Frontline Medical Clinic,Jurong,668 Jurong West Street 65 #01-01,668,Jurong West Street 65,,640668,68641234,Medical Clinic,Mon-Fri: 8AM-7PM Sat: 8AM-1PM,1.33234,103.70789,15.8
+18M0678,Frontier Medical Associates,Woodlands,691 Woodlands Drive 73 #01-04,691,Woodlands Drive 73,,730691,63141098,Medical Clinic,Mon Thu: 8:30AM-3PM 6PM-9PM Tue Wed Fri: 8:30AM-3PM Sat: 8:30AM-1PM,1.43456,103.80567,18.6

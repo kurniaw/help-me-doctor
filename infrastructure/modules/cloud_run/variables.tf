@@ -1,0 +1,9 @@
+variable "project_id" { type = string }
+variable "region" { type = string }
+variable "backend_image" { type = string }
+variable "frontend_image" { type = string }
+variable "mongo_uri_secret_id" { type = string }
+variable "jwt_secret_id" { type = string }
+variable "vertex_index_id" { type = string }
+variable "vertex_endpoint_id" { type = string }
+variable "registry_url" { type = string }

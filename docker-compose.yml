@@ -1,0 +1,67 @@
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: hmd-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: helpmedoctor
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - hmd-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hmd-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./data:/data
+    environment:
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB_NAME: helpmedoctor
+      JWT_SECRET: dev-secret-change-in-production
+      JWT_ALGORITHM: HS256
+      JWT_EXPIRE_MINUTES: "60"
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID:-your-project-id}
+      GCP_REGION: ${GCP_REGION:-asia-southeast1}
+      VERTEX_INDEX_ID: ${VERTEX_INDEX_ID:-}
+      VERTEX_INDEX_ENDPOINT_ID: ${VERTEX_INDEX_ENDPOINT_ID:-}
+      GOOGLE_APPLICATION_CREDENTIALS: /app/service-account.json
+      DATA_DIR: /data
+    depends_on:
+      - mongo
+    networks:
+      - hmd-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: hmd-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.nuxt
+    environment:
+      NUXT_PUBLIC_API_BASE: http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - hmd-network
+
+volumes:
+  mongo_data:
+
+networks:
+  hmd-network:
+    driver: bridge
