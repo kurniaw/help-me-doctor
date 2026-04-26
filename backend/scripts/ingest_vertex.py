@@ -117,7 +117,7 @@ def _create_or_update_index(
             distance_measure_type="DOT_PRODUCT_DISTANCE",
             leaf_node_embedding_count=500,
             leaf_nodes_to_search_percent=7,
-            description="Medical conditions embeddings for HelpMeDoctor",
+            description="Medical conditions embeddings for Help Me Doctor",
         )
         logger.info("Index created: %s", index.resource_name)
 

@@ -1,6 +1,6 @@
 services:
   mongo:
-    image: mongo:7.0
+    image: mongo:7
     container_name: hmd-mongo
     restart: unless-stopped
     environment:
@@ -28,7 +28,7 @@ services:
       MONGO_DB_NAME: helpmedoctor
       JWT_SECRET: dev-secret-change-in-production
       JWT_ALGORITHM: HS256
-      JWT_EXPIRE_MINUTES: "60"
+      JWT_EXPIRE_MINUTES: "90"
       GCP_PROJECT_ID: ${GCP_PROJECT_ID:-your-project-id}
       GCP_REGION: ${GCP_REGION:-asia-southeast1}
       VERTEX_INDEX_ID: ${VERTEX_INDEX_ID:-}

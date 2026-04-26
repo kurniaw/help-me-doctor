@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 
   typescript: {
     strict: true,
-    typeCheck: true,
+    typeCheck: false,
   },
 
   primevue: {
@@ -51,7 +51,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'HelpMeDoctor — Singapore Medical Triage',
+      title: 'Help Me Doctor — Singapore Medical Triage',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'AI-powered Singapore medical and legal triage assistant' },

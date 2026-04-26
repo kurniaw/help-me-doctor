@@ -1,4 +1,4 @@
-# HelpMeDoctor — Implementation Plan
+# Help Me Doctor — Implementation Plan
 
 ## Overview
 

@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="HelpMeDoctor API",
+        title="Help Me Doctor API",
         description="Singapore Medical/Legal RAG Multi-Agent System",
         version="1.0.0",
         lifespan=lifespan,

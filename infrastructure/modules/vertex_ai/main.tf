@@ -24,7 +24,7 @@ resource "google_vertex_ai_index_endpoint" "medical_endpoint" {
   project      = var.project_id
   region       = var.region
   display_name = "hmd-medical-endpoint"
-  description  = "HelpMeDoctor medical conditions search endpoint"
+  description  = "Help Me Doctor medical conditions search endpoint"
 
   public_endpoint_enabled = true
 }

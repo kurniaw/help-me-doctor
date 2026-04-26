@@ -1,4 +1,4 @@
-# HelpMeDoctor 🏥
+# Help Me Doctor 🏥
 
 > AI-powered Singapore medical and legal triage assistant. Describe your symptoms or situation — multi-agent AI routes your query and connects you with the right healthcare providers.
 
@@ -41,8 +41,13 @@ cp backend/.env.example backend/.env
 #   JWT_SECRET=<any-random-string>
 #   GCP_PROJECT_ID=<your-project-id>  (optional for local dev without Vertex AI)
 
+
+
 # Frontend environment
 cp frontend/.env.example frontend/.env
+
+cd frontend
+npm install
 ```
 
 ### 2. Start services with Docker Compose
@@ -64,10 +69,9 @@ In a new terminal:
 
 ```bash
 cd backend
-pip install poetry && poetry install
-
-# Load all 8 CSV files into MongoDB
-poetry run python scripts/ingest_mongo.py --data-dir ../data
+conda env create -f environment.yml                                                                                                            
+conda activate help-me-doctor
+python scripts/ingest_mongo.py --data-dir ../data
 ```
 
 Expected output: ~500 documents inserted across 8 collections.

@@ -5,17 +5,26 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Poetry
-RUN pip install poetry==1.8.3
-
 WORKDIR /app
 
-# Copy dependency files
-COPY pyproject.toml poetry.lock* ./
-
-# Install dependencies (no virtualenv inside container)
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi --no-root
+# Install Python dependencies directly with pip (no lockfile needed)
+RUN pip install --no-cache-dir \
+    "fastapi>=0.115" \
+    "uvicorn[standard]>=0.30" \
+    "langgraph>=0.2" \
+    "langchain-google-vertexai>=2.0" \
+    "langchain-core>=0.3" \
+    "motor>=3.5" \
+    "beanie==1.26.0" \
+    "pydantic-settings>=2.4" \
+    "python-jose[cryptography]>=3.3" \
+    "passlib[bcrypt]>=1.7" \
+    "bcrypt==3.2.2" \
+    "python-multipart>=0.0.9" \
+    "pandas>=2.2" \
+    "google-cloud-aiplatform>=1.60" \
+    "httpx>=0.27" \
+    "email-validator>=2.0"
 
 # Copy application code
 COPY . .
