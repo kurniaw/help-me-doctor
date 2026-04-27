@@ -315,7 +315,7 @@ gcloud iam workload-identity-pools create github-pool \
   --display-name="GitHub Actions Pool"
 
 # Create provider
-gcloud iam workload-identity-pools providers create-oidc github-provider --project=$PROJECT_ID --location=global --workload-identity-pool=github-pool --display-name="GitHub Provider" --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" --attribute-condition="assertion.repository=='$REPO'" --issuer-uri="https://token.actions.githubusercontent.com"
+gcloud iam workload-identity-pools providers create-oidc github-provider --project=$PROJECT_ID --location=global --workload-identity-pool=github-pool --display-name="GitHub Provider" --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" --attribute-condition="attribute.repository=='$REPO'" --issuer-uri="https://token.actions.githubusercontent.com"
 
 # Create service account
 gcloud iam service-accounts create github-actions-sa \
