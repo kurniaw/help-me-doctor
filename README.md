@@ -261,8 +261,7 @@ docker push $REGISTRY/backend:latest
 
 # Build and push frontend (embeds the backend URL at build time)
 BACKEND_URL=$(cd infrastructure && terraform output -raw backend_url)
-docker build --platform linux/amd64 --build-arg NUXT_PUBLIC_API_BASE=$BACKEND_URL \
-  -t $REGISTRY/frontend:latest ./frontend
+docker build --platform linux/amd64 --build-arg NUXT_PUBLIC_API_BASE=$BACKEND_URL -t $REGISTRY/frontend:latest ./frontend
 docker push $REGISTRY/frontend:latest
 ```
 
@@ -273,6 +272,10 @@ cd infrastructure
 terraform apply \
   -var="backend_image=$REGISTRY/backend:latest" \
   -var="frontend_image=$REGISTRY/frontend:latest"
+
+gcloud run deploy hmd-backend --image=$REGISTRY/backend:latest --region=asia-southeast1 --project=ntu-data-science-ai
+gcloud run deploy hmd-frontend --image=$REGISTRY/frontend:latest --region=asia-southeast1 --project=ntu-data-science-ai
+  
 ```
 
 ### Step 9: Seed production data
@@ -312,13 +315,7 @@ gcloud iam workload-identity-pools create github-pool \
   --display-name="GitHub Actions Pool"
 
 # Create provider
-gcloud iam workload-identity-pools providers create-oidc github-provider \
-  --project=$PROJECT_ID \
-  --location=global \
-  --workload-identity-pool=github-pool \
-  --display-name="GitHub Provider" \
-  --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" \
-  --issuer-uri="https://token.actions.githubusercontent.com"
+gcloud iam workload-identity-pools providers create-oidc github-provider --project=$PROJECT_ID --location=global --workload-identity-pool=github-pool --display-name="GitHub Provider" --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" --attribute-condition="assertion.repository=='$REPO'" --issuer-uri="https://token.actions.githubusercontent.com"
 
 # Create service account
 gcloud iam service-accounts create github-actions-sa \
@@ -332,7 +329,9 @@ for ROLE in \
   roles/storage.admin \
   roles/secretmanager.secretAccessor \
   roles/aiplatform.admin \
-  roles/iam.serviceAccountUser; do
+  roles/iam.serviceAccountAdmin \
+  roles/iam.serviceAccountUser \
+  roles/resourcemanager.projectIamAdmin; do
   gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="serviceAccount:github-actions-sa@$PROJECT_ID.iam.gserviceaccount.com" \
     --role=$ROLE
@@ -355,7 +354,7 @@ gcloud iam workload-identity-pools providers describe github-provider \
 
 ### GitHub repository configuration
 
-Add these **Secrets** in your GitHub repo settings (`Settings → Secrets → Actions`):
+Add these **Secrets** in your GitHub repo settings (`Settings → Secrets and variables → Actions`):
 
 | Secret | Value |
 |---|---|
@@ -365,11 +364,21 @@ Add these **Secrets** in your GitHub repo settings (`Settings → Secrets → Ac
 | `MONGO_URI` | Your MongoDB Atlas connection string |
 | `JWT_SECRET` | Strong random secret (same as in Secret Manager) |
 
-Add this **Variable**:
+Add this **Variable** (under the Variables tab, not Secrets):
 
 | Variable | Value |
 |---|---|
-| `BACKEND_URL` | Cloud Run backend URL (after first deploy) |
+| `BACKEND_URL` | Cloud Run backend URL from `terraform output -raw backend_url` |
+
+> `BACKEND_URL` is baked into the frontend image at build time. Update it if the backend URL ever changes, then redeploy.
+
+### Workflows
+
+| Workflow | Trigger | What it does |
+|---|---|---|
+| **CI** | Push or PR to `main` | Lint (ruff, mypy, ESLint), test (pytest, Vitest), Docker build verification |
+| **Deploy** | Push to `main` | Build & push images to Artifact Registry, `terraform apply`, health check |
+| **Seed Data** | Manual (`workflow_dispatch`) | Ingest CSVs into MongoDB; optionally run Vertex AI embedding ingestion |
 
 ### Trigger a deployment
 
@@ -377,9 +386,9 @@ Add this **Variable**:
 git push origin main
 ```
 
-This triggers:
-1. Build and push Docker images to Artifact Registry
-2. `terraform apply` with new image tags
+CI runs first (lint + tests). If it passes, Deploy runs automatically:
+1. Build and push Docker images to Artifact Registry (tagged with git SHA + `latest`)
+2. `terraform apply` with the new image tags
 3. Health check on both services
 
 ### Seed data via GitHub Actions

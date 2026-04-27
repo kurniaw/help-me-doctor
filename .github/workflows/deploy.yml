@@ -56,6 +56,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./backend
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.meta-backend.outputs.tags }}
           cache-from: type=gha
@@ -65,6 +66,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.meta-frontend.outputs.tags }}
           build-args: |
@@ -107,6 +109,7 @@ jobs:
         run: |
           terraform plan \
             -var="project_id=${{ secrets.GCP_PROJECT_ID }}" \
+            -var="region=${{ env.REGION }}" \
             -var="backend_image=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/backend:${{ github.sha }}" \
             -var="frontend_image=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/frontend:${{ github.sha }}" \
             -out=tfplan

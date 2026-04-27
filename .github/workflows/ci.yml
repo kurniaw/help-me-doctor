@@ -137,5 +137,7 @@ jobs:
         with:
           context: ./frontend
           push: false
+          build-args: |
+            NUXT_PUBLIC_API_BASE=http://localhost:8000
           cache-from: type=gha
           cache-to: type=gha,mode=max
