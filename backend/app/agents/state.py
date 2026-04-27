@@ -1,4 +1,4 @@
-from typing import Optional, TypedDict
+from typing import TypedDict
 
 
 class ConditionMatch(TypedDict, total=False):
@@ -106,14 +106,14 @@ class AgentState(TypedDict, total=False):
     hospitals: list[HospitalMatch]
     legal_cases: list[LegalCaseMatch]
     forensic_specialists: list[ForensicSpecialistMatch]
-    authorities: Optional[AuthoritiesInfo]
+    authorities: AuthoritiesInfo | None
     chas_clinics: list[ChasClinicMatch]
 
     # Agent 3 — Coordinator output (DUAL cases only)
-    coordination_plan: Optional[CoordinationPlan]
+    coordination_plan: CoordinationPlan | None
 
     # Agent 4 — ResponseFormatter output
     formatted_response: str
 
     # Error state
-    error: Optional[str]
+    error: str | None

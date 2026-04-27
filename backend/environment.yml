@@ -5,6 +5,7 @@ channels:
 dependencies:
   - python=3.12
   - pip
+  - poetry>=1.8
   - pip:
       - fastapi>=0.115
       - uvicorn[standard]>=0.30

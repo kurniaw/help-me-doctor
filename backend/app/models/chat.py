@@ -1,10 +1,7 @@
-from datetime import datetime, timezone
-from typing import Optional
+from datetime import UTC, datetime
 
-from beanie import Document, Link
+from beanie import Document
 from pydantic import Field
-
-from app.models.user import UserDocument
 
 
 class MessageDocument:
@@ -12,20 +9,20 @@ class MessageDocument:
         self,
         role: str,
         content: str,
-        urgency: Optional[str] = None,
-        pathway: Optional[str] = None,
-        timestamp: Optional[datetime] = None,
+        urgency: str | None = None,
+        pathway: str | None = None,
+        timestamp: datetime | None = None,
     ) -> None:
         self.role = role
         self.content = content
         self.urgency = urgency
         self.pathway = pathway
-        self.timestamp = timestamp or datetime.now(timezone.utc)
+        self.timestamp = timestamp or datetime.now(UTC)
 
 
 class ChatSessionDocument(Document):
     user_id: str
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     messages: list[dict] = Field(default_factory=list)
 
     class Settings:

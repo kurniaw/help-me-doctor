@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import re
-from typing import Any, Optional
+from typing import Any
 
 from app.agents.state import (
     AgentState,
@@ -241,7 +241,7 @@ async def _search_forensic_specialists(case_type: str) -> list[ForensicSpecialis
         return []
 
 
-async def _search_authorities(case_type: str) -> Optional[AuthoritiesInfo]:
+async def _search_authorities(case_type: str) -> AuthoritiesInfo | None:
     """Search legal master for contact authorities."""
     db = get_database()
     collection = db["legal_master"]
@@ -323,7 +323,7 @@ async def knowledge_matcher_node(state: AgentState) -> AgentState:
     task_keys = list(tasks.keys())
     task_results = await asyncio.gather(*[tasks[k] for k in task_keys], return_exceptions=True)
     results: dict[str, Any] = {}
-    for key, result in zip(task_keys, task_results):
+    for key, result in zip(task_keys, task_results, strict=False):
         if isinstance(result, Exception):
             logger.error("Task %s failed: %s", key, result)
             results[key] = []
@@ -345,7 +345,7 @@ async def knowledge_matcher_node(state: AgentState) -> AgentState:
     # Legal dependent queries
     legal_cases: list[LegalCaseMatch] = results.get("legal_cases", [])
     forensic_specialists: list[ForensicSpecialistMatch] = []
-    authorities: Optional[AuthoritiesInfo] = None
+    authorities: AuthoritiesInfo | None = None
 
     if is_legal and legal_cases:
         case_type = legal_cases[0].get("case_type", "assault")

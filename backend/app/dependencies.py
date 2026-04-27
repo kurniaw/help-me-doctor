@@ -18,8 +18,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> UserDocument:
         user_id: str = payload.get("sub", "")
         if not user_id:
             raise credentials_exception
-    except ValueError:
-        raise credentials_exception
+    except ValueError as err:
+        raise credentials_exception from err
 
     user = await UserDocument.get(user_id)
     if user is None:

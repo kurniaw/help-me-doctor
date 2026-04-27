@@ -1,17 +1,16 @@
-from enum import Enum
-from typing import Optional
+from enum import StrEnum
 
 from pydantic import BaseModel
 
 
-class PathwayEnum(str, Enum):
+class PathwayEnum(StrEnum):
     MEDICAL = "MEDICAL"
     LEGAL = "LEGAL"
     DUAL = "DUAL"
     OCCUPATIONAL = "OCCUPATIONAL"
 
 
-class UrgencyEnum(str, Enum):
+class UrgencyEnum(StrEnum):
     CRITICAL = "CRITICAL"
     HIGH = "HIGH"
     MEDIUM = "MEDIUM"
@@ -22,4 +21,4 @@ class RouterOutput(BaseModel):
     urgency: UrgencyEnum
     medical_keywords: list[str]
     legal_keywords: list[str]
-    reasoning: Optional[str] = None
+    reasoning: str | None = None

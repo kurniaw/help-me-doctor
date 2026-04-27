@@ -1,5 +1,4 @@
 import logging
-from typing import Optional
 
 from google.cloud import aiplatform
 
@@ -8,10 +7,10 @@ from app.rag.embedder import embed_query
 
 logger = logging.getLogger(__name__)
 
-_endpoint: Optional[aiplatform.MatchingEngineIndexEndpoint] = None
+_endpoint: aiplatform.MatchingEngineIndexEndpoint | None = None
 
 
-def get_endpoint() -> Optional[aiplatform.MatchingEngineIndexEndpoint]:
+def get_endpoint() -> aiplatform.MatchingEngineIndexEndpoint | None:
     global _endpoint
     settings = get_settings()
 

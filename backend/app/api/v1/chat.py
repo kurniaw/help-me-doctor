@@ -1,8 +1,8 @@
 import json
 import logging
 import uuid
-from datetime import datetime, timezone
-from typing import AsyncGenerator
+from collections.abc import AsyncGenerator
+from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
@@ -86,7 +86,7 @@ async def _stream_response(
                         {
                             "role": "user",
                             "content": user_message,
-                            "timestamp": datetime.now(timezone.utc).isoformat(),
+                            "timestamp": datetime.now(UTC).isoformat(),
                         }
                     )
                     session.messages.append(
@@ -95,7 +95,7 @@ async def _stream_response(
                             "content": full_response,
                             "urgency": urgency,
                             "pathway": pathway,
-                            "timestamp": datetime.now(timezone.utc).isoformat(),
+                            "timestamp": datetime.now(UTC).isoformat(),
                         }
                     )
                     await session.save()

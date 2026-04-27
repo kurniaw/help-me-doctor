@@ -55,7 +55,6 @@ MEDICAL_WORDS = [
 def _keyword_fallback(user_message: str) -> dict[str, Any]:
     """Keyword-based heuristic classification when LLM fails."""
     lower = user_message.lower()
-    words = lower.split()
 
     medical_kw = [w for w in MEDICAL_WORDS if w in lower]
     legal_kw = [w for w in LEGAL_WORDS if w in lower]
