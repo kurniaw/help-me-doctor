@@ -13,15 +13,15 @@
   /* Urgency */
   --hmd-critical:        #dc2626;
   --hmd-critical-bg:     #fef2f2;
-  --hmd-critical-border: #fecaca;
+  --hmd-critical-border: #fca5a5;
   --hmd-critical-text:   #991b1b;
   --hmd-high:            #ea580c;
   --hmd-high-bg:         #fff7ed;
-  --hmd-high-border:     #fed7aa;
+  --hmd-high-border:     #fdba74;
   --hmd-high-text:       #9a3412;
   --hmd-medium:          #2563eb;
   --hmd-medium-bg:       #eff6ff;
-  --hmd-medium-border:   #bfdbfe;
+  --hmd-medium-border:   #93c5fd;
   --hmd-medium-text:     #1e40af;
   --hmd-success:         #16a34a;
 
@@ -29,7 +29,7 @@
   --hmd-bg:           #f1f5f9;
   --hmd-surface:      #ffffff;
   --hmd-surface-2:    #f8fafc;
-  --hmd-border:       #e2e8f0;
+  --hmd-border:       #54575d;
 
   /* Text */
   --hmd-text:         #0f172a;

@@ -19,8 +19,7 @@
 |---|---|---|
 | Docker + Docker Compose | Latest | [docker.com](https://www.docker.com) |
 | Node.js | 20+ | [nodejs.org](https://nodejs.org) |
-| Python | 3.12+ | [python.org](https://www.python.org) |
-| Poetry | 1.8+ | `pip install poetry` |
+| Conda | Latest | [miniforge](https://github.com/conda-forge/miniforge) or [Anaconda](https://www.anaconda.com) |
 | GCP Account | — | For Vertex AI + Cloud Run |
 | MongoDB Atlas | Free tier | [mongodb.com/atlas](https://www.mongodb.com/atlas) |
 | Terraform | 1.6+ | [terraform.io](https://www.terraform.io) |
@@ -105,7 +104,8 @@ gsutil mb -l asia gs://YOUR_PROJECT_ID-hmd-data
 
 # 2. Run embedding ingestion (~15 min, 645 conditions)
 cd backend
-poetry run python scripts/ingest_vertex.py \
+conda activate help-me-doctor
+python scripts/ingest_vertex.py \
   --project YOUR_PROJECT_ID \
   --region asia-southeast1 \
   --bucket YOUR_PROJECT_ID-hmd-data \
@@ -127,21 +127,22 @@ poetry run python scripts/ingest_vertex.py \
 
 ```bash
 cd backend
-poetry install
+conda env create -f environment.yml   # first time only
+conda activate help-me-doctor
 cp .env.example .env  # configure your .env
 
 # Run with hot reload
-poetry run uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload --port 8000
 
 # API docs
 open http://localhost:8000/docs
 
 # Run linting
-poetry run ruff check .
-poetry run mypy app/
+ruff check .
+mypy app/
 
 # Run tests
-poetry run pytest tests/ -v --asyncio-mode=auto
+pytest tests/ -v --asyncio-mode=auto
 ```
 
 ### Frontend (Nuxt.js)
@@ -178,11 +179,11 @@ gcloud billing accounts list
 gcloud billing projects link YOUR_PROJECT_ID --billing-account=BILLING_ACCOUNT_ID
 ```
 
-### Step 2: Create Terraform state bucket
+### Step 2: Create Terraform state bucket (Optional)
 
 ```bash
-gsutil mb -l asia gs://YOUR_PROJECT_ID-tf-state
-gsutil versioning set on gs://YOUR_PROJECT_ID-tf-state
+# gsutil mb -l asia gs://YOUR_PROJECT_ID-tf-state
+# gsutil versioning set on gs://YOUR_PROJECT_ID-tf-state
 ```
 
 ### Step 3: Create Secrets in Secret Manager
@@ -207,6 +208,14 @@ cp terraform.tfvars.example terraform.tfvars
 ```
 
 ### Step 5: Apply Terraform
+
+Install Terraform: [https://developer.hashicorp.com/terraform/install]
+```bash
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+```
+
+Apply Terraform
 
 ```bash
 cd infrastructure
@@ -255,7 +264,8 @@ terraform apply \
 MONGO_URI=$(gcloud secrets versions access latest --secret=hmd-mongo-uri)
 
 cd backend
-MONGO_URI=$MONGO_URI poetry run python scripts/ingest_mongo.py \
+conda activate help-me-doctor
+MONGO_URI=$MONGO_URI python scripts/ingest_mongo.py \
   --data-dir ../data \
   --mongo-uri "$MONGO_URI"
 ```

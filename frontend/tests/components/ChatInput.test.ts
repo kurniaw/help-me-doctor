@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import ChatInput from '~/components/chat/ChatInput.vue'
 
 describe('ChatInput', () => {

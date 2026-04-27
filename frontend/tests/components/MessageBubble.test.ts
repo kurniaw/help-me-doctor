@@ -84,6 +84,6 @@ describe('MessageBubble', () => {
         message: makeMessage({ urgency: 'CRITICAL' }),
       },
     })
-    expect(wrapper.find('.urgency-border-critical').exists()).toBe(true)
+    expect(wrapper.find('.bubble-critical').exists()).toBe(true)
   })
 })

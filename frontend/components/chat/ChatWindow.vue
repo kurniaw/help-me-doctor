@@ -58,9 +58,9 @@
         </template>
       </div>
     </div>
-
+    
     <!-- Input bar -->
-    <ChatChatInput :streaming="chatStore.streaming" @send="chatStore.sendMessage" />
+    <ChatInput :streaming="chatStore.streaming" @send="chatStore.sendMessage" />
   </div>
 </template>
 

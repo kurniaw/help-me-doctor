@@ -9,7 +9,7 @@
               <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
             </svg>
           </div>
-          <span class="logo-name">HelpMeDoctor</span>
+          <span class="logo-name">Help Me Doctor</span>
           <span class="logo-badge">SG</span>
         </div>
 

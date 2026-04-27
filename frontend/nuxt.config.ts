@@ -19,7 +19,7 @@ export default defineNuxtConfig({
         preset: 'Aura',
         options: {
           darkModeSelector: '.dark-mode',
-          cssLayer: false,
+          cssLayer: false
         },
       },
       ripple: true,

@@ -9,7 +9,7 @@
               <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
             </svg>
           </div>
-          <span class="brand-name">HelpMeDoctor</span>
+          <span class="brand-name">Help Me Doctor</span>
           <span class="brand-divider" />
           <span class="brand-sub">Singapore</span>
         </NuxtLink>

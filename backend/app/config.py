@@ -11,12 +11,12 @@ class Settings(BaseSettings):
     mongo_db_name: str = "helpmedoctor"
 
     # JWT
-    jwt_secret: str = "change-this-secret"
+    jwt_secret: str = "77e89f7507d436c95abe888f397bc7ba367e68dbd011f99de263da50f626bd39"
     jwt_algorithm: str = "HS256"
-    jwt_expire_minutes: int = 60
+    jwt_expire_minutes: int = 90
 
     # GCP / Vertex AI
-    gcp_project_id: str = ""
+    gcp_project_id: str = "ntu-data-science-ai"
     gcp_region: str = "asia-southeast1"
     vertex_index_id: str = ""
     vertex_index_endpoint_id: str = ""

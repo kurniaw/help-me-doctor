@@ -33,12 +33,13 @@
           [`bubble-${message.urgency?.toLowerCase()}`]: message.role === 'assistant' && message.urgency,
         }"
       >
-        <!-- Assistant: rendered markdown -->
+        <!-- eslint-disable vue/no-v-html -->
         <div
           v-if="message.role === 'assistant'"
           class="message-content"
           v-html="renderedContent"
         />
+        <!-- eslint-enable vue/no-v-html -->
         <!-- User: plain text -->
         <div v-else class="user-text">{{ message.content }}</div>
       </div>
