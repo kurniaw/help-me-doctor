@@ -9,7 +9,9 @@ import logging
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_google_vertexai import ChatVertexAI
 
-from app.agents.state import AgentState
+from typing import cast
+
+from app.agents.state import AgentState, CoordinationPhase, CoordinationPlan
 from app.config import get_settings
 
 logger = logging.getLogger(__name__)
@@ -112,11 +114,11 @@ def _build_context(state: AgentState) -> str:
             f"Special: {authorities.get('special_requirements')}"
         )
 
-    coordination = state.get("coordination_plan")
+    coordination: CoordinationPlan | None = state.get("coordination_plan")
     if coordination:
         parts.append("COORDINATION PLAN:")
         for phase_key in ("phase_1", "phase_2", "phase_3"):
-            phase = coordination.get(phase_key)  # type: ignore[call-overload]
+            phase = cast(CoordinationPhase | None, coordination.get(phase_key))
             if phase:
                 parts.append(f"  {phase_key.upper()}: {phase.get('action')}")
         key_coords = coordination.get("key_coordination", [])

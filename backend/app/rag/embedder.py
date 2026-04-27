@@ -10,7 +10,7 @@ def get_embedder() -> VertexAIEmbeddings:
     if _embedder is None:
         settings = get_settings()
         _embedder = VertexAIEmbeddings(
-            model_name=settings.embedding_model,
+            model=settings.embedding_model,
             project=settings.gcp_project_id,
             location=settings.gcp_region,
         )

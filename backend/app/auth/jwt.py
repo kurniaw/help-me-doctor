@@ -13,7 +13,7 @@ def create_access_token(data: dict[str, Any], expires_delta: timedelta | None = 
         expires_delta or timedelta(minutes=settings.jwt_expire_minutes)
     )
     payload["exp"] = expire
-    return jwt.encode(payload, settings.jwt_secret, algorithm=settings.jwt_algorithm)
+    return str(jwt.encode(payload, settings.jwt_secret, algorithm=settings.jwt_algorithm))
 
 
 def decode_token(token: str) -> dict[str, Any]:

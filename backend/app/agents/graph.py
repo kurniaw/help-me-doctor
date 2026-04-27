@@ -1,3 +1,5 @@
+from typing import Any
+
 from langgraph.graph import END, StateGraph
 
 from app.agents.coordinator import coordinator_node
@@ -13,8 +15,8 @@ def _should_coordinate(state: AgentState) -> str:
     return "coordinator" if pathway == "DUAL" else "formatter"
 
 
-def build_graph() -> StateGraph:
-    graph: StateGraph = StateGraph(AgentState)
+def build_graph() -> StateGraph[AgentState, AgentState]:
+    graph: StateGraph[AgentState, AgentState] = StateGraph(AgentState)
 
     graph.add_node("router", input_router_node)
     graph.add_node("matcher", knowledge_matcher_node)
@@ -35,10 +37,10 @@ def build_graph() -> StateGraph:
 
 
 # Singleton compiled graph
-_compiled_graph = None
+_compiled_graph: Any = None
 
 
-def get_compiled_graph():  # type: ignore[return]
+def get_compiled_graph() -> Any:
     global _compiled_graph
     if _compiled_graph is None:
         _compiled_graph = build_graph().compile()

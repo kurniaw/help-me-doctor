@@ -76,7 +76,7 @@ async def _stream_response(
                     session = await ChatSessionDocument.find_one(
                         ChatSessionDocument.user_id == user_id
                         if session_id == "new"
-                        else ChatSessionDocument.id == session_id  # type: ignore[attr-defined]
+                        else ChatSessionDocument.id == session_id
                     )
                     if not session:
                         session = ChatSessionDocument(user_id=user_id, messages=[])

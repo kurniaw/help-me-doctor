@@ -16,7 +16,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 async def register(payload: RegisterRequest) -> TokenResponse:
     settings = get_settings()
 
-    existing = await UserDocument.find_one(Eq(UserDocument.email, payload.email))
+    existing = await UserDocument.find_one(Eq(UserDocument.email, payload.email))  # type: ignore[no-untyped-call]
     if existing:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -44,7 +44,7 @@ async def register(payload: RegisterRequest) -> TokenResponse:
 async def login(payload: LoginRequest) -> TokenResponse:
     settings = get_settings()
 
-    user = await UserDocument.find_one(Eq(UserDocument.email, payload.email))
+    user = await UserDocument.find_one(Eq(UserDocument.email, payload.email))  # type: ignore[no-untyped-call]
     if not user or not verify_password(payload.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

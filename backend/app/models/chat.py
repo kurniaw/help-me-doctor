@@ -1,4 +1,5 @@
 from datetime import UTC, datetime
+from typing import Any
 
 from beanie import Document
 from pydantic import Field
@@ -23,7 +24,7 @@ class MessageDocument:
 class ChatSessionDocument(Document):
     user_id: str
     created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
-    messages: list[dict] = Field(default_factory=list)
+    messages: list[dict[str, Any]] = Field(default_factory=list)
 
     class Settings:
         name = "chat_sessions"

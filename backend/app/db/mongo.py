@@ -1,11 +1,13 @@
+from typing import Any
+
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 
 from app.config import get_settings
 
-_client: AsyncIOMotorClient | None = None  # type: ignore[type-arg]
+_client: AsyncIOMotorClient[dict[str, Any]] | None = None
 
 
-def get_client() -> AsyncIOMotorClient:  # type: ignore[type-arg]
+def get_client() -> AsyncIOMotorClient[dict[str, Any]]:
     global _client
     if _client is None:
         settings = get_settings()
@@ -13,7 +15,7 @@ def get_client() -> AsyncIOMotorClient:  # type: ignore[type-arg]
     return _client
 
 
-def get_database() -> AsyncIOMotorDatabase:  # type: ignore[type-arg]
+def get_database() -> AsyncIOMotorDatabase[dict[str, Any]]:
     settings = get_settings()
     return get_client()[settings.mongo_db_name]
 
