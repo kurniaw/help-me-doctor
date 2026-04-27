@@ -10,7 +10,7 @@
         </div>
       </div>
       <h1 class="form-title">Welcome back</h1>
-      <p class="form-subtitle">Sign in to your Help Me Doctor account</p>
+      <p class="form-subtitle">Sign in to your account</p>
     </div>
 
     <!-- Form -->

@@ -1,6 +1,20 @@
 locals {
-  backend_image  = var.backend_image != "" ? var.backend_image : "${var.registry_url}/backend:latest"
-  frontend_image = var.frontend_image != "" ? var.frontend_image : "${var.registry_url}/frontend:latest"
+  backend_image  = var.backend_image != "" ? var.backend_image : "gcr.io/cloudrun/hello"
+  frontend_image = var.frontend_image != "" ? var.frontend_image : "gcr.io/cloudrun/hello"
+}
+
+# Dedicated service account for Cloud Run services
+resource "google_service_account" "cloud_run" {
+  project      = var.project_id
+  account_id   = "hmd-cloud-run"
+  display_name = "HelpMeDoctor Cloud Run SA"
+}
+
+# Allow Cloud Run SA to access secrets
+resource "google_project_iam_member" "cloud_run_secret_accessor" {
+  project = var.project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${google_service_account.cloud_run.email}"
 }
 
 # Cloud Run — Backend
@@ -10,10 +24,13 @@ resource "google_cloud_run_v2_service" "backend" {
   name     = "hmd-backend"
 
   template {
+    service_account = google_service_account.cloud_run.email
+
     containers {
       image = local.backend_image
 
       resources {
+        cpu_idle = true
         limits = {
           cpu    = "1"
           memory = "512Mi"
@@ -68,9 +85,10 @@ resource "google_cloud_run_v2_service" "backend" {
         http_get {
           path = "/health"
         }
-        initial_delay_seconds = 10
+        initial_delay_seconds = 5
+        period_seconds        = 10
         timeout_seconds       = 5
-        failure_threshold     = 3
+        failure_threshold     = 10
       }
     }
 
@@ -95,10 +113,13 @@ resource "google_cloud_run_v2_service" "frontend" {
   name     = "hmd-frontend"
 
   template {
+    service_account = google_service_account.cloud_run.email
+
     containers {
       image = local.frontend_image
 
       resources {
+        cpu_idle = true
         limits = {
           cpu    = "0.5"
           memory = "256Mi"

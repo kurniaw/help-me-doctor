@@ -177,6 +177,7 @@ gcloud projects create YOUR_PROJECT_ID
 gcloud config set project YOUR_PROJECT_ID
 gcloud billing accounts list
 gcloud billing projects link YOUR_PROJECT_ID --billing-account=BILLING_ACCOUNT_ID
+
 ```
 
 ### Step 2: Create Terraform state bucket (Optional)
@@ -207,15 +208,30 @@ cp terraform.tfvars.example terraform.tfvars
 #   project_id = "YOUR_PROJECT_ID"
 ```
 
-### Step 5: Apply Terraform
+### Step 5: Grant Terraform service account permissions
 
-Install Terraform: [https://developer.hashicorp.com/terraform/install]
+The service account running Terraform needs project-level roles. Run as a project Owner:
+
+```bash
+PROJECT=YOUR_PROJECT_ID
+SA="serviceAccount:YOUR_TERRAFORM_SA@YOUR_PROJECT_ID.iam.gserviceaccount.com"
+
+gcloud projects add-iam-policy-binding $PROJECT --member=$SA --role="roles/editor"
+gcloud projects add-iam-policy-binding $PROJECT --member=$SA --role="roles/iam.serviceAccountAdmin"
+gcloud projects add-iam-policy-binding $PROJECT --member=$SA --role="roles/iam.serviceAccountUser"
+gcloud projects add-iam-policy-binding $PROJECT --member=$SA --role="roles/resourcemanager.projectIamAdmin"
+gcloud storage buckets add-iam-policy-binding gs://YOUR_PROJECT_ID-tf-state --member=$SA --role="roles/storage.objectAdmin"
+```
+
+### Step 6: Apply Terraform (initial — placeholder images)
+
+Install Terraform CLI: [https://developer.hashicorp.com/terraform/install]
 ```bash
 brew tap hashicorp/tap
 brew install hashicorp/tap/terraform
 ```
 
-Apply Terraform
+This first apply creates all infrastructure with a placeholder image so you can get the backend URL:
 
 ```bash
 cd infrastructure
@@ -224,13 +240,14 @@ terraform init \
   -backend-config="bucket=YOUR_PROJECT_ID-tf-state" \
   -backend-config="prefix=hmd/terraform.tfstate"
 
-terraform plan
 terraform apply
 ```
 
-Note the outputs — especially `vertex_index_id` and `vertex_endpoint_id`.
+Note the outputs — especially `backend_url`, `vertex_index_id` and `vertex_endpoint_id`.
 
-### Step 6: Build and push Docker images
+### Step 7: Build and push Docker images
+
+> **Important:** Always build with `--platform linux/amd64` — Cloud Run does not support ARM images (e.g. Apple Silicon builds).
 
 ```bash
 # Authenticate Docker to Artifact Registry
@@ -239,17 +256,17 @@ gcloud auth configure-docker asia-southeast1-docker.pkg.dev
 REGISTRY=asia-southeast1-docker.pkg.dev/YOUR_PROJECT_ID/hmd-images
 
 # Build and push backend
-docker build -t $REGISTRY/backend:latest ./backend
+docker build --platform linux/amd64 -t $REGISTRY/backend:latest ./backend
 docker push $REGISTRY/backend:latest
 
-# Build and push frontend
+# Build and push frontend (embeds the backend URL at build time)
 BACKEND_URL=$(cd infrastructure && terraform output -raw backend_url)
-docker build --build-arg NUXT_PUBLIC_API_BASE=$BACKEND_URL \
+docker build --platform linux/amd64 --build-arg NUXT_PUBLIC_API_BASE=$BACKEND_URL \
   -t $REGISTRY/frontend:latest ./frontend
 docker push $REGISTRY/frontend:latest
 ```
 
-### Step 7: Deploy updated images to Cloud Run
+### Step 8: Deploy real images to Cloud Run
 
 ```bash
 cd infrastructure
@@ -258,7 +275,7 @@ terraform apply \
   -var="frontend_image=$REGISTRY/frontend:latest"
 ```
 
-### Step 8: Seed production data
+### Step 9: Seed production data
 
 ```bash
 MONGO_URI=$(gcloud secrets versions access latest --secret=hmd-mongo-uri)
@@ -270,7 +287,7 @@ MONGO_URI=$MONGO_URI python scripts/ingest_mongo.py \
   --mongo-uri "$MONGO_URI"
 ```
 
-### Step 9: Open the live app
+### Step 10: Open & verify the live app
 
 ```bash
 cd infrastructure

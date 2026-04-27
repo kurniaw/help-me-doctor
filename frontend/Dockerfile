@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -7,6 +7,20 @@ RUN npm install
 
 COPY . .
 
+ARG NUXT_PUBLIC_API_BASE
+ENV NUXT_PUBLIC_API_BASE=$NUXT_PUBLIC_API_BASE
+
+RUN npm run build
+
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/.output ./.output
+
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+ENV HOST=0.0.0.0
+ENV PORT=3000
+
+CMD ["node", ".output/server/index.mjs"]
