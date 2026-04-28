@@ -4,7 +4,7 @@ from fastapi import HTTPException, status
 
 from app.models.user import UserDocument
 
-DAILY_LIMIT = 5
+DAILY_LIMIT = 3
 
 
 async def check_and_increment_daily_usage(user: UserDocument) -> int:

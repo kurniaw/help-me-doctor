@@ -9,7 +9,7 @@ export const useChatStore = defineStore('chat', () => {
   const currentPathway = ref<string | undefined>()
   const sessionId = ref<string | undefined>()
   const promptsRemaining = ref<number | null>(null)
-  const promptsLimit = ref<number>(5)
+  const promptsLimit = ref<number>(3)
 
   const config = useRuntimeConfig()
   const apiBase = config.public.apiBase
@@ -171,6 +171,7 @@ export const useChatStore = defineStore('chat', () => {
     } finally {
       streaming.value = false
       currentStreamContent.value = ''
+      await fetchUsage()
     }
   }
 
