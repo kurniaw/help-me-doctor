@@ -5,39 +5,7 @@
 
 ## 🎯 ARCHITECTURE
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│        SIMPLIFIED MULTI-AGENT RAG SYSTEM (3-4 Agents)        │
-└──────────────────────────────────────────────────────────────┘
-
-                         USER INPUT
-                             ↓
-                 ┌───────────────────────┐
-                 │  AGENT 1: INPUT &     │
-                 │  ROUTER AGENT         │
-                 │ (Parse + Classify)    │
-                 └───────────────────────┘
-                             ↓
-                 ┌───────────────────────┐
-                 │  AGENT 2: KNOWLEDGE   │
-                 │  MATCHER AGENT        │
-                 │ (Database Search)     │
-                 └───────────────────────┘
-                             ↓
-              ┌──────────────────────────────┐
-              │ (OPTIONAL) AGENT 3:          │
-              │ COORDINATOR AGENT            │
-              │ (For dual medical+legal)     │
-              └──────────────────────────────┘
-                             ↓
-                 ┌───────────────────────┐
-                 │  FINAL AGENT:         │
-                 │  RESPONSE FORMATTER   │
-                 │ (Output & Contacts)   │
-                 └───────────────────────┘
-                             ↓
-                        USER OUTPUT
-```
+![Multi-Agent RAG System](./assets/multi_agent_rag_system.png)
 
 ---
 
