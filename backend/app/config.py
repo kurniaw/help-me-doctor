@@ -29,8 +29,8 @@ class Settings(BaseSettings):
     data_dir: str = "../data"
 
     # Gemini model
-    gemini_model: str = "gemini-1.5-flash"
-    embedding_model: str = "textembedding-gecko@003"
+    gemini_model: str = "gemini-2.0-flash-001"
+    embedding_model: str = "text-embedding-004"
 
 
 @lru_cache

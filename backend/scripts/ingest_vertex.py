@@ -26,7 +26,7 @@ from google.cloud import aiplatform, storage
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
-EMBEDDING_MODEL = "textembedding-gecko@003"
+EMBEDDING_MODEL = "text-embedding-004"
 DIMENSIONS = 768
 BATCH_SIZE = 50
 INDEX_DISPLAY_NAME = "hmd-medical-conditions"
