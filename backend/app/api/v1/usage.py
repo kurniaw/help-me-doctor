@@ -13,10 +13,7 @@ router = APIRouter(prefix="/usage", tags=["usage"])
 async def get_usage(current_user: UserDocument = Depends(get_current_user)) -> dict:
     today = datetime.now(UTC).date()
 
-    if current_user.daily_prompt_date != today:
-        prompts_used = 0
-    else:
-        prompts_used = current_user.daily_prompt_count
+    prompts_used = 0 if current_user.daily_prompt_date != today else current_user.daily_prompt_count
 
     return {
         "prompts_used": prompts_used,
