@@ -96,7 +96,7 @@ async def input_router_node(state: AgentState) -> AgentState:
         llm = ChatGoogleGenerativeAI(
             model=settings.gemini_model,
             google_api_key=settings.google_api_key,
-            temperature=0,
+            temperature=0.1,
         )
         structured_llm = llm.with_structured_output(RouterOutput)
 
