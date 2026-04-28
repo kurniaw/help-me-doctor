@@ -2,6 +2,12 @@
 
 > AI-powered Singapore medical and legal triage assistant. Describe your symptoms or situation — multi-agent AI routes your query and connects you with the right healthcare providers.
 
+
+## Overview
+
+A Singapore medical/legal triage RAG system using a 4-agent LangGraph pipeline. Users describe symptoms or incidents; agents route, search knowledge bases, coordinate responses, and stream recommendations for nearby clinics or specific hospital specialists.
+
+
 ## Features
 
 - **4-Agent LangGraph Pipeline** — Router → Matcher → Coordinator → Formatter
@@ -18,6 +24,61 @@
 ![Technology Stack](./assets/tech_stack.png)
 
 ---
+
+## Live URL
+[https://tinyurl.com/help-me-doctor](https://tinyurl.com/help-me-doctor)
+
+## Project Structure
+
+```
+help-me-doctor/
+├── .github/workflows/
+│   ├── ci.yml          # PR checks: lint, test, build verify
+│   ├── deploy.yml      # Push to main: build → push → health check
+├── data/               # 8 CSV knowledge bases (read-only)
+├── backend/
+│   ├── app/
+│   │   ├── main.py                 # FastAPI app factory + lifespan
+│   │   ├── config.py               # pydantic-settings BaseSettings
+│   │   ├── dependencies.py         # JWT get_current_user dependency
+│   │   ├── api/v1/
+│   │   │   ├── auth.py             # POST /auth/register, /auth/login
+│   │   │   └── chat.py             # POST /chat/stream (SSE)
+│   │   ├── auth/                   # JWT + bcrypt utilities
+│   │   ├── db/                     # Motor client + collection constants
+│   │   ├── models/                 # Beanie ODM documents
+│   │   ├── agents/
+│   │   │   ├── state.py            # AgentState TypedDict
+│   │   │   ├── graph.py            # LangGraph StateGraph
+│   │   │   ├── input_router.py     # Agent 1
+│   │   │   ├── knowledge_matcher.py # Agent 2
+│   │   │   ├── coordinator.py      # Agent 3 (DUAL only)
+│   │   │   └── response_formatter.py # Agent 4 (streaming)
+│   │   ├── rag/
+│   │   │   ├── vertex_search.py    # Vertex AI find_neighbors()
+│   │   │   └── embedder.py         # textembedding-gecko@003
+│   │   └── schemas/                # Pydantic request/response schemas
+│   └── scripts/
+│       ├── ingest_mongo.py         # CSV → MongoDB (run once)
+│       └── ingest_vertex.py        # Embeddings → Vertex AI (run once)
+├── frontend/
+│   ├── types/                      # auth.ts, chat.ts TypeScript types
+│   ├── stores/                     # Pinia: auth.ts, chat.ts
+│   ├── components/
+│   │   ├── auth/                   # RegisterForm.vue, LoginForm.vue
+│   │   └── chat/                   # ChatWindow, MessageBubble, ChatInput, etc.
+│   ├── pages/                      # index, register, login, chat
+│   ├── layouts/                    # default.vue, auth.vue
+│   ├── middleware/auth.ts
+│   └── tests/                      # Vitest component + store tests
+└── infrastructure/                 # Terraform modules
+    └── modules/
+        ├── artifact_registry/
+        ├── cloud_run/
+        ├── vertex_ai/
+        └── storage/
+```
+
 
 ## Quick Start (Local Development)
 
@@ -454,6 +515,78 @@ help-me-doctor/
 ```
 
 ---
+
+## MongoDB Collections
+
+| Collection | Source CSV | Documents | Purpose |
+|---|---|---|---|
+| `medical_conditions` | medical_condition_knowledge_base.csv | 645 | Symptom → specialty matching |
+| `doctors` | singapore_doctors_database.csv | 67 | Doctor directory |
+| `hospitals` | singapore_hospitals_database.csv | 50 | Hospital directory |
+| `legal_cases` | legal_medicine_knowledge_base.csv | 62 | Legal case procedures |
+| `forensic_specialists` | legal_medicine_specialists_directory.csv | 50 | Forensic doctors |
+| `legal_master` | master_legal_medicine_knowledge_base.csv | 39 | Authorities + contacts |
+| `medical_master` | master_medical_knowledge_base.csv | 82 | Master medical routing |
+| `chas_clinics` | chas_clinics_singapore.csv | 56 | CHAS clinic locations |
+| `users` | — | — | Auth (Beanie ODM) |
+| `chat_sessions` | — | — | Chat history (Beanie ODM) |
+
+---
+
+## API Endpoints
+
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| GET | `/health` | None | Health check |
+| POST | `/api/v1/auth/register` | None | Create account → JWT |
+| POST | `/api/v1/auth/login` | None | Authenticate → JWT |
+| POST | `/api/v1/chat/stream` | Bearer JWT | SSE chat stream |
+
+---
+
+## GCP Infrastructure (Terraform)
+
+| Resource | SKU | Config | Est. Monthly Cost |
+|---|---|---|---|
+| Artifact Registry | Docker repo | `hmd-images`, asia-southeast1 | $0 (10GB free) |
+| Cloud Run — backend | Container | 0–2 instances, 512MB, 1vCPU | $0 (2M req/mo free) |
+| Cloud Run — frontend | Container | 0–2 instances, 256MB, 0.5vCPU | $0 |
+| Cloud Storage | Standard | ~100MB data | $0 (5GB free) |
+| Vertex AI Vector Search | Tree-AH | 645 vectors, 768-dim | ~$0–10 |
+| Vertex AI Gemini Flash | LLM | ~100 req/day | $0 (free quota) |
+| MongoDB Atlas M0 | Free tier | 512MB | $0 |
+| Secret Manager | Secrets | 5 secrets | $0 |
+| **Total** | | | **$0–$18/month** |
+
+---
+
+## CI/CD Pipelines
+
+### `ci.yml` — on every PR
+1. `lint-backend` — ruff + mypy
+2. `lint-frontend` — ESLint
+3. `test-backend` — pytest (with MongoDB service container)
+4. `test-frontend` — Vitest
+5. `build-verify` — docker build (no push)
+
+### `deploy.yml` — on push to main
+1. `build-and-push` — auth via Workload Identity Federation, push to Artifact Registry
+2. `terraform-apply` — `terraform init` (GCS backend) → plan → apply
+3. `health-check` — curl backend `/health` + frontend URL
+
+---
+
+## Test Scenarios
+
+| Query | Expected Pathway | Expected Urgency |
+|---|---|---|
+| "I have chest pain and difficulty breathing" | MEDICAL | CRITICAL |
+| "I was punched in the face" | DUAL | CRITICAL |
+| "I have a mild headache" | MEDICAL | MEDIUM → CHAS clinic |
+| "I fell at work and hurt my back" | OCCUPATIONAL | HIGH |
+| "My child was abused" | DUAL | CRITICAL |
+| "I need a routine checkup" | MEDICAL | MEDIUM → CHAS clinic |
+
 
 ## Troubleshooting
 

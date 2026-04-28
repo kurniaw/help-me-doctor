@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     gemini_region: str = "us-central1"        # Gemini models are available here
     vertex_index_id: str = ""
     vertex_index_endpoint_id: str = ""
-    vertex_deployed_index_id: str = "hmd-medical-deployed"
+    vertex_deployed_index_id: str = "hmd_medical_deployed"
 
     # Google credentials
     google_application_credentials: str = ""

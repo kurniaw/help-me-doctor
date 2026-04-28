@@ -99,6 +99,16 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
+      - name: Validate required secrets
+        run: |
+          missing=()
+          [[ -z "${{ secrets.GOOGLE_API_KEY }}" ]] && missing+=("GOOGLE_API_KEY")
+          if [[ ${#missing[@]} -gt 0 ]]; then
+            echo "❌ Missing required secrets/vars: ${missing[*]}"
+            exit 1
+          fi
+          echo "✅ All required secrets present"
+
       - name: Deploy backend
         run: |
           gcloud run deploy hmd-backend \
@@ -113,8 +123,7 @@ jobs:
             --set-env-vars="VERTEX_INDEX_ID=${{ secrets.VERTEX_INDEX_ID }}" \
             --set-env-vars="VERTEX_INDEX_ENDPOINT_ID=${{ secrets.VERTEX_INDEX_ENDPOINT_ID }}" \
             --set-env-vars="VERTEX_DEPLOYED_INDEX_ID=${{ secrets.VERTEX_DEPLOYED_INDEX_ID }}" \
-            --set-env-vars="GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" \
-            --set-env-vars="GEMINI_MODEL=${{ vars.GEMINI_MODEL }}"
+            --set-env-vars="GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }},GEMINI_MODEL=gemini-2.5-flash"
 
       - name: Deploy frontend
         run: |
