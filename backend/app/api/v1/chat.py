@@ -13,6 +13,7 @@ from app.dependencies import get_current_user
 from app.models.chat import ChatSessionDocument
 from app.models.user import UserDocument
 from app.schemas.chat import ChatRequest
+from app.services.usage import DAILY_LIMIT, check_and_increment_daily_usage
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 logger = logging.getLogger(__name__)
@@ -105,7 +106,7 @@ async def _stream_response(
         yield f"data: {json.dumps({'type': 'done', 'content': '', 'urgency': urgency, 'pathway': pathway})}\n\n"
 
     except Exception as e:
-        logger.error("Graph execution error: %s", e)
+        logger.exception("Graph execution error: %s", e)
         yield f"data: {json.dumps({'type': 'error', 'content': 'An error occurred. Please try again.', 'urgency': 'MEDIUM', 'pathway': 'MEDICAL'})}\n\n"
 
 
@@ -114,6 +115,7 @@ async def chat_stream(
     payload: ChatRequest,
     current_user: UserDocument = Depends(get_current_user),
 ) -> StreamingResponse:
+    remaining = await check_and_increment_daily_usage(current_user)
     session_id = payload.session_id or str(uuid.uuid4())
 
     return StreamingResponse(
@@ -127,5 +129,7 @@ async def chat_stream(
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
             "X-Accel-Buffering": "no",
+            "X-RateLimit-Limit": str(DAILY_LIMIT),
+            "X-RateLimit-Remaining": str(remaining),
         },
     )

@@ -1,18 +1,17 @@
-from langchain_google_vertexai import VertexAIEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 from app.config import get_settings
 
-_embedder: VertexAIEmbeddings | None = None
+_embedder: GoogleGenerativeAIEmbeddings | None = None
 
 
-def get_embedder() -> VertexAIEmbeddings:
+def get_embedder() -> GoogleGenerativeAIEmbeddings:
     global _embedder
     if _embedder is None:
         settings = get_settings()
-        _embedder = VertexAIEmbeddings(
+        _embedder = GoogleGenerativeAIEmbeddings(
             model=settings.embedding_model,
-            project=settings.gcp_project_id,
-            location=settings.gcp_region,
+            google_api_key=settings.google_api_key,
         )
     return _embedder
 

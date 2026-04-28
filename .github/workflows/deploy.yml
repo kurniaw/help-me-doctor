@@ -13,6 +13,7 @@ permissions:
 
 env:
   REGION: asia-southeast1
+  GEMINI_REGION: us-central1
 
 jobs:
   build-and-push:
@@ -104,7 +105,17 @@ jobs:
             --image=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/backend:${{ github.sha }} \
             --region=${{ env.REGION }} \
             --project=${{ secrets.GCP_PROJECT_ID }} \
-            --quiet
+            --service-account=${{ secrets.GCP_SERVICE_ACCOUNT }} \
+            --set-env-vars="MONGO_URI=${{ secrets.MONGO_URI }}" \
+            --set-env-vars="JWT_SECRET=${{ secrets.JWT_SECRET }}" \
+            --set-env-vars="GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}" \
+            --set-env-vars="GCP_REGION=${{ env.REGION }}" \
+            --set-env-vars="GEMINI_REGION=${{ env.GEMINI_REGION }}" \
+            --set-env-vars="VERTEX_INDEX_ID=${{ secrets.VERTEX_INDEX_ID }}" \
+            --set-env-vars="VERTEX_INDEX_ENDPOINT_ID=${{ secrets.VERTEX_INDEX_ENDPOINT_ID }}" \
+            --set-env-vars="VERTEX_DEPLOYED_INDEX_ID=${{ secrets.VERTEX_DEPLOYED_INDEX_ID }}" \
+            --set-env-vars="GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" \
+            --set-env-vars="GEMINI_MODEL=${{ vars.GEMINI_MODEL }}"
 
       - name: Deploy frontend
         run: |
@@ -112,7 +123,7 @@ jobs:
             --image=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/frontend:${{ github.sha }} \
             --region=${{ env.REGION }} \
             --project=${{ secrets.GCP_PROJECT_ID }} \
-            --quiet
+            --set-env-vars="NUXT_PUBLIC_API_BASE=${{ vars.BACKEND_URL }}"
 
   health-check:
     name: Health Check

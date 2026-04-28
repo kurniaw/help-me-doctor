@@ -2,7 +2,7 @@ import logging
 from typing import Any
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_google_vertexai import ChatVertexAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from app.agents.state import AgentState
 from app.config import get_settings
@@ -93,10 +93,9 @@ async def input_router_node(state: AgentState) -> AgentState:
     settings = get_settings()
 
     try:
-        llm = ChatVertexAI(
-            model_name=settings.gemini_model,
-            project=settings.gcp_project_id,
-            location=settings.gcp_region,
+        llm = ChatGoogleGenerativeAI(
+            model=settings.gemini_model,
+            google_api_key=settings.google_api_key,
             temperature=0,
         )
         structured_llm = llm.with_structured_output(RouterOutput)

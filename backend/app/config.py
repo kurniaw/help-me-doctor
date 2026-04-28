@@ -17,19 +17,20 @@ class Settings(BaseSettings):
 
     # GCP / Vertex AI
     gcp_project_id: str = "ntu-data-science-ai"
-    gcp_region: str = "asia-southeast1"
+    gcp_region: str = "asia-southeast1"       # used for Matching Engine index
+    gemini_region: str = "us-central1"        # Gemini models are available here
     vertex_index_id: str = ""
     vertex_index_endpoint_id: str = ""
     vertex_deployed_index_id: str = "hmd-medical-deployed"
 
     # Google credentials
     google_application_credentials: str = ""
+    google_api_key: str = ""
 
     # Data directory
     data_dir: str = "../data"
 
-    # Gemini model
-    gemini_model: str = "gemini-2.0-flash-001"
+    gemini_model: str = "gemini-2.5-flash"
     embedding_model: str = "text-embedding-004"
 
 

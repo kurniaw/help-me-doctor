@@ -1,12 +1,12 @@
 <template>
   <div class="input-bar">
     <div class="input-bar-inner">
-      <div class="input-row" :class="{ 'is-streaming': streaming }">
+      <div class="input-row" :class="{ 'is-streaming': streaming, 'is-limited': limitReached }">
         <Textarea
           ref="textareaRef"
           v-model="inputText"
-          :placeholder="streaming ? 'Analysing your situation…' : 'Describe your symptoms or situation…'"
-          :disabled="streaming"
+          :placeholder="limitReached ? 'Daily limit reached. Try again tomorrow.' : streaming ? 'Analysing your situation…' : 'Describe your symptoms or situation…'"
+          :disabled="streaming || limitReached"
           rows="1"
           auto-resize
           class="chat-textarea"
@@ -14,7 +14,7 @@
         />
         <button
           class="send-btn"
-          :disabled="!inputText.trim() || streaming"
+          :disabled="!inputText.trim() || streaming || limitReached"
           :aria-label="streaming ? 'Sending…' : 'Send message'"
           @click="handleSend"
         >
@@ -24,9 +24,14 @@
           <span v-else class="spinner" />
         </button>
       </div>
-      <p class="input-hint">
-        <kbd>Enter</kbd> to send &nbsp;·&nbsp; <kbd>Shift+Enter</kbd> for new line
-      </p>
+      <div class="input-footer">
+        <p class="input-hint">
+          <kbd>Enter</kbd> to send &nbsp;·&nbsp; <kbd>Shift+Enter</kbd> for new line
+        </p>
+        <p v-if="promptsRemaining !== null" class="usage-hint" :class="{ 'is-warning': promptsRemaining <= 1, 'is-exhausted': limitReached }">
+          {{ limitReached ? 'Daily limit reached' : `${promptsRemaining} of ${promptsLimit} prompts left today` }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -34,14 +39,19 @@
 <script setup lang="ts">
 const emit = defineEmits<{ send: [text: string] }>()
 
-const props = defineProps<{ streaming: boolean }>()
+const props = defineProps<{
+  streaming: boolean
+  promptsRemaining: number | null
+  promptsLimit: number
+}>()
 
 const inputText = ref('')
-const textareaRef = ref()
+
+const limitReached = computed(() => props.promptsRemaining === 0)
 
 function handleSend(): void {
   const text = inputText.value.trim()
-  if (!text || props.streaming) return
+  if (!text || props.streaming || limitReached.value) return
   emit('send', text)
   inputText.value = ''
 }
@@ -158,11 +168,18 @@ function handleSend(): void {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Footer row */
+.input-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
 /* Hint */
 .input-hint {
   font-size: 0.6875rem;
   color: var(--hmd-text-subtle);
-  text-align: center;
   margin: 0;
 }
 
@@ -174,6 +191,27 @@ function handleSend(): void {
   padding: 0.05rem 0.3rem;
   font-weight: 600;
   color: var(--hmd-text-muted);
+}
+
+/* Usage pill */
+.usage-hint {
+  font-size: 0.6875rem;
+  color: var(--hmd-text-subtle);
+  margin: 0;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.usage-hint.is-warning {
+  color: #d97706;
+}
+
+.usage-hint.is-exhausted {
+  color: #dc2626;
+}
+
+.input-row.is-limited {
+  opacity: 0.6;
 }
 
 @media (max-width: 480px) {

@@ -28,13 +28,14 @@ def get_endpoint() -> aiplatform.MatchingEngineIndexEndpoint | None:
 async def semantic_search_conditions(query: str, top_k: int = 5) -> list[str]:
     """Search medical conditions by semantic similarity. Returns list of vertex_ids."""
     settings = get_settings()
-    endpoint = get_endpoint()
-
-    if endpoint is None:
-        logger.warning("Vertex AI endpoint not configured, skipping semantic search")
-        return []
 
     try:
+        endpoint = get_endpoint()
+
+        if endpoint is None:
+            logger.warning("Vertex AI endpoint not configured, skipping semantic search")
+            return []
+
         embedding = await embed_query(query)
         response = endpoint.find_neighbors(
             deployed_index_id=settings.vertex_deployed_index_id,

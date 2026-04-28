@@ -104,8 +104,8 @@ async function handleSubmit(): Promise<void> {
   try {
     await authStore.login(form)
     await router.push('/chat')
-  } catch (err: unknown) {
-    serverError.value = err instanceof Error ? err.message : 'Invalid email or password'
+  } catch {
+    serverError.value = 'Invalid email or password'
   } finally {
     loading.value = false
   }

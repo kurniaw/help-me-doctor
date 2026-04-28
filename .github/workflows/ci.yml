@@ -29,6 +29,9 @@ jobs:
       - name: Ruff lint
         run: poetry run ruff check .
 
+      - name: Mypy
+        run: poetry run mypy app/
+
   lint-frontend:
     name: Lint Frontend (ESLint)
     runs-on: ubuntu-latest
@@ -40,7 +43,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: "22"
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
@@ -101,7 +104,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: "22"
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 

@@ -8,7 +8,7 @@ import logging
 from typing import cast
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_google_vertexai import ChatVertexAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from app.agents.state import AgentState, CoordinationPhase, CoordinationPlan
 from app.config import get_settings
@@ -156,12 +156,10 @@ async def response_formatter_node(state: AgentState) -> AgentState:
         return AgentState(**state, formatted_response=fallback)
 
     try:
-        llm = ChatVertexAI(
-            model_name=settings.gemini_model,
-            project=settings.gcp_project_id,
-            location=settings.gcp_region,
+        llm = ChatGoogleGenerativeAI(
+            model=settings.gemini_model,
+            google_api_key=settings.google_api_key,
             temperature=0.3,
-            streaming=True,
         )
 
         messages = [

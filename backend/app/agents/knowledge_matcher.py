@@ -310,7 +310,11 @@ async def knowledge_matcher_node(state: AgentState) -> AgentState:
 
     if is_medical:
         query_text = " ".join(medical_keywords) or state.get("user_message", "")
-        vertex_ids = await semantic_search_conditions(query_text)
+        try:
+            vertex_ids = await semantic_search_conditions(query_text)
+        except Exception as e:
+            logger.warning("Semantic search raised unexpectedly: %s", e)
+            vertex_ids = []
         tasks["conditions"] = _search_medical_conditions(medical_keywords, vertex_ids)
 
     if is_legal:

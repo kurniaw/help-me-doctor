@@ -129,8 +129,8 @@ async function handleSubmit(): Promise<void> {
     await authStore.register(form)
     toast.add({ severity: 'success', summary: 'Welcome!', detail: 'Account created successfully.', life: 3000 })
     await router.push('/chat')
-  } catch (err: unknown) {
-    serverError.value = err instanceof Error ? err.message : 'Registration failed. Please try again.'
+  } catch {
+    serverError.value = 'Registration failed. Please try again.'
   } finally {
     loading.value = false
   }

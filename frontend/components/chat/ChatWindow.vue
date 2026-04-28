@@ -23,7 +23,7 @@
               v-for="cat in categories"
               :key="cat.label"
               class="category-card"
-              :disabled="chatStore.streaming"
+              :disabled="chatStore.streaming || limitReached"
               @click="chatStore.sendMessage(cat.prompt)"
             >
               <span class="category-icon">{{ cat.icon }}</span>
@@ -39,7 +39,7 @@
               v-for="prompt in examplePrompts"
               :key="prompt"
               class="prompt-chip"
-              :disabled="chatStore.streaming"
+              :disabled="chatStore.streaming || limitReached"
               @click="chatStore.sendMessage(prompt)"
             >
               {{ prompt }}
@@ -60,7 +60,12 @@
     </div>
     
     <!-- Input bar -->
-    <ChatInput :streaming="chatStore.streaming" @send="chatStore.sendMessage" />
+    <ChatInput
+      :streaming="chatStore.streaming"
+      :prompts-remaining="chatStore.promptsRemaining"
+      :prompts-limit="chatStore.promptsLimit"
+      @send="chatStore.sendMessage"
+    />
   </div>
 </template>
 
@@ -68,6 +73,7 @@
 const chatStore = useChatStore()
 const authStore = useAuthStore()
 const scrollContainer = ref<HTMLElement | null>(null)
+const limitReached = computed(() => chatStore.promptsRemaining === 0)
 
 const firstName = computed(() => {
   const name = authStore.user?.name ?? 'there'

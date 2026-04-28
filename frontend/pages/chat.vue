@@ -9,6 +9,9 @@ definePageMeta({
   ssr: false,
   middleware: 'auth',
 })
+
+const chatStore = useChatStore()
+onMounted(() => { chatStore.fetchUsage() })
 </script>
 
 <style scoped>

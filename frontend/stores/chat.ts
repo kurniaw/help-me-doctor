@@ -8,6 +8,8 @@ export const useChatStore = defineStore('chat', () => {
   const currentUrgency = ref<UrgencyLevel | undefined>()
   const currentPathway = ref<string | undefined>()
   const sessionId = ref<string | undefined>()
+  const promptsRemaining = ref<number | null>(null)
+  const promptsLimit = ref<number>(5)
 
   const config = useRuntimeConfig()
   const apiBase = config.public.apiBase
@@ -79,9 +81,27 @@ export const useChatStore = defineStore('chat', () => {
         }),
       })
 
+      if (response.status === 429) {
+        const limit = promptsLimit.value
+        const msgIdx = messages.value.findIndex((m) => m.id === assistantId)
+        if (msgIdx !== -1) {
+          messages.value[msgIdx] = {
+            ...messages.value[msgIdx]!,
+            content: `You've reached your daily limit of ${limit} prompts. Try again tomorrow.`,
+          }
+        }
+        promptsRemaining.value = 0
+        return
+      }
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`)
       }
+
+      const remaining = response.headers.get('X-RateLimit-Remaining')
+      const limit = response.headers.get('X-RateLimit-Limit')
+      if (remaining !== null) promptsRemaining.value = parseInt(remaining, 10)
+      if (limit !== null) promptsLimit.value = parseInt(limit, 10)
 
       const reader = response.body?.getReader()
       if (!reader) throw new Error('No response body')
@@ -154,6 +174,21 @@ export const useChatStore = defineStore('chat', () => {
     }
   }
 
+  async function fetchUsage(): Promise<void> {
+    const token = authStore.token
+    if (!token) return
+    try {
+      const data = await $fetch<{ prompts_remaining: number; prompts_limit: number }>(
+        `${apiBase}/api/v1/usage`,
+        { headers: { Authorization: `Bearer ${token}` } },
+      )
+      promptsRemaining.value = data.prompts_remaining
+      promptsLimit.value = data.prompts_limit
+    } catch {
+      // Non-fatal — usage counter stays hidden until first send
+    }
+  }
+
   function clearMessages(): void {
     messages.value = []
     sessionId.value = undefined
@@ -163,7 +198,10 @@ export const useChatStore = defineStore('chat', () => {
     messages: readonly(messages),
     streaming: readonly(streaming),
     currentUrgency: readonly(currentUrgency),
+    promptsRemaining: readonly(promptsRemaining),
+    promptsLimit: readonly(promptsLimit),
     sendMessage,
+    fetchUsage,
     clearMessages,
   }
 })

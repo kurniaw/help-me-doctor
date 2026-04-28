@@ -1,3 +1,4 @@
+import os
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
@@ -15,6 +16,11 @@ from app.models.user import UserDocument
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     settings = get_settings()
+
+    if settings.google_application_credentials:
+        os.environ.setdefault(
+            "GOOGLE_APPLICATION_CREDENTIALS", settings.google_application_credentials
+        )
     client = get_client()
     await beanie.init_beanie(
         database=client[settings.mongo_db_name],
