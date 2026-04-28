@@ -84,71 +84,22 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  terraform-apply:
-    name: Terraform Apply
-    runs-on: ubuntu-latest
-    needs: build-and-push
-    outputs:
-      backend_url: ${{ steps.tf-outputs.outputs.backend_url }}
-      frontend_url: ${{ steps.tf-outputs.outputs.frontend_url }}
-    defaults:
-      run:
-        working-directory: infrastructure
-    steps:
-      - uses: actions/checkout@v4.2.2
-
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2.1.8
-        with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: "1.9"
-          terraform_wrapper: false
-
-      - name: Terraform Init
-        run: |
-          terraform init \
-            -backend-config="bucket=${{ secrets.GCP_PROJECT_ID }}-tf-state" \
-            -backend-config="prefix=hmd/terraform.tfstate"
-
-      - name: Terraform Plan
-        run: |
-          terraform plan \
-            -var="project_id=${{ secrets.GCP_PROJECT_ID }}" \
-            -var="region=${{ env.REGION }}" \
-            -var="backend_image=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/backend:${{ github.sha }}" \
-            -var="frontend_image=${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/frontend:${{ github.sha }}" \
-            -out=tfplan
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
-
-      - name: Capture Terraform outputs
-        id: tf-outputs
-        run: |
-          echo "backend_url=$(terraform output -raw backend_url)" >> "$GITHUB_OUTPUT"
-          echo "frontend_url=$(terraform output -raw frontend_url)" >> "$GITHUB_OUTPUT"
-
   health-check:
     name: Health Check
     runs-on: ubuntu-latest
-    needs: terraform-apply
+    needs: build-and-push
     steps:
       - name: Check backend health
         run: |
-          echo "Backend URL: ${{ needs.terraform-apply.outputs.backend_url }}"
+          echo "Backend URL: ${{ vars.BACKEND_URL }}"
           curl --fail --retry 5 --retry-delay 10 \
-            "${{ needs.terraform-apply.outputs.backend_url }}/health"
+            "${{ vars.BACKEND_URL }}/health"
 
       - name: Check frontend
         run: |
-          echo "Frontend URL: ${{ needs.terraform-apply.outputs.frontend_url }}"
+          echo "Frontend URL: ${{ vars.FRONTEND_URL }}"
           curl --fail --retry 5 --retry-delay 10 \
-            "${{ needs.terraform-apply.outputs.frontend_url }}"
+            "${{ vars.FRONTEND_URL }}"
 
       - name: Deployment summary
         run: |
@@ -156,6 +107,6 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "| Service | URL |" >> "$GITHUB_STEP_SUMMARY"
           echo "|---------|-----|" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Frontend | ${{ needs.terraform-apply.outputs.frontend_url }} |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Backend API | ${{ needs.terraform-apply.outputs.backend_url }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Frontend | ${{ vars.FRONTEND_URL }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Backend API | ${{ vars.BACKEND_URL }} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Commit | ${{ github.sha }} |" >> "$GITHUB_STEP_SUMMARY"
