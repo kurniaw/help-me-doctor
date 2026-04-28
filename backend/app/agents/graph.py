@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from langgraph.graph import END, StateGraph
-
 
 from app.agents.coordinator import coordinator_node
 from app.agents.input_router import input_router_node

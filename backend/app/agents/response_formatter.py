@@ -5,11 +5,10 @@ Uses Gemini to produce clean markdown. First output line is always:
 The frontend strips this prefix to display the urgency badge.
 """
 import logging
+from typing import cast
 
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_google_vertexai import ChatVertexAI
-
-from typing import cast
 
 from app.agents.state import AgentState, CoordinationPhase, CoordinationPlan
 from app.config import get_settings
