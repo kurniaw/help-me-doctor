@@ -490,19 +490,3 @@ Your JWT token may have expired (60 min default). Log out and log in again.
 
 ### Cloud Run: cold start latency
 Cloud Run scales to zero by default. The first request after idle takes ~5–10 seconds. Set `min_instance_count = 1` in Terraform for always-on (adds ~$5/month).
-
----
-
-## Emergency Contacts (Singapore)
-
-The system recommends these when appropriate:
-- 🚨 **999** — Police / Emergency
-- 🚑 **995** — Ambulance only
-- 🏥 **SingHealth**: 6222 3322
-- 💬 **Crisis hotline**: 1800-221-4444
-
----
-
-## License
-
-MIT
