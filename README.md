@@ -15,14 +15,7 @@
 
 ## Prerequisites
 
-| Tool | Version | Install |
-|---|---|---|
-| Docker + Docker Compose | Latest | [docker.com](https://www.docker.com) |
-| Node.js | 20+ | [nodejs.org](https://nodejs.org) |
-| Conda | Latest | [miniforge](https://github.com/conda-forge/miniforge) or [Anaconda](https://www.anaconda.com) |
-| GCP Account | — | For Vertex AI + Cloud Run |
-| MongoDB Atlas | Free tier | [mongodb.com/atlas](https://www.mongodb.com/atlas) |
-| Terraform | 1.6+ | [terraform.io](https://www.terraform.io) |
+![Technology Stack](./assets/tech_stack.png)
 
 ---
 

@@ -25,21 +25,21 @@ jobs:
       frontend_image: ${{ steps.meta-frontend.outputs.tags }}
       image_tag: ${{ github.sha }}
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
 
       - name: Authenticate to Google Cloud
         id: auth
-        uses: google-github-actions/auth@v2.1.8
+        uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
           token_format: access_token
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Login to Artifact Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGION }}-docker.pkg.dev
           username: oauth2accesstoken
@@ -47,7 +47,7 @@ jobs:
 
       - name: Docker metadata — backend
         id: meta-backend
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/backend
           tags: |
@@ -56,7 +56,7 @@ jobs:
 
       - name: Docker metadata — frontend
         id: meta-frontend
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/hmd-images/frontend
           tags: |
@@ -64,7 +64,7 @@ jobs:
             type=raw,value=latest
 
       - name: Build & Push backend
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./backend
           platforms: linux/amd64
@@ -74,7 +74,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Build & Push frontend
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./frontend
           platforms: linux/amd64
@@ -91,7 +91,7 @@ jobs:
     needs: build-and-push
     steps:
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2.1.8
+        uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
