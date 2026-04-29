@@ -371,6 +371,13 @@ async def knowledge_matcher_node(state: AgentState) -> AgentState:
             _search_doctors(specialty, urgency),
             _search_hospitals(specialty),
         )
+    elif is_medical:
+        # No condition matched — fall back to urgency-appropriate specialty search
+        fallback_specialty = "Emergency" if urgency in ("CRITICAL", "HIGH") else "General Practice"
+        doctors, hospitals = await asyncio.gather(
+            _search_doctors(fallback_specialty, urgency),
+            _search_hospitals(fallback_specialty),
+        )
 
     # Legal dependent queries
     legal_cases: list[LegalCaseMatch] = results.get("legal_cases", [])

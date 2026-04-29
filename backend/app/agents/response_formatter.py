@@ -146,8 +146,13 @@ async def response_formatter_node(state: AgentState) -> AgentState:
     urgency = state.get("urgency_level", "MEDIUM")
     context = _build_context(state)
 
-    # Fallback response only when truly no data (conditions, legal cases, AND clinics all empty)
-    if not state.get("conditions") and not state.get("legal_cases") and not state.get("chas_clinics"):
+    # Fallback only when truly no data across all buckets
+    if (
+        not state.get("conditions")
+        and not state.get("legal_cases")
+        and not state.get("chas_clinics")
+        and not state.get("hospitals")
+    ):
         if urgency in ("CRITICAL", "HIGH"):
             extra = (
                 "\n**Emergency contacts:**\n"
