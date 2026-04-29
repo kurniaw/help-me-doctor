@@ -580,12 +580,13 @@ help-me-doctor/
 
 | Query | Expected Pathway | Expected Urgency |
 |---|---|---|
+| "what is diabetes?" | LOW | MEDICAL |
 | "I have chest pain and difficulty breathing" | MEDICAL | CRITICAL |
 | "I was punched in the face" | DUAL | CRITICAL |
 | "I have a mild headache" | MEDICAL | MEDIUM → CHAS clinic |
 | "I fell at work and hurt my back" | OCCUPATIONAL | HIGH |
 | "My child was abused" | DUAL | CRITICAL |
-| "I need a routine checkup" | MEDICAL | MEDIUM → CHAS clinic |
+| "Someone suddenly hit my stomach, i feel nauseous now" | DUAL | CRITICAL |
 
 
 ## Troubleshooting

@@ -86,4 +86,15 @@ describe('MessageBubble', () => {
     })
     expect(wrapper.find('.bubble-critical').exists()).toBe(true)
   })
+
+  it('shows LOW urgency badge without alert banner', () => {
+    const wrapper = mount(MessageBubble, {
+      props: {
+        message: makeMessage({ urgency: 'LOW' }),
+      },
+    })
+    expect(wrapper.text()).toContain('LOW')
+    expect(wrapper.find('.urgency-alert').exists()).toBe(false)
+    expect(wrapper.find('.bubble-low').exists()).toBe(true)
+  })
 })

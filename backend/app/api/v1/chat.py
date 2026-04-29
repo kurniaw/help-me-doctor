@@ -23,6 +23,7 @@ async def _stream_response(
     user_message: str,
     session_id: str,
     user_id: str,
+    user_location: dict | None = None,
 ) -> AsyncGenerator[str, None]:
     """Run the LangGraph pipeline and stream SSE events."""
     graph = get_compiled_graph()
@@ -30,6 +31,7 @@ async def _stream_response(
     initial_state = AgentState(
         user_message=user_message,
         session_id=session_id,
+        user_location=user_location,
     )
 
     try:
@@ -118,11 +120,14 @@ async def chat_stream(
     remaining = await check_and_increment_daily_usage(current_user)
     session_id = payload.session_id or str(uuid.uuid4())
 
+    location = payload.location.model_dump() if payload.location else None
+
     return StreamingResponse(
         _stream_response(
             user_message=payload.message,
             session_id=session_id,
             user_id=str(current_user.id),
+            user_location=location,
         ),
         media_type="text/event-stream",
         headers={

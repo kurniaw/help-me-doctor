@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Message, StreamChunk, UrgencyLevel } from '~/types/chat'
+import type { Message, StreamChunk, UrgencyLevel, UserLocation } from '~/types/chat'
 
 export const useChatStore = defineStore('chat', () => {
   const messages = ref<Message[]>([])
@@ -10,6 +10,18 @@ export const useChatStore = defineStore('chat', () => {
   const sessionId = ref<string | undefined>()
   const promptsRemaining = ref<number | null>(null)
   const promptsLimit = ref<number>(3)
+  const userLocation = ref<UserLocation | null>(null)
+
+  function requestLocation(): void {
+    if (!navigator.geolocation) return
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        userLocation.value = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+      },
+      () => { /* denied or unavailable — proceed without location */ },
+      { timeout: 5000 },
+    )
+  }
 
   const config = useRuntimeConfig()
   const apiBase = config.public.apiBase
@@ -78,6 +90,7 @@ export const useChatStore = defineStore('chat', () => {
         body: JSON.stringify({
           message: text.trim(),
           session_id: sessionId.value,
+          location: userLocation.value ?? undefined,
         }),
       })
 
@@ -201,8 +214,10 @@ export const useChatStore = defineStore('chat', () => {
     currentUrgency: readonly(currentUrgency),
     promptsRemaining: readonly(promptsRemaining),
     promptsLimit: readonly(promptsLimit),
+    userLocation: readonly(userLocation),
     sendMessage,
     fetchUsage,
     clearMessages,
+    requestLocation,
   }
 })

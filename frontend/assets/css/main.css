@@ -23,6 +23,10 @@
   --hmd-medium-bg:       #eff6ff;
   --hmd-medium-border:   #93c5fd;
   --hmd-medium-text:     #1e40af;
+  --hmd-low:             #16a34a;
+  --hmd-low-bg:          #f0fdf4;
+  --hmd-low-border:      #86efac;
+  --hmd-low-text:        #166534;
   --hmd-success:         #16a34a;
 
   /* Neutrals */

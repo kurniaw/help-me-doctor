@@ -10,7 +10,7 @@ from app.schemas.agent import RouterOutput
 
 logger = logging.getLogger(__name__)
 
-ROUTER_SYSTEM_PROMPT = """You are a medical and legal triage router for Singapore.
+ROUTER_SYSTEM_PROMPT = """You are an expert medical and legal triage router for Singapore.
 
 Analyze the user's message and respond with a JSON object containing:
 - pathway: one of MEDICAL, LEGAL, DUAL, OCCUPATIONAL
@@ -18,10 +18,11 @@ Analyze the user's message and respond with a JSON object containing:
   - LEGAL: crime, assault, abuse, accident needing legal action
   - DUAL: both medical AND legal (e.g., assault causing injury)
   - OCCUPATIONAL: workplace injury (may need both MOM reporting + medical)
-- urgency: one of CRITICAL, HIGH, MEDIUM
-  - CRITICAL: life-threatening (chest pain, stroke, severe bleeding, unconscious, can't breathe, emergency assault)
-  - HIGH: serious but not immediately life-threatening (severe pain, trauma, acute illness)
-  - MEDIUM: non-urgent (mild symptoms, routine concern, minor legal query)
+- urgency: one of CRITICAL, HIGH, MEDIUM, LOW
+  - CRITICAL: life-threatening (chest pain, stroke, severe bleeding, unconscious, can't breathe, overdose, active assault, suicide)
+  - HIGH: serious but not immediately life-threatening (severe or worsening pain, trauma, high fever, acute illness needing same-day care)
+  - MEDIUM: needs a clinic/GP visit but not urgent (mild-to-moderate symptoms, routine concern, minor legal query, symptoms present for days, seeking a specific health service such as "find a clinic", "recommend a doctor", "where can I get tested", "blood test", "health screening")
+  - LOW: pure informational queries with no intent to seek care (e.g. "what is diabetes?", "how does aspirin work?", "is it normal to feel tired sometimes?", post-recovery follow-up questions). Do NOT classify as LOW if the user is asking where to go, what service to use, or wants a recommendation.
 - medical_keywords: list of medical terms extracted (symptoms, body parts, conditions)
 - legal_keywords: list of legal terms extracted (crime type, perpetrator, circumstances)
 - reasoning: brief explanation of your classification
@@ -39,6 +40,18 @@ CRITICAL_SIGNALS = [
 HIGH_SIGNALS = [
     "severe", "emergency", "urgent", "pain", "injury", "trauma", "accident",
     "assault", "attacked", "punched", "hit", "broken", "fracture",
+]
+LOW_SIGNALS = [
+    "what is", "how does", "can you explain", "general question",
+    "curious", "wondering", "information about", "just asking",
+    "is it normal", "follow up", "follow-up",
+    "preventive", "prevention", "vaccine",
+]
+# Signals that override LOW back to MEDIUM — user wants a service, not just information
+MEDIUM_OVERRIDE_SIGNALS = [
+    "recommend", "find", "nearest", "nearby", "where can", "where to",
+    "clinic", "hospital", "doctor", "testing", "test for", "screening",
+    "appointment", "book", "visit",
 ]
 LEGAL_WORDS = [
     "assault", "rape", "abuse", "punch", "stab", "knife", "police",
@@ -75,6 +88,8 @@ def _keyword_fallback(user_message: str) -> dict[str, Any]:
         urgency = "CRITICAL"
     elif any(sig in lower for sig in HIGH_SIGNALS):
         urgency = "HIGH"
+    elif any(sig in lower for sig in LOW_SIGNALS) and not any(sig in lower for sig in MEDIUM_OVERRIDE_SIGNALS):
+        urgency = "LOW"
     else:
         urgency = "MEDIUM"
 

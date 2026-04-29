@@ -21,9 +21,15 @@ async def coordinator_node(state: AgentState) -> AgentState:
             reason="CRITICAL medical emergency with criminal case — ambulance and police required",
             note="Preserve all evidence — do NOT bathe, shower, or change clothes",
         )
-    else:
+    elif urgency == "LOW":
         phase_1 = CoordinationPhase(
-            action="Proceed to hospital emergency department",
+            action="Visit a GP or CHAS clinic at your convenience if needed",
+            reason="No immediate danger — a general health consultation is sufficient",
+            note="Telehealth services are also available if you prefer",
+        )
+    else:  # HIGH or MEDIUM
+        phase_1 = CoordinationPhase(
+            action="Proceed to hospital emergency department or nearest GP",
             reason="Medical assessment needed first; evidence collected during examination",
             note="Bring a trusted person for support if possible",
         )

@@ -14,6 +14,7 @@ class UrgencyEnum(StrEnum):
     CRITICAL = "CRITICAL"
     HIGH = "HIGH"
     MEDIUM = "MEDIUM"
+    LOW = "LOW"
 
 
 class RouterOutput(BaseModel):

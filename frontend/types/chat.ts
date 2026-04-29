@@ -1,4 +1,9 @@
-export type UrgencyLevel = 'CRITICAL' | 'HIGH' | 'MEDIUM'
+export type UrgencyLevel = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW'
+
+export interface UserLocation {
+  lat: number
+  lng: number
+}
 
 export type Role = 'user' | 'assistant'
 

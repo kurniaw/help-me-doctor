@@ -21,21 +21,23 @@ Format the provided structured data into a clear, actionable response for someon
 
 CRITICAL RULES:
 1. Your FIRST line must always be exactly: URGENCY:{urgency_level}
-   (e.g., URGENCY:CRITICAL or URGENCY:HIGH or URGENCY:MEDIUM)
+   (e.g., URGENCY:CRITICAL or URGENCY:HIGH or URGENCY:MEDIUM or URGENCY:LOW)
 2. For CRITICAL urgency, start with a bold emergency notice and Singapore emergency numbers (999 police/ambulance, 995 ambulance only)
-3. Use clear markdown with headers, bullet points
-4. Be compassionate but concise — people in distress need clarity
-5. Always include specific doctor names, hospital names, and phone numbers from the data
-6. For CHAS-eligible conditions, mention CHAS subsidy availability
-7. Singapore context: SGH, TTSH, NUH, KKH, NCC are major hospitals
+3. For LOW urgency, do NOT suggest going to a hospital or emergency department. Provide self-care guidance, wellness tips, or suggest a GP/telehealth visit as optional.
+4. Use clear markdown with headers, bullet points
+5. Be compassionate but concise — people in distress need clarity
+6. Always include specific doctor names, hospital names, and phone numbers from the data
+7. For CHAS-eligible conditions, mention CHAS subsidy availability
+8. Singapore context: SGH, TTSH, NUH, KKH, NCC are major hospitals
 
 Format structure:
 - URGENCY line (required, first line)
 - Emergency banner if CRITICAL
 - Condition/Case summary
 - Recommended action (what to do NOW)
-- Healthcare providers (doctors + hospitals with phone numbers)
-- CHAS clinic option if applicable (for MEDIUM urgency)
+- For CRITICAL/HIGH/MEDIUM: healthcare providers (doctors + hospitals with phone numbers)
+- For LOW: practical self-care info, optional GP or CHAS clinic mention, telehealth options
+- CHAS clinic option if applicable (for MEDIUM or LOW urgency)
 - Evidence/legal guidance if legal case involved
 - Support resources (hotlines, etc.)
 
@@ -47,7 +49,7 @@ def _build_context(state: AgentState) -> str:
     parts: list[str] = []
 
     pathway = state.get("pathway", "MEDICAL")
-    urgency = state.get("urgency_level", "MEDIUM")
+    urgency = state.get("urgency_level", "LOW")
     user_message = state.get("user_message", "")
 
     parts.append(f"PATHWAY: {pathway}")
@@ -128,9 +130,11 @@ def _build_context(state: AgentState) -> str:
     if chas:
         parts.append("CHAS CLINICS (for non-urgent care):")
         for clinic in chas[:2]:
+            distance = clinic.get("distance_km")
+            dist_str = f" | Distance: {distance} km" if distance is not None else ""
             parts.append(
                 f"  - {clinic.get('clinic_name')} | {clinic.get('address')} | "
-                f"Phone: {clinic.get('phone')} | Hours: {clinic.get('operating_hours')}"
+                f"Phone: {clinic.get('phone')} | Hours: {clinic.get('operating_hours')}{dist_str}"
             )
 
     return "\n".join(parts)
@@ -142,16 +146,23 @@ async def response_formatter_node(state: AgentState) -> AgentState:
     urgency = state.get("urgency_level", "MEDIUM")
     context = _build_context(state)
 
-    # Fallback response if no meaningful data
-    if not state.get("conditions") and not state.get("legal_cases"):
+    # Fallback response only when truly no data (conditions, legal cases, AND clinics all empty)
+    if not state.get("conditions") and not state.get("legal_cases") and not state.get("chas_clinics"):
+        if urgency in ("CRITICAL", "HIGH"):
+            extra = (
+                "\n**Emergency contacts:**\n"
+                "- 🚨 Police / Ambulance: **999**\n"
+                "- 🚑 Ambulance only: **995**\n"
+                "- 🏥 SingHealth: **6222 3322**\n"
+            )
+        elif urgency == "MEDIUM":
+            extra = "\nConsider visiting a GP or CHAS clinic for a consultation.\n"
+        else:  # LOW
+            extra = "\nFeel free to ask more specific questions or visit a GP at your convenience.\n"
         fallback = (
             f"URGENCY:{urgency}\n\n"
             "I wasn't able to find specific information for your query. "
-            "Please provide more details about your symptoms or situation.\n\n"
-            "**Emergency contacts:**\n"
-            "- 🚨 Police / Ambulance: **999**\n"
-            "- 🚑 Ambulance only: **995**\n"
-            "- 🏥 SingHealth: **6222 3322**\n"
+            f"Please provide more details about your symptoms or situation.{extra}"
         )
         return AgentState(**state, formatted_response=fallback)
 
@@ -159,7 +170,7 @@ async def response_formatter_node(state: AgentState) -> AgentState:
         llm = ChatGoogleGenerativeAI(
             model=settings.gemini_model,
             google_api_key=settings.google_api_key,
-            temperature=0.3,
+            temperature=0.4,
         )
 
         messages = [
@@ -192,6 +203,8 @@ def _template_fallback(state: AgentState, urgency: str) -> str:
 
     if urgency == "CRITICAL":
         parts.append("\n## 🚨 EMERGENCY — Call 999 Immediately\n")
+    elif urgency in ("HIGH", "MEDIUM"):
+        parts.append("\n## Recommended Action\nPlease visit a GP or hospital as appropriate.\n")
 
     conditions = state.get("conditions", [])
     if conditions:

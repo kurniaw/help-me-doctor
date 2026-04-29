@@ -27,7 +27,7 @@
             </span>
             <div>
               <strong>Instant urgency assessment</strong>
-              <p>CRITICAL · HIGH · MEDIUM triage in seconds</p>
+              <p>CRITICAL · HIGH · MEDIUM · LOW triage in seconds</p>
             </div>
           </li>
           <li>

@@ -50,4 +50,10 @@ defineProps<{ urgency?: UrgencyLevel }>()
   color: var(--hmd-medium);
   border: 1px solid var(--hmd-medium-border);
 }
+
+.urgency-pill-low {
+  background: var(--hmd-low-bg);
+  color: var(--hmd-low);
+  border: 1px solid var(--hmd-low-border);
+}
 </style>

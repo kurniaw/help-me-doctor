@@ -96,8 +96,8 @@ const categories = [
 
 const examplePrompts = [
   'My child has a high fever for 3 days',
-  'I need a routine medical checkup',
-  'I have a mild headache and dizziness',
+  'Please recommend nearby clinics that offer blood sugar testing?',
+  'Chest pain and breathing difficulty',
 ]
 
 function scrollToBottom(): void {

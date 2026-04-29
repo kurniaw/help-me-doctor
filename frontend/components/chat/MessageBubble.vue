@@ -10,7 +10,7 @@
     <div class="bubble-wrapper">
       <!-- Urgency alert header (CRITICAL / HIGH only) -->
       <div
-        v-if="message.role === 'assistant' && message.urgency && message.urgency !== 'MEDIUM'"
+        v-if="message.role === 'assistant' && (message.urgency === 'CRITICAL' || message.urgency === 'HIGH')"
         class="urgency-alert"
         :class="`urgency-alert-${message.urgency.toLowerCase()}`"
       >
@@ -230,6 +230,7 @@ const formattedTime = computed(() =>
 .bubble-critical { border-left: 3px solid var(--hmd-critical); }
 .bubble-high     { border-left: 3px solid var(--hmd-high); }
 .bubble-medium   { border-left: 3px solid var(--hmd-medium); }
+.bubble-low      { border-left: 3px solid var(--hmd-low); }
 
 /* ── Text ── */
 .user-text {

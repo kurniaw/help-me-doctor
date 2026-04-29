@@ -12,6 +12,7 @@ from app.agents.state import (
     ForensicSpecialistMatch,
     HospitalMatch,
     LegalCaseMatch,
+    UserLocation,
 )
 from app.db.mongo import get_database
 from app.rag.vertex_search import semantic_search_conditions
@@ -270,25 +271,49 @@ async def _search_authorities(case_type: str) -> AuthoritiesInfo | None:
     )
 
 
-async def _search_chas_clinics() -> list[ChasClinicMatch]:
-    """Return nearby CHAS clinics (for MEDIUM urgency)."""
+async def _search_chas_clinics(location: UserLocation | None = None) -> list[ChasClinicMatch]:
+    """Return nearby CHAS clinics. Uses geo proximity when location is provided."""
     db = get_database()
     collection = db["chas_clinics"]
 
     try:
-        docs = await collection.find({}).limit(3).to_list(3)
+        docs: list[dict] = []
+
+        if location:
+            pipeline = [
+                {
+                    "$geoNear": {
+                        "near": {
+                            "type": "Point",
+                            "coordinates": [location["lng"], location["lat"]],
+                        },
+                        "distanceField": "dist_meters",
+                        "maxDistance": 5000,  # 5 km radius
+                        "spherical": True,
+                    }
+                },
+                {"$limit": 3},
+            ]
+            docs = await collection.aggregate(pipeline).to_list(3)
+
+        if not docs:
+            # Fallback: no location provided or none within 5 km
+            docs = await collection.find({}).limit(3).to_list(3)
+
         results: list[ChasClinicMatch] = []
         for doc in docs:
-            results.append(
-                ChasClinicMatch(
-                    clinic_id=doc.get("Clinic_ID", ""),
-                    clinic_name=doc.get("Clinic_Name", ""),
-                    division=doc.get("Division", ""),
-                    address=doc.get("Address", ""),
-                    phone=doc.get("Phone", ""),
-                    operating_hours=doc.get("Operating_Hours", ""),
-                )
+            match = ChasClinicMatch(
+                clinic_id=doc.get("Clinic_ID", ""),
+                clinic_name=doc.get("Clinic_Name", ""),
+                division=doc.get("Division", ""),
+                address=doc.get("Address", ""),
+                phone=doc.get("Phone", ""),
+                operating_hours=doc.get("Operating_Hours", ""),
             )
+            dist_meters = doc.get("dist_meters")
+            if dist_meters is not None:
+                match["distance_km"] = round(dist_meters / 1000, 1)
+            results.append(match)
         return results
     except Exception as e:
         logger.warning("CHAS clinic search failed: %s", e)
@@ -301,6 +326,7 @@ async def knowledge_matcher_node(state: AgentState) -> AgentState:
     urgency = state.get("urgency_level", "MEDIUM")
     medical_keywords = state.get("medical_keywords", [])
     legal_keywords = state.get("legal_keywords", [])
+    user_location = state.get("user_location")
 
     is_medical = pathway in ("MEDICAL", "DUAL", "OCCUPATIONAL")
     is_legal = pathway in ("LEGAL", "DUAL", "OCCUPATIONAL")
@@ -320,8 +346,8 @@ async def knowledge_matcher_node(state: AgentState) -> AgentState:
     if is_legal:
         tasks["legal_cases"] = _search_legal_cases(legal_keywords)
 
-    if urgency == "MEDIUM":
-        tasks["chas_clinics"] = _search_chas_clinics()
+    if urgency in ("MEDIUM", "LOW"):
+        tasks["chas_clinics"] = _search_chas_clinics(user_location)
 
     # Execute all DB queries in parallel
     task_keys = list(tasks.keys())

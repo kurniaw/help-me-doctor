@@ -87,16 +87,23 @@ class ChasClinicMatch(TypedDict, total=False):
     address: str
     phone: str
     operating_hours: str
+    distance_km: float
+
+
+class UserLocation(TypedDict):
+    lat: float
+    lng: float
 
 
 class AgentState(TypedDict, total=False):
     # Inputs (set at graph invocation, immutable)
     user_message: str
     session_id: str
+    user_location: UserLocation | None
 
     # Agent 1 — InputRouter output
     pathway: str  # MEDICAL | LEGAL | DUAL | OCCUPATIONAL
-    urgency_level: str  # CRITICAL | HIGH | MEDIUM
+    urgency_level: str  # CRITICAL | HIGH | MEDIUM | LOW
     medical_keywords: list[str]
     legal_keywords: list[str]
 

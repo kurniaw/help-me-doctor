@@ -11,7 +11,10 @@ definePageMeta({
 })
 
 const chatStore = useChatStore()
-onMounted(() => { chatStore.fetchUsage() })
+onMounted(() => {
+  chatStore.fetchUsage()
+  chatStore.requestLocation()
+})
 </script>
 
 <style scoped>
