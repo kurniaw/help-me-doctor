@@ -9,7 +9,7 @@
           </svg>
         </div>
       </div>
-      <h1 class="form-title">Welcome back</h1>
+      <h1 class="form-title">Help Me Doctor</h1>
       <p class="form-subtitle">Sign in to your account</p>
     </div>
 

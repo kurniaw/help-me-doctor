@@ -9,8 +9,8 @@
           </svg>
         </div>
       </div>
-      <h1 class="form-title">Create your account</h1>
-      <p class="form-subtitle">Access AI-powered medical triage for Singapore</p>
+      <h1 class="form-title">Help Me Doctor</h1>
+      <p class="form-subtitle">Create your account</p>
     </div>
 
     <!-- Form -->
