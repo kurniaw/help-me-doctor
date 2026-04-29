@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help Me Doctor</title>
+<script src="deck-stage.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue:     oklch(52% 0.20 258);
+    --blue-lt:  oklch(95% 0.04 258);
+    --blue-md:  oklch(68% 0.14 258);
+    --teal:     oklch(52% 0.13 195);
+    --teal-lt:  oklch(95% 0.04 195);
+    --ink:      oklch(16% 0.02 258);
+    --slate:    oklch(42% 0.04 258);
+    --muted:    oklch(62% 0.03 258);
+    --border:   oklch(88% 0.02 258);
+    --bg:       oklch(98% 0.008 258);
+    --white:    oklch(100% 0 0);
+
+    --ff: 'DM Sans', sans-serif;
+    --fm: 'DM Mono', monospace;
+  }
+
+  /* ── base slide ── */
+  section {
+    width: 1920px; height: 1080px;
+    font-family: var(--ff);
+    color: var(--ink);
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── logo SVG component (reused per slide) ── */
+  .logo-mark {
+    width: 56px; height: 56px; flex-shrink: 0;
+  }
+
+  /* ══════════════════════════════════════
+     SHARED HEADER BAR (every slide)
+  ══════════════════════════════════════ */
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 44px 80px 0 80px;
+    flex-shrink: 0;
+  }
+  .slide-header .brand {
+    display: flex; align-items: center; gap: 18px;
+  }
+  .slide-header .brand-name {
+    font-size: 28px; font-weight: 700; color: var(--blue);
+    letter-spacing: -.01em;
+  }
+  .slide-header .slide-label {
+    font-family: var(--fm); font-size: 24px; color: var(--muted);
+    letter-spacing: .06em; text-transform: uppercase;
+  }
+
+  /* ── content area ── */
+  .slide-body {
+    flex: 1; display: flex; flex-direction: column;
+    padding: 52px 80px 64px 80px;
+  }
+
+  /* ── section pill ── */
+  .pill {
+    display: inline-flex; align-items: center;
+    font-family: var(--fm); font-size: 24px; font-weight: 500;
+    letter-spacing: .06em; text-transform: uppercase;
+    color: var(--blue);
+    border: 1.5px solid oklch(78% 0.10 258);
+    background: var(--blue-lt);
+    border-radius: 100px;
+    padding: 6px 28px;
+    white-space: nowrap;
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+
+  /* ── slide title ── */
+  .slide-title {
+    font-size: 72px; font-weight: 700; line-height: 1.05;
+    letter-spacing: -.025em; margin-bottom: 52px;
+  }
+  .slide-title em { font-style: normal; color: var(--blue); }
+
+  /* ── divider ── */
+  .hdivider {
+    width: 64px; height: 4px; border-radius: 2px;
+    background: linear-gradient(to right, var(--blue), var(--teal));
+    margin-bottom: 40px;
+    flex-shrink: 0;
+  }
+
+  /* ══════════════════════════════════════
+     LOGO SVG
+  ══════════════════════════════════════ */
+  /* Inline SVG logo — blue rounded rect + pulse */
+
+  /* ══════════════════════════════════════
+     SLIDE 1 — TITLE
+  ══════════════════════════════════════ */
+  #s1 { justify-content: flex-end; }
+  #s1 .bg-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, oklch(78% 0.08 258) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: .35;
+  }
+  #s1 .bg-fade {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 80% 40%, oklch(95% 0.06 258) 0%, transparent 70%);
+  }
+  #s1 .title-body {
+    position: relative; z-index: 1;
+    padding: 0 80px 96px 80px;
+    display: flex; flex-direction: column;
+  }
+  #s1 .title-logo {
+    display: flex; align-items: center; gap: 24px; margin-bottom: 56px;
+  }
+  #s1 .title-logo .app-name { font-size: 36px; font-weight: 700; color: var(--blue); }
+  #s1 h1 {
+    font-size: 128px; font-weight: 700; line-height: .92;
+    letter-spacing: -.04em; color: var(--ink);
+    max-width: 1100px;
+  }
+  #s1 h1 span { color: var(--blue); }
+  #s1 .sub {
+    margin-top: 44px;
+    font-size: 34px; font-weight: 300; color: var(--slate);
+    max-width: 860px; line-height: 1.55;
+  }
+  #s1 .meta {
+    margin-top: 64px;
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  }
+  #s1 .meta-chip {
+    font-size: 26px; font-weight: 500; padding: 10px 28px;
+    border-radius: 100px; background: var(--white);
+    border: 1.5px solid var(--border); color: var(--slate);
+  }
+  #s1 .meta-chip.accent { background: var(--blue-lt); border-color: oklch(78% 0.10 258); color: var(--blue); }
+
+  /* ══════════════════════════════════════
+     SLIDE 2 — PROBLEM
+  ══════════════════════════════════════ */
+  #s2 .cards { display: flex; gap: 36px; flex: 1; }
+  #s2 .card {
+    flex: 1; padding: 52px 48px;
+    border: 1.5px solid var(--border); border-radius: 24px;
+    background: var(--white);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  #s2 .card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    background: linear-gradient(to right, var(--blue), var(--teal));
+  }
+  #s2 .card .num {
+    font-size: 80px; font-weight: 700; line-height: 1;
+    color: var(--blue-lt); font-family: var(--fm);
+    margin-bottom: 24px; border: 2px solid var(--blue-lt);
+    width: 80px; height: 80px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; color: var(--blue-md);
+  }
+  #s2 .card h3 { font-size: 32px; font-weight: 700; margin-bottom: 16px; }
+  #s2 .card p { font-size: 26px; font-weight: 300; color: var(--slate); line-height: 1.6; }
+
+  /* ══════════════════════════════════════
+     SLIDE 3 — SOLUTION
+  ══════════════════════════════════════ */
+  #s3 .body { display: flex; gap: 64px; flex: 1; }
+  #s3 .desc { flex: 1.1; display: flex; flex-direction: column; justify-content: center; }
+  #s3 .desc p { font-size: 30px; font-weight: 300; color: var(--slate); line-height: 1.7; margin-bottom: 28px; }
+  #s3 .desc p strong { color: var(--ink); font-weight: 600; }
+  #s3 .features { flex: 1; display: flex; flex-direction: column; gap: 24px; justify-content: center; }
+  #s3 .feat {
+    display: flex; align-items: flex-start; gap: 28px;
+    padding: 32px 36px; border-radius: 20px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+  }
+  #s3 .feat-icon {
+    width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+    background: var(--blue-lt);
+    display: flex; align-items: center; justify-content: center;
+  }
+  #s3 .feat-icon svg { width: 26px; height: 26px; }
+  #s3 .feat-text h4 { font-size: 28px; font-weight: 600; margin-bottom: 6px; }
+  #s3 .feat-text p { font-size: 24px; font-weight: 300; color: var(--slate); line-height: 1.5; }
+
+  /* ══════════════════════════════════════
+     SLIDE 4 — AGENT PIPELINE
+  ══════════════════════════════════════ */
+  #s4 .pipeline { display: flex; align-items: stretch; flex: 1; gap: 0; }
+  #s4 .agent {
+    flex: 1; padding: 40px 36px;
+    border: 1.5px solid var(--border); border-radius: 20px;
+    background: var(--white);
+    display: flex; flex-direction: column;
+  }
+  #s4 .agent.optional {
+    border-style: dashed; border-color: oklch(75% 0.08 258);
+    background: var(--blue-lt);
+  }
+  #s4 .agent-num {
+    font-family: var(--fm); font-size: 24px; font-weight: 500;
+    color: var(--blue); letter-spacing: .08em; margin-bottom: 10px;
+  }
+  #s4 .agent-name { font-size: 28px; font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
+  #s4 .agent-badge {
+    display: inline-block; font-size: 24px; font-family: var(--fm);
+    padding: 4px 16px; border-radius: 100px;
+    background: var(--blue-lt); color: var(--blue); margin-bottom: 20px;
+    width: fit-content;
+  }
+  #s4 .agent.optional .agent-badge { background: oklch(86% 0.10 258 / .35); color: var(--blue); }
+  #s4 .agent ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  #s4 .agent ul li {
+    font-size: 24px; font-weight: 300; color: var(--slate);
+    line-height: 1.45; padding: 5px 0 5px 24px; position: relative;
+  }
+  #s4 .agent ul li::before {
+    content: ''; position: absolute; left: 0; top: 14px;
+    width: 8px; height: 8px; border-radius: 50%; background: var(--blue-md);
+  }
+  #s4 .arrow {
+    display: flex; align-items: center; justify-content: center;
+    width: 48px; flex-shrink: 0; color: var(--blue-md);
+  }
+  #s4 .arrow svg { width: 28px; }
+  #s4 .optional-note {
+    font-size: 24px; font-weight: 300; color: var(--blue);
+    margin-top: 12px; font-style: italic;
+  }
+
+  /* ══════════════════════════════════════
+     SLIDE 5 — EXAMPLE QUERIES
+  ══════════════════════════════════════ */
+  #s5 .examples { display: flex; gap: 48px; flex: 1; }
+  #s5 .example { flex: 1; display: flex; flex-direction: column; }
+  #s5 .query-box {
+    background: var(--blue); color: var(--white);
+    border-radius: 18px 18px 4px 18px;
+    padding: 28px 36px; font-size: 28px; font-weight: 400; line-height: 1.4;
+    margin-bottom: 32px; position: relative; flex-shrink: 0;
+  }
+  #s5 .query-box::after {
+    content: ''; position: absolute; bottom: -14px; right: 36px;
+    width: 0; height: 0;
+    border-left: 14px solid transparent;
+    border-top: 14px solid var(--blue);
+  }
+  #s5 .flow { display: flex; flex-direction: column; gap: 0; flex: 1; }
+  #s5 .flow-step { display: flex; align-items: flex-start; gap: 20px; }
+  #s5 .flow-line { display: flex; flex-direction: column; align-items: center; width: 30px; flex-shrink: 0; }
+  #s5 .flow-dot {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    background: var(--blue-lt); border: 2px solid var(--blue-md);
+    display: flex; align-items: center; justify-content: center;
+  }
+  #s5 .flow-connector { width: 2px; flex: 1; min-height: 12px; background: var(--border); }
+  #s5 .flow-body { padding-bottom: 16px; flex: 1; }
+  #s5 .flow-agent { font-size: 24px; font-family: var(--fm); color: var(--blue); letter-spacing: .06em; margin-bottom: 6px; }
+  #s5 .flow-detail { font-size: 24px; font-weight: 400; line-height: 1.45; color: var(--ink); }
+  #s5 .flow-detail strong { color: var(--blue); font-weight: 600; }
+  #s5 .flow-result {
+    margin-top: 6px; padding: 20px 28px;
+    background: var(--white); border-radius: 12px;
+    border-left: 4px solid var(--blue);
+    font-size: 24px; line-height: 1.55; color: var(--ink);
+    border: 1.5px solid var(--border); border-left: 4px solid var(--blue);
+  }
+  #s5 .flow-result strong { font-weight: 700; color: var(--ink); }
+  #s5 .badge-crit { background: oklch(52% 0.18 25); color: white; font-size: 24px; font-family: var(--fm); padding: 3px 14px; border-radius: 100px; display: inline-block; margin-left: 8px; vertical-align: middle; }
+  #s5 .badge-high { background: oklch(60% 0.14 55); color: white; font-size: 24px; font-family: var(--fm); padding: 3px 14px; border-radius: 100px; display: inline-block; margin-left: 8px; vertical-align: middle; }
+
+  /* ══════════════════════════════════════
+     SLIDE 6 — TECH STACK
+  ══════════════════════════════════════ */
+  #s6 .stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin-bottom: 40px; }
+  #s6 .stack-card {
+    padding: 40px 44px; border-radius: 24px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+  }
+  #s6 .stack-icon { margin-bottom: 20px; }
+  #s6 .stack-icon svg { width: 40px; height: 40px; }
+  #s6 .stack-label { font-size: 24px; font-family: var(--fm); color: var(--blue); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+  #s6 .stack-items { display: flex; flex-wrap: wrap; gap: 10px; }
+  #s6 .tag-chip {
+    font-size: 24px; font-weight: 500; padding: 8px 20px;
+    border-radius: 10px; background: var(--bg);
+    border: 1px solid var(--border); color: var(--ink);
+  }
+  #s6 .tag-chip.accent { background: var(--blue-lt); border-color: oklch(80% 0.10 258); color: var(--blue); }
+  #s6 .rag-row {
+    padding: 32px 44px; border-radius: 20px;
+    background: var(--white); border: 1.5px solid var(--border);
+    display: flex; align-items: center; gap: 36px;
+  }
+  #s6 .rag-label { font-size: 24px; font-family: var(--fm); color: var(--blue); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+  #s6 .rag-sep { width: 1px; height: 36px; background: var(--border); flex-shrink: 0; }
+  #s6 .rag-items { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+  #s6 .rag-item { font-size: 24px; color: var(--slate); font-weight: 300; }
+
+  /* ══════════════════════════════════════
+     SLIDE 7 — NEXT STEPS
+  ══════════════════════════════════════ */
+  #s7 .body { display: flex; gap: 64px; flex: 1; }
+  #s7 .roadmap { flex: 1.3; display: flex; flex-direction: column; gap: 0; justify-content: center; }
+  #s7 .rm-item { display: flex; gap: 32px; align-items: flex-start; }
+  #s7 .rm-line { display: flex; flex-direction: column; align-items: center; }
+  #s7 .rm-dot {
+    width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+    background: var(--blue-lt); border: 2px solid var(--blue-md);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue); font-family: var(--fm); font-size: 24px; font-weight: 500;
+  }
+  #s7 .rm-connector { width: 2px; height: 32px; background: var(--border); }
+  #s7 .rm-body { padding-bottom: 32px; }
+  #s7 .rm-body h4 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+  #s7 .rm-body p { font-size: 24px; font-weight: 300; color: var(--slate); line-height: 1.5; }
+  #s7 .cta-box { flex: 0.85; display: flex; align-items: center; }
+  #s7 .cta-inner {
+    width: 100%; padding: 52px 52px; border-radius: 28px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+  }
+  #s7 .cta-inner h3 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+  #s7 .cta-inner p { font-size: 26px; font-weight: 300; color: var(--slate); line-height: 1.5; margin-bottom: 36px; }
+  #s7 .url-block {
+    padding: 24px 28px; border-radius: 14px;
+    background: var(--blue-lt); margin-bottom: 16px;
+  }
+  #s7 .url-block .url-label { font-size: 24px; font-family: var(--fm); color: var(--blue-md); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+  #s7 .url-block .url-val { font-size: 24px; font-family: var(--fm); color: var(--blue); font-weight: 500; word-break: break-all; }
+</style>
+</head>
+<body>
+
+<deck-stage>
+
+  <!-- ═══ SLIDE 1 — TITLE ═══ -->
+  <section id="s1" data-screen-label="01 Title">
+    <div class="bg-dots"></div>
+    <div class="bg-fade"></div>
+    <div class="title-body">
+      <div class="title-logo">
+        <!-- Logo mark -->
+        <svg class="logo-mark" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="56" height="56" rx="14" fill="#3B5BF6"/>
+          <path d="M10 28h8l5-10 6 20 5-14 4 8 3-4h5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="app-name">Help Me Doctor</span>
+      </div>
+      <h1>AI Triage for<br><span>Medical &amp; Legal</span><br>Emergencies</h1>
+      <p class="sub">A Singapore-focused 4-agent LangGraph pipeline that routes symptoms and incidents to the right specialist — instantly.</p>
+      <div class="meta">
+        <span class="meta-chip accent">LangGraph Pipeline</span>
+        <span class="meta-chip">RAG Knowledge Bases</span>
+        <span class="meta-chip">Medical + Legal</span>
+        <span class="meta-chip">Streaming Responses</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 2 — PROBLEM ═══ -->
+  <section id="s2" data-screen-label="02 Problem">
+    <div class="slide-header">
+      <div class="brand">
+        <svg class="logo-mark" viewBox="0 0 56 56" fill="none"><rect width="56" height="56" rx="14" fill="#3B5BF6"/><path d="M10 28h8l5-10 6 20 5-14 4 8 3-4h5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-name">Help Me Doctor</span>
+      </div>
+      <span class="slide-label">The Problem</span>
+    </div>
+    <div class="slide-body">
+      <div class="hdivider"></div>
+      <div class="slide-title">Knowing where to go<br>shouldn't add to the <em>emergency.</em></div>
+      <div class="cards">
+        <div class="card">
+          <div class="num">01</div>
+          <h3>Symptom Overload</h3>
+          <p>Patients describe symptoms in plain language but don't know which specialty, hospital, or urgency level applies — leading to wrong-department visits and wasted time.</p>
+        </div>
+        <div class="card">
+          <div class="num">02</div>
+          <h3>Medical–Legal Complexity</h3>
+          <p>Incidents like workplace injuries carry both medical and legal implications. Users rarely know to address both simultaneously, causing missed deadlines (e.g. MOM reporting).</p>
+        </div>
+        <div class="card">
+          <div class="num">03</div>
+          <h3>Fragmented Information</h3>
+          <p>Doctor directories, hospital specialties, legal obligations, and emergency contacts exist across dozens of sources — impossible to navigate under stress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 3 — SOLUTION ═══ -->
+  <section id="s3" data-screen-label="03 Solution">
+    <div class="slide-header">
+      <div class="brand">
+        <svg class="logo-mark" viewBox="0 0 56 56" fill="none"><rect width="56" height="56" rx="14" fill="#3B5BF6"/><path d="M10 28h8l5-10 6 20 5-14 4 8 3-4h5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-name">Help Me Doctor</span>
+      </div>
+      <span class="slide-label">The Solution</span>
+    </div>
+    <div class="slide-body">
+      <div class="hdivider"></div>
+      <div class="slide-title">One input. Four agents.<br><em>The right answer, fast.</em></div>
+      <div class="body">
+        <div class="desc">
+          <p>Help Me Doctor is a Singapore-focused triage platform. Users describe their situation in natural language — the system parses it, searches curated knowledge bases, and streams back a prioritised action plan.</p>
+          <p>Built on a <strong>LangGraph multi-agent pipeline</strong> with RAG over medical and legal databases, it handles three case types: <strong>Medical, Legal, and Dual</strong> — simultaneously when needed.</p>
+        </div>
+        <div class="features">
+          <div class="feat">
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3B5BF6" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div class="feat-text">
+              <h4>Urgency Detection</h4>
+              <p>MEDIUM / HIGH / CRITICAL routing from plain-language input</p>
+            </div>
+          </div>
+          <div class="feat">
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3B5BF6" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </div>
+            <div class="feat-text">
+              <h4>Specialist Matching</h4>
+              <p>Named doctors, hospitals, and forensic specialists from Singapore databases</p>
+            </div>
+          </div>
+          <div class="feat">
+            <div class="feat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3B5BF6" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            <div class="feat-text">
+              <h4>Dual-Pathway Coordination</h4>
+              <p>Handles medical care and legal obligations simultaneously when both apply</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 4 — AGENT PIPELINE ═══ -->
+  <section id="s4" data-screen-label="04 Agent Pipeline">
+    <div class="slide-header">
+      <div class="brand">
+        <svg class="logo-mark" viewBox="0 0 56 56" fill="none"><rect width="56" height="56" rx="14" fill="#3B5BF6"/><path d="M10 28h8l5-10 6 20 5-14 4 8 3-4h5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-name">Help Me Doctor</span>
+      </div>
+      <span class="slide-label">Architecture</span>
+    </div>
+    <div class="slide-body">
+      <div class="hdivider"></div>
+      <div class="slide-title" style="margin-bottom:32px">The <em>4-Agent</em> LangGraph Pipeline</div>
+      <div class="pipeline">
+        <div class="agent">
+          <div class="agent-num">AGENT 01</div>
+          <div class="agent-name">Input &amp; Router</div>
+          <span class="agent-badge">Entry Point</span>
+          <ul>
+            <li>Parse keywords &amp; entities</li>
+            <li>Detect urgency level</li>
+            <li>Classify: Medical / Legal / Dual</li>
+            <li>Prepare search queries</li>
+          </ul>
+        </div>
+        <div class="arrow">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 16h20M18 8l8 8-8 8"/></svg>
+        </div>
+        <div class="agent">
+          <div class="agent-num">AGENT 02</div>
+          <div class="agent-name">Knowledge Matcher</div>
+          <span class="agent-badge">RAG Search</span>
+          <ul>
+            <li>Search medical conditions</li>
+            <li>Search legal case database</li>
+            <li>Match doctors &amp; hospitals</li>
+            <li>Return consolidated results</li>
+          </ul>
+          <div class="optional-note" style="font-style:normal;color:var(--muted)">6 curated Singapore databases</div>
+        </div>
+        <div class="arrow">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 16h20M18 8l8 8-8 8"/></svg>
+        </div>
+        <div class="agent optional">
+          <div class="agent-num">AGENT 03</div>
+          <div class="agent-name">Coordinator</div>
+          <span class="agent-badge">Dual Cases Only</span>
+          <ul>
+            <li>Coordinate medical + legal</li>
+            <li>Resolve conflicts/overlaps</li>
+            <li>Sequence action steps</li>
+            <li>Flag special requirements</li>
+          </ul>
+          <div class="optional-note">Optional — activates for DUAL pathway</div>
+        </div>
+        <div class="arrow">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 16h20M18 8l8 8-8 8"/></svg>
+        </div>
+        <div class="agent">
+          <div class="agent-num">AGENT 04</div>
+          <div class="agent-name">Response Formatter</div>
+          <span class="agent-badge">User Output</span>
+          <ul>
+            <li>Prioritise by urgency</li>
+            <li>Surface emergency numbers</li>
+            <li>Structure action phases</li>
+            <li>Stream to frontend</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 5 — EXAMPLE QUERIES ═══ -->
+  <section id="s5" data-screen-label="05 Example Queries">
+    <div class="slide-header">
+      <div class="brand">
+        <svg class="logo-mark" viewBox="0 0 56 56" fill="none"><rect width="56" height="56" rx="14" fill="#3B5BF6"/><path d="M10 28h8l5-10 6 20 5-14 4 8 3-4h5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-name">Help Me Doctor</span>
+      </div>
+      <span class="slide-label">In Action</span>
+    </div>
+    <div class="slide-body">
+      <div class="hdivider"></div>
+      <div class="slide-title" style="margin-bottom:36px"><em>Example</em> Queries &amp; Agent Flow</div>
+      <div class="examples">
+        <!-- Query 1 -->
+        <div class="example">
+          <div class="query-box">"Chest pain and breathing difficulty"</div>
+          <div class="flow">
+            <div class="flow-step">
+              <div class="flow-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+              <div class="flow-body">
+                <div class="flow-agent">ROUTER</div>
+                <div class="flow-detail">Pathway: <strong>MEDICAL</strong><span class="badge-crit">CRITICAL</span></div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+              <div class="flow-body">
+                <div class="flow-agent">KNOWLEDGE MATCHER</div>
+                <div class="flow-detail">Condition: <strong>Acute Chest Pain</strong><br>Specialty: <strong>Cardiology</strong> — National Heart Centre<br>Dr Tan Wei Ming · 67222928</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line"><div class="flow-dot"></div></div>
+              <div class="flow-body">
+                <div class="flow-agent">RESPONSE</div>
+                <div class="flow-result"><strong>Call 999 immediately</strong><br>→ National Heart Centre Emergency<br>→ Request Cardiology · Dr Tan Wei Ming</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Query 2 -->
+        <div class="example">
+          <div class="query-box">"I fell from stairs and my back hurts"</div>
+          <div class="flow">
+            <div class="flow-step">
+              <div class="flow-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+              <div class="flow-body">
+                <div class="flow-agent">ROUTER</div>
+                <div class="flow-detail">Pathway: <strong>DUAL</strong> (Medical + Legal)<span class="badge-high">HIGH</span></div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+              <div class="flow-body">
+                <div class="flow-agent">KNOWLEDGE MATCHER + COORDINATOR</div>
+                <div class="flow-detail">Condition: <strong>Herniated Disc / Back Injury</strong><br>Specialty: <strong>Orthopaedic</strong> — Dr Jian Hao Loh (SGH)<br>Legal: Workplace injury → MOM reporting</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line"><div class="flow-dot"></div></div>
+              <div class="flow-body">
+                <div class="flow-agent">RESPONSE</div>
+                <div class="flow-result"><strong>Go to SGH Emergency</strong><br>→ Request Dr Jian Hao Loh (Orthopaedic)<br>→ Report to MOM within 24 hours</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 6 — TECH STACK ═══ -->
+  <section id="s6" data-screen-label="06 Tech Stack">
+    <style>
+      #s6 .three-col { display: flex; flex: 1; gap: 0; }
+      #s6 .tech-col { flex: 1; display: flex; flex-direction: column; padding: 0 48px; }
+      #s6 .tech-col + .tech-col { border-left: 1.5px solid var(--border); }
+      #s6 .col-head {
+        font-family: var(--fm); font-size: 24px; letter-spacing: .14em;
+        text-transform: uppercase; color: var(--muted);
+        margin-bottom: 32px; text-align: center;
+      }
+      #s6 .tech-row {
+        display: flex; align-items: center; gap: 28px;
+        padding: 16px 20px; border-radius: 16px;
+        margin-bottom: 12px;
+        transition: background .15s;
+      }
+      #s6 .tech-row:hover { background: var(--white); }
+      #s6 .tech-icon {
+        width: 72px; height: 72px; border-radius: 16px; flex-shrink: 0;
+        border: 1.5px solid var(--border); background: var(--white);
+        display: flex; align-items: center; justify-content: center;
+        overflow: hidden;
+      }
+      #s6 .tech-icon svg { width: 44px; height: 44px; }
+      #s6 .tech-name { font-size: 30px; font-weight: 600; color: var(--ink); }
+    </style>
+    <div class="slide-header">
+      <div class="brand">
+        <svg class="logo-mark" viewBox="0 0 56 56" fill="none"><rect width="56" height="56" rx="14" fill="#3B5BF6"/><path d="M10 28h8l5-10 6 20 5-14 4 8 3-4h5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-name">Help Me Doctor</span>
+      </div>
+      <span class="slide-label">Technology</span>
+    </div>
+    <div class="slide-body" style="padding-top:36px">
+      <div class="hdivider"></div>
+      <div class="three-col">
+
+        <!-- FRONTEND -->
+        <div class="tech-col">
+          <div class="col-head">Frontend</div>
+          <!-- Vue.js -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <polygon points="22,4 38,32 6,32" fill="#41B883" opacity=".2"/>
+                <polygon points="22,11 32,28 12,28" fill="#41B883"/>
+                <polygon points="22,4 30,18 22,18 14,18" fill="#35495E"/>
+              </svg>
+            </div>
+            <span class="tech-name">Vue.js</span>
+          </div>
+          <!-- Nuxt.js -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <path d="M8 34l10-18 5 9-4 9H8z" fill="#00DC82" opacity=".3"/>
+                <path d="M14 34l12-22 12 22H14z" fill="none" stroke="#00DC82" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M20 34l6-11 6 11" fill="#00DC82" opacity=".6"/>
+              </svg>
+            </div>
+            <span class="tech-name">Nuxt.js</span>
+          </div>
+          <!-- Pinia -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <ellipse cx="22" cy="26" rx="10" ry="12" fill="#FFD859"/>
+                <path d="M16 22 Q22 12 28 22" fill="#4CAF50"/>
+                <circle cx="19" cy="25" r="1.5" fill="#795548"/>
+                <circle cx="25" cy="25" r="1.5" fill="#795548"/>
+                <path d="M19 30 Q22 33 25 30" stroke="#795548" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <rect x="20" y="14" width="4" height="7" rx="2" fill="#4CAF50"/>
+              </svg>
+            </div>
+            <span class="tech-name">Pinia</span>
+          </div>
+          <!-- PrimeVue -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <path d="M22 6L36 14V30L22 38L8 30V14L22 6Z" fill="#41B3A3" opacity=".15" stroke="#41B3A3" stroke-width="2"/>
+                <text x="22" y="29" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700" font-size="24" fill="#41B3A3">P</text>
+              </svg>
+            </div>
+            <span class="tech-name">PrimeVue</span>
+          </div>
+          <!-- TypeScript -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <rect x="6" y="6" width="32" height="32" rx="6" fill="#3178C6"/>
+                <text x="22" y="30" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700" font-size="20" fill="white">TS</text>
+              </svg>
+            </div>
+            <span class="tech-name">TypeScript</span>
+          </div>
+        </div>
+
+        <!-- BACKEND -->
+        <div class="tech-col">
+          <div class="col-head">Backend</div>
+          <!-- FastAPI -->
+          <div class="tech-row">
+            <div class="tech-icon" style="border-color:#009688; background:#e6f7f5">
+              <svg viewBox="0 0 44 44" fill="none">
+                <circle cx="22" cy="22" r="16" fill="#009688"/>
+                <path d="M24 10l-8 14h8l-4 10 10-14h-8l2-10z" fill="white"/>
+              </svg>
+            </div>
+            <span class="tech-name">FastAPI</span>
+          </div>
+          <!-- Uvicorn -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <ellipse cx="22" cy="24" rx="12" ry="10" fill="#6C5CE7" opacity=".15"/>
+                <path d="M14 28 Q16 16 22 14 Q28 16 30 28" stroke="#6C5CE7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M20 14 Q22 8 24 10" stroke="#FFD93D" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="22" cy="28" r="3" fill="#6C5CE7"/>
+              </svg>
+            </div>
+            <span class="tech-name">Uvicorn</span>
+          </div>
+          <!-- LangGraph -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <circle cx="12" cy="22" r="5" fill="#3B5BF6" opacity=".2" stroke="#3B5BF6" stroke-width="2"/>
+                <circle cx="32" cy="14" r="4" fill="#3B5BF6" opacity=".2" stroke="#3B5BF6" stroke-width="2"/>
+                <circle cx="32" cy="30" r="4" fill="#3B5BF6" opacity=".2" stroke="#3B5BF6" stroke-width="2"/>
+                <line x1="17" y1="20" x2="28" y2="16" stroke="#3B5BF6" stroke-width="2"/>
+                <line x1="17" y1="24" x2="28" y2="28" stroke="#3B5BF6" stroke-width="2"/>
+              </svg>
+            </div>
+            <span class="tech-name">LangGraph</span>
+          </div>
+          <!-- Pydantic -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <rect x="8" y="8" width="28" height="28" rx="8" fill="#E92063" opacity=".12"/>
+                <path d="M16 14h8a6 6 0 010 12H16V14z" fill="#E92063"/>
+                <path d="M24 26l6 8" stroke="#E92063" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="tech-name">Pydantic</span>
+          </div>
+          <!-- poetry -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <polygon points="22,8 26,19 38,19 28,26 32,37 22,30 12,37 16,26 6,19 18,19" fill="#FFD93D" stroke="#F0A500" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="tech-name">poetry</span>
+          </div>
+        </div>
+
+        <!-- INFRASTRUCTURE -->
+        <div class="tech-col">
+          <div class="col-head">Infrastructure</div>
+          <!-- Terraform -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <path d="M18 10l10 6v12l-10-6V10z" fill="#7B42BC"/>
+                <path d="M8 16l10 6v12L8 28V16z" fill="#7B42BC" opacity=".5"/>
+                <path d="M28 16l8 4v10l-8-4V16z" fill="#7B42BC" opacity=".75"/>
+              </svg>
+            </div>
+            <span class="tech-name">Terraform</span>
+          </div>
+          <!-- GCP -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <path d="M22 10 A12 12 0 0 1 34 22" stroke="#4285F4" stroke-width="5" stroke-linecap="round"/>
+                <path d="M34 22 A12 12 0 0 1 22 34" stroke="#34A853" stroke-width="5" stroke-linecap="round"/>
+                <path d="M22 34 A12 12 0 0 1 10 22" stroke="#FBBC05" stroke-width="5" stroke-linecap="round"/>
+                <path d="M10 22 A12 12 0 0 1 22 10" stroke="#EA4335" stroke-width="5" stroke-linecap="round"/>
+                <rect x="18" y="18" width="8" height="8" rx="1" fill="white"/>
+                <rect x="20" y="20" width="8" height="6" rx="1" fill="#4285F4"/>
+              </svg>
+            </div>
+            <span class="tech-name">GCP</span>
+          </div>
+          <!-- Docker -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <rect x="6" y="20" width="32" height="14" rx="5" fill="#2496ED" opacity=".15"/>
+                <rect x="8" y="22" width="6" height="5" rx="1" fill="#2496ED"/>
+                <rect x="16" y="22" width="6" height="5" rx="1" fill="#2496ED"/>
+                <rect x="24" y="22" width="6" height="5" rx="1" fill="#2496ED"/>
+                <rect x="16" y="15" width="6" height="5" rx="1" fill="#2496ED" opacity=".6"/>
+                <path d="M34 22 Q40 20 38 26" stroke="#2496ED" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="36" cy="19" r="2" fill="#2496ED" opacity=".5"/>
+              </svg>
+            </div>
+            <span class="tech-name">Docker</span>
+          </div>
+          <!-- MongoDB -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <path d="M22 6 C14 14 14 24 22 38 C30 24 30 14 22 6Z" fill="#47A248"/>
+                <path d="M22 10 C17 17 17 26 22 36" stroke="#47A248" stroke-width="1" opacity=".4"/>
+                <rect x="20" y="36" width="4" height="4" rx="2" fill="#47A248" opacity=".5"/>
+              </svg>
+            </div>
+            <span class="tech-name">MongoDB</span>
+          </div>
+          <!-- GitHub Actions -->
+          <div class="tech-row">
+            <div class="tech-icon">
+              <svg viewBox="0 0 44 44" fill="none">
+                <circle cx="22" cy="22" r="8" stroke="#2088FF" stroke-width="2" fill="#2088FF" opacity=".1"/>
+                <circle cx="22" cy="22" r="3" fill="#2088FF"/>
+                <circle cx="10" cy="14" r="3" stroke="#2088FF" stroke-width="2" fill="none"/>
+                <circle cx="34" cy="14" r="3" stroke="#2088FF" stroke-width="2" fill="none"/>
+                <circle cx="10" cy="30" r="3" stroke="#2088FF" stroke-width="2" fill="none"/>
+                <circle cx="34" cy="30" r="3" stroke="#E65100" stroke-width="2" fill="none"/>
+                <line x1="13" y1="15" x2="19" y2="20" stroke="#2088FF" stroke-width="1.5"/>
+                <line x1="31" y1="15" x2="25" y2="20" stroke="#2088FF" stroke-width="1.5"/>
+                <line x1="13" y1="29" x2="19" y2="24" stroke="#2088FF" stroke-width="1.5"/>
+                <line x1="31" y1="29" x2="25" y2="24" stroke="#E65100" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <span class="tech-name">GitHub Actions</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 7 — NEXT STEPS ═══ -->
+  <section id="s7" data-screen-label="07 Next Steps">
+    <div class="slide-header">
+      <div class="brand">
+        <svg class="logo-mark" viewBox="0 0 56 56" fill="none"><rect width="56" height="56" rx="14" fill="#3B5BF6"/><path d="M10 28h8l5-10 6 20 5-14 4 8 3-4h5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-name">Help Me Doctor</span>
+      </div>
+      <span class="slide-label">Looking Ahead</span>
+    </div>
+    <div class="slide-body">
+      <div class="hdivider"></div>
+      <div class="slide-title" style="margin-bottom:36px">What's <em>Next</em></div>
+      <div class="body">
+        <div class="roadmap">
+          <div class="rm-item">
+            <div class="rm-line"><div class="rm-dot">01</div><div class="rm-connector"></div></div>
+            <div class="rm-body"><h4>Expand Knowledge Bases</h4><p>Broader specialty coverage, expanded legal cases, and multi-language input (Mandarin, Malay, Tamil).</p></div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-line"><div class="rm-dot">02</div><div class="rm-connector"></div></div>
+            <div class="rm-body"><h4>Real-Time Hospital Integration</h4><p>Live bed availability, wait times, and appointment booking via HealthHub API.</p></div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-line"><div class="rm-dot">03</div><div class="rm-connector"></div></div>
+            <div class="rm-body"><h4>Voice Input &amp; Mobile App</h4><p>Symptom description by voice — critical for elderly users and acute emergencies where typing is difficult.</p></div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-line"><div class="rm-dot">04</div></div>
+            <div class="rm-body"><h4>Insurance &amp; Medisave Guidance</h4><p>Cost estimates and Medisave-claimable recommendations before patients arrive.</p></div>
+          </div>
+        </div>
+        <div class="cta-box">
+          <div class="cta-inner">
+            <h3>Try the Live Demo</h3>
+            <p>Deployed on GCP and accessible now. Describe any symptom or incident — the agents respond in seconds.</p>
+            <div class="url-block">
+              <div class="url-label">Live App</div>
+              <div class="url-val" id="live-url-val">https://tinyurl.com/help-me-doctor</div>
+            </div>
+            <div class="url-block" style="margin-bottom:0">
+              <div class="url-label">Open Source</div>
+              <div class="url-val" id="github-url-val">github.com/kurniaw/help-me-doctor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</deck-stage>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "liveUrl": "https://tinyurl.com/help-me-doctor",
+  "githubUrl": "github.com/kurniaw/help-me-doctor",
+  "accentColor": "#3B5BF6"
+}/*EDITMODE-END*/;
+
+function TweaksApp() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  // Apply accent color live
+  React.useEffect(() => {
+    document.documentElement.style.setProperty('--blue', tweaks.accentColor);
+  }, [tweaks.accentColor]);
+
+  // Apply URLs live
+  React.useEffect(() => {
+    const el = document.getElementById('live-url-val');
+    if (el) el.textContent = tweaks.liveUrl;
+  }, [tweaks.liveUrl]);
+
+  React.useEffect(() => {
+    const el = document.getElementById('github-url-val');
+    if (el) el.textContent = tweaks.githubUrl;
+  }, [tweaks.githubUrl]);
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Slide 7 — Links">
+        <TweakText id="liveUrl" label="Live App URL" value={tweaks.liveUrl} onChange={v => setTweak('liveUrl', v)} />
+        <TweakText id="githubUrl" label="GitHub URL" value={tweaks.githubUrl} onChange={v => setTweak('githubUrl', v)} />
+      </TweakSection>
+      <TweakSection label="Visual">
+        <TweakColor id="accentColor" label="Accent Color" value={tweaks.accentColor} onChange={v => setTweak('accentColor', v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />);
+</script>
+<div id="tweaks-root"></div>
+</body>
+</html>
