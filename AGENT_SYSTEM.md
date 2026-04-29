@@ -126,35 +126,6 @@ USER OUTPUT
 
 ---
 
-## 📋 IMPLEMENTATION CHECKLIST
-
-### Agent 1: Input & Router
-- [x] Parse keywords from user input
-- [x] Detect urgency signals (CRITICAL/HIGH/MEDIUM)
-- [x] Classify pathway (MEDICAL/LEGAL/DUAL)
-- [x] Prepare search queries for Agent 2
-
-### Agent 2: Knowledge Matcher
-- [x] Search medical_condition_knowledge_base.csv
-- [x] Search singapore_doctors_database.csv
-- [x] Search singapore_hospitals_database.csv
-- [x] Search legal_medicine_knowledge_base.csv
-- [x] Search legal_medicine_specialists_directory.csv
-- [x] Return consolidated results
-
-### Agent 3: Coordinator (Optional)
-- [x] Coordinate medical + legal results (DUAL cases only)
-- [x] Determine action sequence
-- [x] Flag evidence preservation needs
-
-### Response Formatter
-- [x] Format for MEDICAL cases
-- [x] Format for LEGAL cases
-- [x] Format for DUAL cases
-- [x] Highlight emergency numbers
-
----
-
 ## 🚀 EXAMPLE QUERIES & AGENT FLOW
 
 ### Query 1: "Chest pain and breathing difficulty"

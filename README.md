@@ -571,7 +571,7 @@ help-me-doctor/
 
 ### `deploy.yml` — on push to main
 1. `build-and-push` — auth via Workload Identity Federation, push to Artifact Registry
-2. `terraform-apply` — `terraform init` (GCS backend) → plan → apply
+2. `deploy` — Deploy to Cloud Run
 3. `health-check` — curl backend `/health` + frontend URL
 
 ---
