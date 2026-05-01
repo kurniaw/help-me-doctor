@@ -481,41 +481,6 @@ Options:
 
 ---
 
-## Project Structure
-
-```
-help-me-doctor/
-├── .github/workflows/      # CI/CD pipelines
-├── data/                   # 8 CSV knowledge base files
-├── backend/
-│   ├── app/
-│   │   ├── agents/         # LangGraph 4-agent pipeline
-│   │   ├── api/v1/         # FastAPI endpoints
-│   │   ├── auth/           # JWT + bcrypt
-│   │   ├── db/             # MongoDB connection
-│   │   ├── models/         # Beanie ODM documents
-│   │   ├── rag/            # Vertex AI integration
-│   │   └── schemas/        # Pydantic schemas
-│   ├── scripts/
-│   │   ├── ingest_mongo.py  # CSV → MongoDB
-│   │   └── ingest_vertex.py # Embeddings → Vertex AI
-│   └── tests/
-├── frontend/
-│   ├── components/         # Vue components
-│   ├── pages/              # Nuxt pages
-│   ├── stores/             # Pinia stores
-│   ├── types/              # TypeScript types
-│   └── tests/              # Vitest tests
-└── infrastructure/         # Terraform (GCP)
-    └── modules/
-        ├── artifact_registry/
-        ├── cloud_run/
-        ├── vertex_ai/
-        └── storage/
-```
-
----
-
 ## MongoDB Collections
 
 | Collection | Source CSV | Documents | Purpose |
