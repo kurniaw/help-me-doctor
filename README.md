@@ -25,9 +25,6 @@ A Singapore medical/legal triage RAG system using a 4-agent LangGraph pipeline. 
 
 ---
 
-## Live URL
-[https://tinyurl.com/help-me-doctor](https://tinyurl.com/help-me-doctor)
-
 ## Project Structure
 
 ```
@@ -552,6 +549,16 @@ Options:
 | "I fell at work and hurt my back" | OCCUPATIONAL | HIGH |
 | "My child was abused" | DUAL | CRITICAL |
 | "Someone suddenly hit my stomach, i feel nauseous now" | DUAL | CRITICAL |
+
+---
+
+## Screenshoot
+![Screen 1](/assets/screen_1.png)
+![Screen 2](/assets/screen_2.png)
+![Screen 3](/assets/screen_3.png)
+![Screen 4](/assets/screen_4.png)
+![Screen 5](/assets/screen_5.png)
+![Screen 6](/assets/screen_6.png)
 
 
 ## Troubleshooting
